@@ -126,6 +126,114 @@ public class DatabaseOperations {
 					+ ");");
 			
 
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS pays_to_host (\n"
+					+ " pfh_id 						INT PRIMARY KEY,\n"
+					+ " pfh_amount 					INT NOT NULL,\n"
+					+ " pfh_date 					DATE NOT NULL,\n"
+					+ " bs_id 						INT NOT NULL,\n"
+					+ " ph_email_id 				VARCHAR(128) NOT NULL,\n"
+					+ " FOREIGN KEY(bs_id) REFERENCES BillingService(bs_id) ON UPDATE CASCADE,\n"
+					+ " FOREIGN KEY(ph_email_id) REFERENCES PodcastHost(ph_email_id) ON UPDATE CASCADE\n"
+					+ ");\n"
+					+ "");
+			
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS pays_to_record_label (\n"
+					+ " pfs_id 						INT PRIMARY KEY,\n"
+					+ " pfs_amount 					INT NOT NULL,\n"
+					+ " pfs_date 					DATE NOT NULL,\n"
+					+ " bs_id 						INT NOT NULL,\n"
+					+ " rl_name 					VARCHAR(128) NOT NULL,\n"
+					+ " FOREIGN KEY(bs_id) REFERENCES BillingService(bs_id) ON UPDATE CASCADE,\n"
+					+ " FOREIGN KEY(rl_name) REFERENCES RecordLabel(rl_name) ON UPDATE CASCADE\n"
+					+ ");\n"
+					+ "");
+			
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS pays_to_artist (\n"
+					+ " pfa_id 						INT PRIMARY KEY,\n"
+					+ " pfa_amount 					INT NOT NULL,\n"
+					+ " pfa_date 					DATE NOT NULL,\n"
+					+ " rl_name 					VARCHAR(128) NOT NULL,\n"
+					+ " a_email_id 					VARCHAR(128) NOT NULL,\n"
+					+ " FOREIGN KEY(rl_name) REFERENCES RecordLabel(rl_name) ON UPDATE CASCADE,\n"
+					+ " FOREIGN KEY(a_email_id) REFERENCES Artist(a_email_id) ON UPDATE CASCADE\n"
+					+ ");\n"
+					+ "");
+			
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS collects_song_data (\n"
+					+ " bs_id 						INT,\n"
+					+ " s_id 						INT,\n"
+					+ " PRIMARY KEY(bs_id, s_id),\n"
+					+ " FOREIGN KEY(bs_id) REFERENCES BillingService(bs_id) ON UPDATE CASCADE,\n"
+					+ " FOREIGN KEY(s_id) REFERENCES Song(s_id) ON UPDATE CASCADE\n"
+					+ ");\n"
+					+ "");
+			
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS listens_to_song (\n"
+					+ " u_email_id 					VARCHAR(128),\n"
+					+ " s_id 						INT,\n"
+					+ " ls_date 					DATE NOT NULL,\n"
+					+ " PRIMARY KEY(u_email_id, s_id),\n"
+					+ " FOREIGN KEY(u_email_id) REFERENCES User(u_email_id) ON UPDATE CASCADE,\n"
+					+ " FOREIGN KEY(s_id) REFERENCES Song(s_id) ON UPDATE CASCADE\n"
+					+ ");\n"
+					+ "");
+			
+//			statement.executeUpdate("CREATE TABLE IF NOT EXISTS collects_episode_data (\n"
+//					+ " bs_id 						INT,\n"
+//					+ " pe_title 					VARCHAR(128) ,\n"
+//					+ " p_name 						VARCHAR(128) ,\n"
+//					+ " PRIMARY KEY(bs_id, pe_title, p_name),\n"
+//					+ " FOREIGN KEY(bs_id) REFERENCES BillingService(bs_id) ON UPDATE CASCADE,\n"
+//					+ " FOREIGN KEY(pe_title,p_name) REFERENCES PodcastEpisode(pe_title,p_name) ON UPDATE CASCADE\n"
+//					+ ");");
+			
+			
+			
+//			statement.executeUpdate("CREATE TABLE IF NOT EXISTS listens_to_podcast_episode (\n"
+//					+ " pe_title 					VARCHAR(128),\n"
+//					+ " p_name 						VARCHAR(128),\n"
+//					+ " u_email_id 					VARCHAR(128),\n"
+//					+ " lpe_date 					DATE NOT NULL,\n"
+//					+ " PRIMARY KEY(pe_title, p_name, u_email_id),\n"
+//					+ " FOREIGN KEY(pe_title, p_name) REFERENCES PodcastEpisode(pe_title, p_name) ON UPDATE CASCADE,\n"
+//					+ " FOREIGN KEY(u_email_id) REFERENCES User(u_email_id) ON UPDATE CASCADE\n"
+//					+ ");\n"
+//					+ "");
+			
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS sings (\n"
+					+ " s_id 							INT,\n"
+					+ " a_email_id 						VARCHAR(128),\n"
+					+ " is_artist_collaborator_for_song BOOLEAN NOT NULL,\n"
+					+ " artist_type_for_song 			VARCHAR(128) NOT NULL,\n"
+					+ " PRIMARY KEY(s_id, a_email_id),\n"
+					+ " FOREIGN KEY(s_id) REFERENCES Song(s_id) ON UPDATE CASCADE,\n"
+					+ " FOREIGN KEY(a_email_id) REFERENCES Artist(a_email_id) ON UPDATE CASCADE\n"
+					+ ");\n"
+					+ "");
+			
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS assigned_to (\n"
+					+ " a_email_id 						VARCHAR(128),\n"
+					+ " l_name 							VARCHAR(128),\n"
+					+ " PRIMARY KEY(a_email_id, l_name),\n"
+					+ " FOREIGN KEY(l_name) REFERENCES Album(l_name) ON UPDATE CASCADE,\n"
+					+ " FOREIGN KEY(a_email_id) REFERENCES Artist(a_email_id) ON UPDATE CASCADE\n"
+					+ ");\n"
+					+ "");
+			
+//			statement.executeUpdate("CREATE TABLE IF NOT EXISTS features (\n"
+//					+ " pe_title 						VARCHAR(128),\n"
+//					+ " p_name 							VARCHAR(128),\n"
+//					+ " g_email_id 						VARCHAR(128),\n"
+//					+ " PRIMARY KEY(pe_title, p_name, g_email_id),\n"
+//					+ " FOREIGN KEY(pe_title, p_name) REFERENCES PodcastEpisode(pe_title, p_name) ON UPDATE CASCADE,\n"
+//					+ " FOREIGN KEY(g_email_id) REFERENCES SpecialGuest(g_email_id) ON UPDATE CASCADE\n"
+//					+ ");\n"
+//					+ "");
+			
+			
+			
+			
+			
 			
 			
 		} finally {
