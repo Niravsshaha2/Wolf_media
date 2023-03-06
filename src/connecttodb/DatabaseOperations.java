@@ -177,28 +177,30 @@ public class DatabaseOperations {
 					+ " FOREIGN KEY(s_id) REFERENCES Song(s_id) ON UPDATE CASCADE\n"
 					+ ");\n"
 					+ "");
+
 			
-//			statement.executeUpdate("CREATE TABLE IF NOT EXISTS collects_episode_data (\n"
-//					+ " bs_id 						INT,\n"
-//					+ " pe_title 					VARCHAR(128) ,\n"
-//					+ " p_name 						VARCHAR(128) ,\n"
-//					+ " PRIMARY KEY(bs_id, pe_title, p_name),\n"
-//					+ " FOREIGN KEY(bs_id) REFERENCES BillingService(bs_id) ON UPDATE CASCADE,\n"
-//					+ " FOREIGN KEY(pe_title,p_name) REFERENCES PodcastEpisode(pe_title,p_name) ON UPDATE CASCADE\n"
-//					+ ");");
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS collects_episode_data (\n"
+					+ " pe_title 					VARCHAR(128),\n"
+					+ " p_name 						VARCHAR(128),\n"
+					+ " bs_id 						INT,\n"
+					+ " PRIMARY KEY(p_name,pe_title,bs_id),\n"
+					+ " INDEX f1(p_name,pe_title),INDEX f2(bs_id),"
+					+ " FOREIGN KEY(p_name,pe_title) REFERENCES PodcastEpisode(p_name,pe_title) ON UPDATE CASCADE,\n"
+					+ " FOREIGN KEY(bs_id) REFERENCES BillingService(bs_id) ON UPDATE CASCADE\n"
+					+ ");\n"
+					+ "");			
 			
-			
-			
-//			statement.executeUpdate("CREATE TABLE IF NOT EXISTS listens_to_podcast_episode (\n"
-//					+ " pe_title 					VARCHAR(128),\n"
-//					+ " p_name 						VARCHAR(128),\n"
-//					+ " u_email_id 					VARCHAR(128),\n"
-//					+ " lpe_date 					DATE NOT NULL,\n"
-//					+ " PRIMARY KEY(pe_title, p_name, u_email_id),\n"
-//					+ " FOREIGN KEY(pe_title, p_name) REFERENCES PodcastEpisode(pe_title, p_name) ON UPDATE CASCADE,\n"
-//					+ " FOREIGN KEY(u_email_id) REFERENCES User(u_email_id) ON UPDATE CASCADE\n"
-//					+ ");\n"
-//					+ "");
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS listens_to_podcast_episode (\n"
+					+ " pe_title 					VARCHAR(128),\n"
+					+ " p_name 						VARCHAR(128),\n"
+					+ " u_email_id 					VARCHAR(128),\n"
+					+ " lpe_date 					DATE NOT NULL,\n"
+					+ " PRIMARY KEY(p_name,pe_title,u_email_id),\n"
+					+ " INDEX f1(p_name,pe_title),INDEX f2(u_email_id),"
+					+ " FOREIGN KEY(p_name,pe_title) REFERENCES PodcastEpisode(p_name,pe_title) ON UPDATE CASCADE,\n"
+					+ " FOREIGN KEY(u_email_id) REFERENCES User(u_email_id) ON UPDATE CASCADE\n"
+					+ ");\n"
+					+ "");
 			
 			statement.executeUpdate("CREATE TABLE IF NOT EXISTS sings (\n"
 					+ " s_id 							INT,\n"
@@ -220,19 +222,18 @@ public class DatabaseOperations {
 					+ ");\n"
 					+ "");
 			
-//			statement.executeUpdate("CREATE TABLE IF NOT EXISTS features (\n"
-//					+ " pe_title 						VARCHAR(128),\n"
-//					+ " p_name 							VARCHAR(128),\n"
-//					+ " g_email_id 						VARCHAR(128),\n"
-//					+ " PRIMARY KEY(pe_title, p_name, g_email_id),\n"
-//					+ " FOREIGN KEY(pe_title, p_name) REFERENCES PodcastEpisode(pe_title, p_name) ON UPDATE CASCADE,\n"
-//					+ " FOREIGN KEY(g_email_id) REFERENCES SpecialGuest(g_email_id) ON UPDATE CASCADE\n"
-//					+ ");\n"
-//					+ "");
 			
 			
-			
-			
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS features (\n"
+					+ " pe_title 					VARCHAR(128),\n"
+					+ " p_name 						VARCHAR(128),\n"
+					+ " g_email_id 					VARCHAR(128),\n"
+					+ " PRIMARY KEY(p_name,pe_title,g_email_id),\n"
+					+ " INDEX f1(p_name,pe_title),INDEX f2(g_email_id),"
+					+ " FOREIGN KEY(p_name,pe_title) REFERENCES PodcastEpisode(p_name,pe_title) ON UPDATE CASCADE,\n"
+					+ " FOREIGN KEY(g_email_id) REFERENCES SpecialGuest(g_email_id)ON UPDATE CASCADE \n"
+					+ ");\n"
+					+ "");
 			
 			
 			
@@ -243,6 +244,7 @@ public class DatabaseOperations {
  
   protected static void clearDatabase(Connection connection) {
     String[] tableNames = new String[] {
+    		"listens_to_podcast_episode"
 //    		"PodcastEpisode"
 //    		"BillingService",
 //    		"Song",
