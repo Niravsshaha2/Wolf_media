@@ -75,6 +75,7 @@ public class User {
 	                    	RL.getalbum(u_email_id,connection);
 	                        break;
 	                    case 4:
+	                    	PM.getpodcast(u_email_id,connection);
 	                    	break;
 	                    case 5:
 //	                       
