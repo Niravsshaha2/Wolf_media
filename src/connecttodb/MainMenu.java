@@ -17,13 +17,16 @@ public class MainMenu {
 	        int enteredValue=0;
 
 	        do {
+	            System.out.println("");
 	            System.out.println("Select from the options below");
 	            System.out.println("1. User");
 	            System.out.println("2. Record Label Manager");
 	            System.out.println("3. Podcast Manager");
 	            System.out.println("4. Admin");
 	            System.out.println("5. Exit");
-	            System.out.print("Enter your option:");
+	            System.out.println("Enter your option:");
+	            System.out.println("");
+
 
 	            try {
 	                enteredValue = sc.nextInt();
