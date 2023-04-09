@@ -275,7 +275,7 @@ public class PM {
       rs = statement.executeQuery(query);
       while (rs.next()) {
         podcastepisodename = rs.getString("pe_title");
-        System.out.println("(" + row + ") " + " -- " + podcastepisodename + "");
+        System.out.println("(" + row + ") " + podcastepisodename + "");
         row++;
       }
       while (true) {
@@ -284,22 +284,17 @@ public class PM {
           System.out.println("Enter podcast episode title to listen:");
           System.out.println("");
 
-          pe_title = sc.nextLine();
+          podcastepisodename = sc.nextLine();
 
           query =
             "SELECT pe_title FROM PodcastEpisode where pe_title='" +
-            pe_title +
+            podcastepisodename +
             "' AND p_name='" +
             podcastname +
             "'";
           rs = statement.executeQuery(query);
           if (rs.next()) {
-            podcast_episode_play_count(
-              podcastname,
-              pe_title,
-              u_email_id,
-              connection
-            );
+            podcast_episode_play_count(podcastname, podcastepisodename, u_email_id, connection);
           } else {
             System.out.println("Try again");
             get_podcast_episodes(podcastname, u_email_id, connection);
@@ -318,11 +313,29 @@ public class PM {
   }
 
   //	INCREMENT PODCAST EPISODE PLAY COUNT
-  public static void podcast_episode_play_count(String podcastname, String pe_title, String u_email_id, Connection connection)
+  public static void podcast_episode_play_count(String podcastname, String podcastepisodename, String u_email_id, Connection connection)
     throws SQLException {
     System.out.println("");
-    System.out.println("Thank you for listening to Episode: " + pe_title + " from " + podcastname);
+    System.out.println("Thank you for listening to Episode");
     System.out.println("");
+
+    statement = connection.createStatement();
+    try {
+      String query =
+        "INSERT INTO listens_to_podcast_episode (pe_title, p_name, u_email_id, lpe_date) " +
+        "VALUES ('" +
+        podcastepisodename +
+        "', '" +
+        podcastname +
+        "', '" +
+        u_email_id +
+        "', DATE_FORMAT(CURRENT_DATE, '%Y-%m-%d')) " +
+        "ON DUPLICATE KEY UPDATE lpe_play_count = lpe_play_count + 1";
+
+      ResultSet rs = statement.executeQuery(query);
+    } catch (SQLException e) {
+      System.out.println(e + "Could not fetch details!");
+    }
 
     User.getusermenu(u_email_id, connection);
   }
