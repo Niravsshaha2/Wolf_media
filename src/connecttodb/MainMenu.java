@@ -23,7 +23,7 @@ public class MainMenu {
 	            System.out.println("2. Record Label Manager");
 	            System.out.println("3. Podcast Manager");
 	            System.out.println("4. Admin");
-	            System.out.println("5. Exit");
+	            System.out.println("0. Exit");
 	            System.out.println("Enter your option:");
 	            System.out.println("");
 
@@ -36,15 +36,15 @@ public class MainMenu {
 	                        User.getuser(connection);
 	                        break;
 	                    case 2:
-//	                        Signup.signUpPage();
+	                    	RL.rl_page(connection);
 	                        break;
 	                    case 3:
-//	                        ShowQuery.showQueryPage();
 	                        break;
 	                    case 4:
-//	                    	
-	                    case 5:
-	                        System.out.print("Exit");
+	                    	admin.getAdminMenu(connection);
+	                    	break;
+	                    case 0:
+	                        System.out.print("Thank you for using our streaming service");
 	                        exitProgram(connection);
 	                        break;
 	                    default:
@@ -54,7 +54,7 @@ public class MainMenu {
 	                System.out.println("You have made an invalid choice. Please pick again.");
 	                displayMenu(connection);
 	            }
-	        } while (enteredValue != 4);
+	        } while (enteredValue != 0);
 	    }
 
 	    public static void exitProgram(Connection connection) throws SQLException {

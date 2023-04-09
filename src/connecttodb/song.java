@@ -121,7 +121,7 @@ public class song {
 
 	      String query;
 	     
-	    	  query = "select * from Song where s_id in (Select s_id from Artist Natural join sings)";
+	    	  query = "select * from Song;";
 	      
 
 	        ResultSet rs = null;
@@ -134,7 +134,7 @@ public class song {
 	                	//print all columns
 	                    String title = rs.getString("s_title");
 	                    String s_id = rs.getString("s_id");
-	                    System.out.println(s_id + " " +title + "" );
+	                    System.out.println(s_id + " " +title );
 	                }
 	      } catch (SQLException e) {
 	    	  System.out.println(e);
@@ -243,6 +243,9 @@ public class song {
 	                    s_id = rs.getString("s_id");
 	                    System.out.println(s_id + " " +title + "" );
 	                }
+	                System.out.println();
+	                if(u_email_id!="")
+	                {
 	            while(true) 
 	            {
 	            	try {
@@ -255,8 +258,9 @@ public class song {
 					query = "SELECT s_id,s_title FROM Song where s_id='" + song_id +"'";
 			        rs = statement.executeQuery(query);
 			        if (rs.next()) {
+			        	
                       song_play_count(rs.getString("s_id"),u_email_id,connection);
-                      
+			        	
                   } else{
                       System.out.println("Try again");
                       getsongs(u_email_id,connection);
@@ -267,7 +271,8 @@ public class song {
 	                    getsongs(u_email_id,connection);
 	                }
 	            }
-	        } catch (SQLException e) {
+	        } 
+	        }catch (SQLException e) {
 	            Helper.close(rs);
 	            e.printStackTrace();
 	        }
@@ -321,10 +326,15 @@ public class song {
 	            }
 		   
 	      }
-	        
+          System.out.println();
+
+	      if(u_email_id!="")
+	      {
+	    	  
 	            while(true) 
 	            {
 	            	try {
+	            		
 	          		System.out.println("");
 	            	System.out.println("Enter Song id to play");
 	            	System.out.println("");
@@ -343,8 +353,9 @@ public class song {
 			        rs = statement.executeQuery(query);
 			        
 			        if (rs.next()) {
+			        	
                       song_play_count(rs.getString("s_id"),u_email_id,connection);
-                      
+			        	
                   } else{
                       System.out.println("Try again");
                       getsongs(type,name, u_email_id,connection);
@@ -355,6 +366,7 @@ public class song {
 	                    getsongs(type,name,u_email_id,connection);
 	                }
 	            }
+	      }
 	        
 	  }
 	  
@@ -362,15 +374,17 @@ public class song {
 //	  increment play count
 	  public static void song_play_count(String s_id,String u_email_id, Connection connection) throws SQLException 
 	  {
+		  
+
 		  System.out.println("");
-		  System.out.println("Thank you for listening to Song: ");
+		  System.out.println("Thank you for listening to Song");
 		  System.out.println("");
 		  
 	       statement = connection.createStatement();
 		try
 		  {
 	       String query = "INSERT INTO listens_to_song (u_email_id, s_id, ls_date) " +
-	               "VALUES ('" + u_email_id + "', " + s_id + ", DATE_FORMAT(CURRENT_DATE, '%Y-%m-01')) " +
+	               "VALUES ('" + u_email_id + "', " + s_id + ", DATE_FORMAT(CURRENT_DATE, '%Y-%m-%d')) " +
 	               "ON DUPLICATE KEY UPDATE ls_play_count = ls_play_count + 1";
 	        
 	       ResultSet rs = statement.executeQuery(query);

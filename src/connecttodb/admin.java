@@ -23,6 +23,7 @@ public class admin {
 	            System.out.println("1.  Record Label");  //enter-update
 	            System.out.println("2.  Podcast");  //enter-update
 	            System.out.println("3.  User");  //enter-update
+	            System.out.println("4.  Reports");  //enter-update
 	            System.out.println("0.  Go to previous menu");  //enter-update
 	            System.out.println("");
 
@@ -143,7 +144,12 @@ public class admin {
 	    	                	
 	    	                }
 	                    	}while(input!=0);
+	                    
+	                    case 4:
 	                    	
+	                    	reports.getreportsmenu(connection);
+	                    	
+	                    	break;
 	                    case 0:
 	                    	MainMenu.displayMenu(connection);
 	                    	break;
