@@ -235,7 +235,7 @@ public class PM {
       }
 
       System.out.println("");
-      System.out.println("Enter podcast name to view episodes for");
+      System.out.println("Enter podcast id to view episodes for:");
       System.out.println("");
 
       int selection = sc.nextInt();
@@ -260,8 +260,7 @@ public class PM {
   //	GET PODACST EPISODE GIVEN PODCAST NAME
   public static void get_podcast_episodes(String podcastname, String u_email_id, Connection connection)
     throws SQLException {
-    System.out.println("*****");
-    System.out.println("List of Podcast Episode for: " + podcastname);
+    System.out.println("~ List of Podcast Episode for (" + podcastname + ")--");
 
     statement = connection.createStatement();
     Scanner sc = new Scanner(System.in);
@@ -276,13 +275,13 @@ public class PM {
       rs = statement.executeQuery(query);
       while (rs.next()) {
         podcastepisodename = rs.getString("pe_title");
-        System.out.println("(" + row + ") " + podcastname + " : " + podcastepisodename + "");
+        System.out.println("(" + row + ") " + " -- " + podcastepisodename + "");
         row++;
       }
       while (true) {
         try {
           System.out.println("");
-          System.out.println("Enter podcast episode title to select");
+          System.out.println("Enter podcast episode title to listen:");
           System.out.println("");
 
           pe_title = sc.nextLine();
