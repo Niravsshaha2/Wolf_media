@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class PM {
   public static Statement statement;
@@ -33,11 +34,8 @@ public class PM {
       System.out.println("11. Update Podcast Episode Info");
       System.out.println("12. Delete Podcast Episode Info");
 
-      System.out.println("13. Assign Podcast Episode to Podcast");
-      System.out.println("14. Assign Podcast Host to Podcast Episode");
-      System.out.println(
-        "15. Assign Podcast Host to all Episodes in a Podcast"
-      );
+      System.out.println("13. Assign Podcast Host to Podcast Episode");
+      System.out.println("14. Assign Podcast Host to Podcast");
       System.out.println("0. Main Menu");
       System.out.println("Enter your option:");
       System.out.println("");
@@ -49,46 +47,56 @@ public class PM {
           case 1:
             podcast.view_all_podcasts(connection, "show");
             break;
+
           case 2:
             podcast.add_podcast_info(connection);
             break;
+
           case 3:
             podcast.update_podcast_info(connection, "update");
             break;
+
           case 4:
             podcast.update_podcast_info(connection, "delete");
             break;
+
           case 5:
             podcasthost.view_all_podcast_hosts(connection, "name");
             break;
+
           case 6:
             podcasthost.add_podcast_host_info(connection);
             break;
+
           case 7:
             podcasthost.update_podcast_host_info(connection, "update");
             break;
+
           case 8:
             podcasthost.update_podcast_host_info(connection, "delete");
             break;
+
           case 9:
             podcastepisode.view_all_podcast_episodes(connection);
             break;
+
           case 10:
             podcastepisode.add_podcast_episode_info(connection);
             break;
+
           case 11:
             podcastepisode.update_podcast_episode_info(connection, "update");
             break;
+
           case 12:
             podcastepisode.update_podcast_episode_info(connection, "delete");
             break;
+
           case 13:
-            assign_podcast_episode_to_podcast(connection);
-            break;
-          case 14:
             assign_podcast_host_to_podcast_episode(connection);
             break;
-          case 15:
+
+          case 14:
             assign_podcast_host_to_podcast(connection);
             break;
           case 0:
@@ -109,22 +117,98 @@ public class PM {
   //	SWITCH CASE FOR PM MENU
 
 
-
-
-
-  public static void assign_podcast_episode_to_podcast(Connection connection)
-    throws SQLException {
-    System.out.println("assign_podcast_episode_to_podcast");
-  }
-
   public static void assign_podcast_host_to_podcast_episode(Connection connection)
     throws SQLException {
-    System.out.println("assign_podcast_host_to_podcast_episode");
+    Scanner sc = new Scanner(System.in);
+    String query, podcasthostname, podcastname, podcastepisodename = "";
+    ResultSet rs = null;
+    try {
+      podcasthost_list = podcasthost.view_all_podcast_hosts(connection, "email");
+      do {
+        System.out.println();
+        System.out.println("Enter Podcast Host name:");
+        podcasthostname = sc.nextLine();
+        if (!Arrays.asList(podcasthost_list).contains(podcasthostname)) {
+          System.out.println("Podcast Host does not exist. Please try again!");
+        }
+      } while(!Arrays.asList(podcasthost_list).contains(podcasthostname));
+
+      podcast_list = podcast.view_all_podcasts(connection, "show");
+      do {
+        System.out.println();
+        System.out.println("Enter Podcast name: ");
+        podcastname = sc.nextLine();
+        if (!Arrays.asList(podcast_list).contains(podcastname)) {
+          System.out.println("Podcast does not exist. Please try again!");
+        }
+      } while(!Arrays.asList(podcast_list).contains(podcastname));
+
+      podcastepisode_list = podcastepisode.view_all_podcast_episodes(connection, podcastname, "show");
+      do {
+        System.out.println();
+        System.out.println("Enter Podcast Episode name: ");
+        podcastepisodename = sc.nextLine();
+        if (!Arrays.asList(podcastepisode_list).contains(podcastepisodename)) {
+          System.out.println("Podcast Episode does not exist. Please try again!");
+        }
+      } while(!Arrays.asList(podcastepisode_list).contains(podcastepisodename));
+
+      query =
+        "UPDATE PodcastEpisode SET ph_email_id = '" +
+        podcasthostname +
+        "' WHERE p_name = '" +
+        podcastname +
+        "' AND pe_title = '" +
+        podcastepisodename +
+        "'";
+      rs = statement.executeQuery(query);
+      System.out.println("Host assigned to the episode!");
+
+    } catch(Exception e) {
+      System.out.println("Please try again!");
+      get_pm_menu(connection);
+    }
   }
 
   public static void assign_podcast_host_to_podcast(Connection connection)
     throws SQLException {
-    System.out.println("assign_podcast_host_to_podcast");
+    Scanner sc = new Scanner(System.in);
+    String query, podcasthostname, podcastname = "";
+    ResultSet rs = null;
+    try {
+      podcasthost_list = podcasthost.view_all_podcast_hosts(connection, "email");
+      do {
+        System.out.println();
+        System.out.println("Enter Podcast Host name:");
+        podcasthostname = sc.nextLine();
+        if (!Arrays.asList(podcasthost_list).contains(podcasthostname)) {
+          System.out.println("Podcast Host does not exist. Please try again!");
+        }
+      } while(!Arrays.asList(podcasthost_list).contains(podcasthostname));
+
+      podcast_list = podcast.view_all_podcasts(connection, "show");
+      do {
+        System.out.println();
+        System.out.println("Enter Podcast name: ");
+        podcastname = sc.nextLine();
+        if (!Arrays.asList(podcast_list).contains(podcastname)) {
+          System.out.println("Podcast does not exist. Please try again!");
+        }
+      } while(!Arrays.asList(podcast_list).contains(podcastname));
+
+      query =
+        "UPDATE PodcastEpisode SET ph_email_id = '" +
+        podcasthostname +
+        "' WHERE p_name = '" +
+        podcastname +
+        "'";
+      rs = statement.executeQuery(query);
+      System.out.println("Host assigned to the whole podcast!");
+
+    } catch(Exception e) {
+      System.out.println("Please try again!");
+      get_pm_menu(connection);
+    }
   }
 
   //	GET PODACST LIST FOR PM TO FURTHER SELECT EPISODE FROM THE PODCAST
@@ -151,7 +235,7 @@ public class PM {
       }
 
       System.out.println("");
-      System.out.println("Enter podcast id to select");
+      System.out.println("Enter podcast name to view episodes for");
       System.out.println("");
 
       int selection = sc.nextInt();
