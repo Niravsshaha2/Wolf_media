@@ -32,7 +32,7 @@ public class User {
                     "GROUP BY u_email_id" +
                 ") max_dates ON pays_to.u_email_id = max_dates.u_email_id AND pays_to.up_date = max_dates.max_up_date " +
                 "SET User.u_subscription_status = 'INACTIVE' " +
-                "WHERE User.u_subscription_status = 'ACTIVE' AND MONTH(NOW()) != MONTH(pays_to.up_date)";
+                "WHERE User.u_subscription_status = 'ACTIVE' AND YEAR(NOW()) != YEAR(pays_to.up_date) and MONTH(NOW()) != MONTH(pays_to.up_date)";
 //              "DATEDIFF(NOW(), pays_to.up_date) > 30";
          
          
@@ -141,7 +141,7 @@ public class User {
     				 sql = "UPDATE User SET u_phone='"+u_phone+"' WHERE u_email_id = '"+u_email_id+"'";
     				 rows = statement.executeUpdate(sql);
                     break;
-                case 4:
+                case 0:
                 	MainMenu.displayMenu(connection);
                 	break;
                 default:
@@ -253,7 +253,6 @@ public class User {
             		+ "VALUES (100, '" + u_reg_date + "', DATE_FORMAT('" + u_reg_date + "','%Y-%m-01'), '"+ u_email_id +"')";
             
             
-            System.out.print(sql);
             rows = stmt.executeUpdate(sql);
             
 
@@ -359,7 +358,7 @@ public class User {
 	                    	album.getalbum(u_email_id,connection);
 	                        break;
 	                    case 4:
-	                    	PM.getpodcast(u_email_id,connection);
+	                    	PM.get_podcast(u_email_id,connection);
 	                    	break;
 	                    case 0:
 	                    	MainMenu.displayMenu(connection);

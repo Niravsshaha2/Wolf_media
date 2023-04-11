@@ -24,6 +24,7 @@ public class admin {
 	            System.out.println("2.  Podcast");  //enter-update
 	            System.out.println("3.  User");  //enter-update
 	            System.out.println("4.  Reports");  //enter-update
+	            System.out.println("5.  Payments");  //enter-update
 	            System.out.println("0.  Go to previous menu");  //enter-update
 	            System.out.println("");
 
@@ -57,6 +58,7 @@ public class admin {
 	        	            
 //	                    	break;
 	                    case 2:
+	                    	PM.get_pm_menu(connection);
 	                    	break;
 	                    case 3:
 	                    	do
@@ -79,6 +81,8 @@ public class admin {
 	    	                {
 	    	                case 1:
 		                    	User.addusers(connection);
+		        	            User.makeinactive(connection);
+
 		                    	break;
 	    	                case 2:
 	    	                	 do {
@@ -103,6 +107,7 @@ public class admin {
 			        		                    System.out.println("Could not fetch details");
 			        		                }
 			        		        } while (true);
+
 	    	                	break;
 	    	                case 3:
 	    	                	    do {
@@ -148,9 +153,11 @@ public class admin {
 	                    	}while(input!=0);
 	                    
 	                    case 4:
-	                    	
 	                    	reports.getreportsmenu(connection);
+	                    	break;
 	                    	
+	                    case 5:
+	                    	payments.getpaymentmenu(connection);
 	                    	break;
 	                    case 0:
 	                    	MainMenu.displayMenu(connection);
