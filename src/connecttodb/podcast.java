@@ -84,7 +84,6 @@ public class podcast {
       System.out.println("Enter podcast country:");
       sc.nextLine();
       String podcastcountry = sc.nextLine();
-      System.out.println(podcastcountry);
 
       float podcastrating;
       int podcastratedusercount = 0;
@@ -92,7 +91,6 @@ public class podcast {
         System.out.println();
         System.out.println("Enter podcast rating (0 to 5) [default null]:");
         podcastrating = sc.nextFloat();
-        // System.out.println(podcastrating, (podcastrating == 0.0f), 0 == 0.0f);
         if (podcastrating == 0.0f) {
           break;
         }
@@ -191,13 +189,14 @@ public class podcast {
             new_num_val = 0;
 
             rows = statement.executeUpdate(query);
-            System.out.println(rows + " row(s) " + typ + "d.");
+            System.out.println(rows + " row(s) updated.");
             break;
 
           case 2:
             if (typ.equals("update")) {
               System.out.println("Enter new value for language:");
-              new_str_val = sc.next();
+              sc.nextLine();
+              new_str_val = sc.nextLine();
               query =
                 "UPDATE Podcast SET p_language='" +
                 new_str_val +
@@ -215,7 +214,7 @@ public class podcast {
             new_str_val = "";
 
             rows = statement.executeUpdate(query);
-            System.out.println(rows + " row(s) " + typ + "d.");
+            System.out.println(rows + " row(s) updated.");
             break;
 
           case 3:
@@ -235,13 +234,18 @@ public class podcast {
               );
 
               query =
+                // "UPDATE Podcast SET p_rating = " +
+                // "IF(p_rating IS NULL," +
+                // new_num_val +
+                // ", (p_rating * p_rated_user_count + " +
+                // new_num_val +
+                // ")/(p_rated_user_count + 1)), " +
+                // "p_rated_user_count = p_rated_user_count + 1 " +
+                // "WHERE p_name = '" +
+                // podcastname_choice +
+                // "';";
                 "UPDATE Podcast SET p_rating = " +
-                "IF(p_rating IS NULL," +
                 new_num_val +
-                ", (p_rating * p_rated_user_count + " +
-                new_num_val +
-                ")/(p_rated_user_count + 1)), " +
-                "p_rated_user_count = p_rated_user_count + 1 " +
                 "WHERE p_name = '" +
                 podcastname_choice +
                 "';";
@@ -251,18 +255,21 @@ public class podcast {
                 null +
                 " WHERE p_name='" +
                 podcastname_choice +
-                "'";
+                "'; " +
+                "UPDATE Podcast SET p_rated_user_count = 0 WHERE p_name='" +
+                podcastname_choice +
+                "';";
             }
             new_num_val = 0;
 
             rows = statement.executeUpdate(query);
-            System.out.println(rows + " row(s) " + typ + "d.");
+            System.out.println(rows + " row(s) updated.");
             break;
 
           case 4:
             if (typ.equals("update")) {
               System.out.println("Enter new value for country:");
-              new_str_val = sc.next();
+              new_str_val = sc.nextLine();
               query =
                 "UPDATE Podcast SET p_country='" +
                 new_str_val +
@@ -280,7 +287,7 @@ public class podcast {
             new_str_val = "";
 
             rows = statement.executeUpdate(query);
-            System.out.println(rows + " row(s) " + typ + "d.");
+            System.out.println(rows + " row(s) updated.");
             break;
           case 0:
             update_podcast_info(connection, typ);
@@ -294,8 +301,7 @@ public class podcast {
         update_podcast_choice_function(connection, podcastname_choice, typ);
       }
       System.out.println("Do you want to " + typ + " more fields for the podcast? (y/n)");
-      update_continue_choice = sc.next();
-      System.out.println(update_continue_choice);
+      update_continue_choice = sc.nextLine();
     } while (update_continue_choice.toLowerCase().equals("y"));
   }
 }

@@ -109,20 +109,17 @@ public class podcastepisode {
       } while (Arrays.asList(podcastepisode_list).contains(podcastepisodename));
 
       System.out.println("Enter episode release date (yyyy-mm-dd):");
-      String podcastepisoderelease = sc.next();
-      java.sql.Date podcastepisodereleasedate = java.sql.Date.valueOf(
-        podcastepisoderelease
-      );
+      String podcastepisoderelease = sc.nextLine();
+      java.sql.Date podcastepisodereleasedate = java.sql.Date.valueOf(podcastepisoderelease);
 
       int podcastepisodeadcount = 0;
 
       System.out.println("Enter episode duration (hh:mm:ss):");
-      String podcastepisodedura = sc.next();
+      String podcastepisodedura = sc.nextLine();
       DateTimeFormatter formatter = new DateTimeFormatterBuilder()
         .appendPattern(
           "[HH:mm:ss][HH:mm:s][HH:m:ss][H:mm:ss][HH:m:s][H:m:ss][H:mm:s][H:m:s][HH:mm][HH:m][H:mm][mm:ss][m:ss][mm:s][m:s]"
-        )
-        .toFormatter();
+        ).toFormatter();
       LocalTime localTime = LocalTime.parse(podcastepisodedura, formatter);
       java.sql.Time podcastepisodeduration = java.sql.Time.valueOf(localTime);
       // java.sql.Time podcastepisodeduration = java.sql.Time.valueOf(podcastepisodedura);
@@ -130,8 +127,8 @@ public class podcastepisode {
       String podcastepisodehost = "";
       do {
         System.out.println("Enter Host Email for Podcast Episode (You can choose from list below):");
-        podcasthost.view_all_podcast_hosts(connection, "email");
-        podcastepisodehost = sc.next();
+        podcasthost_list = podcasthost.view_all_podcast_hosts(connection, "email");
+        podcastepisodehost = sc.nextLine();
         if (!Arrays.asList(podcasthost_list).contains(podcastepisodehost)) {
           System.out.println("Podcast host is not present! Please check for any spelling mistake!");
         }
@@ -151,10 +148,11 @@ public class podcastepisode {
         "', '" +
         podcastepisodehost +
         "')";
+      System.out.println(sql);
       int rows = statement.executeUpdate(sql);
       System.out.println(rows + " row(s) inserted.");
     } catch (Exception e) {
-      System.err.println("Error: " + e.getMessage());
+      System.err.println("Error: " + e);
       // } finally {
       //   closers(statement, sc);
     }
