@@ -58,10 +58,9 @@ public class DatabaseOperations {
 
       statement.executeUpdate(
         "CREATE TABLE IF NOT EXISTS Song (\n" +
-        " s_id                               INT PRIMARY KEY,\n" +
+        " s_id                               VARCHAR(128) PRIMARY KEY,\n" +
         " s_title                            VARCHAR(128) NOT NULL,\n" +
         " s_royalty_rate                     DECIMAL(9,2) NOT NULL,\n" +
-//        " s_royalty_paid_status              BOOLEAN      DEFAULT FALSE,\n" +
         " s_duration                         TIME         NOT NULL,\n" +
         " s_release_date                     DATE         NOT NULL,\n" +
         " s_country                          VARCHAR(128),\n" +
@@ -78,7 +77,7 @@ public class DatabaseOperations {
 
       statement.executeUpdate(
         "CREATE TABLE IF NOT EXISTS SongGenre (\n" +
-        " s_id                               INT,\n" +
+        " s_id                               VARCHAR(128),\n" +
         " sg_genre                           VARCHAR(128) NOT NULL,\n" +
         " PRIMARY KEY(s_id, sg_genre),\n" +
         " FOREIGN KEY(s_id) REFERENCES Song(s_id) ON UPDATE CASCADE ON DELETE CASCADE\n" +
@@ -187,10 +186,10 @@ public class DatabaseOperations {
       statement.executeUpdate(
         "CREATE TABLE IF NOT EXISTS listens_to_song (\n" +
         " u_email_id                         VARCHAR(128),\n" +
-        " s_id                               INT,\n" +
+        " s_id                               VARCHAR(128),\n" +
         " ls_date                            DATE         ,\n" +
         " ls_play_count                      INT          DEFAULT 1,\n" +
-        " ls_royalty_paid_status              BOOLEAN      DEFAULT FALSE,\n" +
+        " ls_royalty_paid_status             BOOLEAN      DEFAULT FALSE,\n" +
         " PRIMARY KEY(u_email_id, s_id, ls_date),\n" +
         " FOREIGN KEY(u_email_id) REFERENCES User(u_email_id) ON UPDATE CASCADE ON DELETE CASCADE,\n" +
         " FOREIGN KEY(s_id)       REFERENCES Song(s_id)       ON UPDATE CASCADE ON DELETE CASCADE\n" +
@@ -199,7 +198,7 @@ public class DatabaseOperations {
 
       statement.executeUpdate(
         "CREATE TABLE IF NOT EXISTS sings (\n" +
-        " s_id                               INT,\n" +
+        " s_id                               VARCHAR(128),\n" +
         " a_email_id                         VARCHAR(128),\n" +
         " is_artist_collaborator_for_song    BOOLEAN      NOT NULL,\n" +
         " artist_type_for_song               VARCHAR(128) CHECK (artist_type_for_song IN ('Musician', 'Composer', 'Band')),\n" +
@@ -259,221 +258,200 @@ public class DatabaseOperations {
       // creating user table
       statement.executeUpdate(
         "INSERT INTO BillingService (bs_date, bs_revenue) VALUES\n" +
-        " ('2022-01-01', 100.00),\n" +
-        " ('2022-02-01', 200.00),\n" +
-        " ('2022-03-01', 300.00),\n" +
-        " ('2022-04-01', 400.00),\n" +
-        " ('2022-05-01', 500.00),\n" +
-        " ('2022-06-01', 600.00),\n" +
-        " ('2022-07-01', 700.00),\n" +
-        " ('2022-08-01', 800.00);"
+        " ('2023-01-01', 1111),\n" +
+        " ('2023-02-01', 2222),\n" +
+        " ('2023-03-01', 3333),\n" +
+        " ('2023-04-01', 123000);"
       );
 
       statement.executeUpdate(
         "INSERT INTO User (u_email_id, u_first_name, u_last_name, u_reg_date, u_subscription_status, u_phone) VALUES\n" +
-        " ('user1@example.com', 'User1', 'A', '2022-01-01', 'ACTIVE', 9182736450),\n" +
-        " ('user2@example.com', 'User2', 'B', '2022-02-01', 'ACTIVE', NULL),\n" +
-        " ('user3@example.com', 'User3', 'C', '2022-03-01', 'INACTIVE', 9218364750),\n" +
-        " ('user4@example.com', 'User4', 'D', '2022-04-01', 'ACTIVE', 8923716450),\n" +
-        " ('user5@example.com', 'User5', 'E', '2022-05-01', 'ACTIVE', NULL),\n" +
-        " ('user6@example.com', 'User6', 'F', '2022-06-01', 'ACTIVE', 9517283406),\n" +
-        " ('user7@example.com', 'User7', 'G', '2022-07-01', 'INACTIVE', NULL);"
+        " ('u8001@example.com', 'Alex', 'A', '2023-01-01', 'ACTIVE', 9182736450),\n" +
+        " ('u8002@example.com', 'John', 'J', '2023-01-01', 'ACTIVE', NULL);"
       );
 
       statement.executeUpdate(
         "INSERT INTO RecordLabel (rl_name) VALUES\n" +
-        " ('Universal Music Group'),\n" +
-        " ('Sony Music Entertainment'),\n" +
-        " ('Warner Music Group'),\n" +
-        " ('EMI');"
+        " ('Elevate Records'),\n" +
+        " ('Melodic Avenue Music');"
       );
 
       statement.executeUpdate(
         "INSERT INTO Artist (a_email_id, a_name, a_status, a_country, a_primary_genre, rl_name) VALUES \n" +
-        " ('artist1@example.com', 'Artist A', 'ACTIVE', 'USA', 'Pop', 'Universal Music Group'),\n" +
-        " ('artist2@example.com', 'Artist B', 'ACTIVE', 'Canada', 'Rock', 'Sony Music Entertainment'),\n" +
-        " ('artist3@example.com', 'Artist C', 'ACTIVE', 'Hong Kong', 'Hip Hop', 'Warner Music Group'),\n" +
-        " ('artist4@example.com', 'Artist D', 'ACTIVE', 'USA', 'Country', 'EMI');"
+        " ('ar2001@example.com', 'Forest', 'ACTIVE', 'USA', 'Pop', 'Elevate Records'),\n" +
+        " ('ar2002@example.com', 'Rain', 'ACTIVE', 'Canada', 'Rock', 'Melodic Avenue Music');"
       );
 
       statement.executeUpdate(
         "INSERT INTO Album (l_name, l_release_year, l_edition) VALUES\n" +
-        " ('Thriller', '1982-11-30', 'Special'),\n" +
-        " ('Back in Black', '1980-07-25', 'Special'),\n" +
-        " ('The Dark Side of the Moon', '1973-03-01', 'Limited'),\n" +
-        " ('Appetite for Destruction', '1987-07-21', 'Collector'),\n" +
-        " ('Nevermind', '1991-09-24', 'Special'),\n" +
-        " ('Led Zeppelin IV', '1971-11-08', 'Collector'),\n" +
-        " ('The Joshua Tree', '1987-03-09', 'Limited');"
+        " ('Electric Oasis', '1971-11-08', 'Collector'),\n" +
+        " ('Lost in the Echoes', '1987-03-09', 'Limited');"
       );
 
       statement.executeUpdate(
         "INSERT INTO Song (s_id, s_title, s_royalty_rate, l_name, track_number, s_duration, s_release_date, s_country, s_language) VALUES \n" +
-        " (1, 'Song 1', 0.5, 'Thriller', 1, '00:03:45', '2022-01-01', 'USA', 'English'),\n" +
-        " (2, 'Song 2', 0.4, 'Back in Black', 2, '00:04:10', '2021-12-15', 'Canada', 'English'),\n" +
-        " (3, 'Song 3', 0.3, 'The Dark Side of the Moon', 3, '00:03:30', '2022-02-28', 'UK', 'English'),\n" +
-        " (4, 'Song 4', 0.2, 'Appetite for Destruction', 4, '00:02:50', '2022-03-05', 'Australia', 'English'),\n" +
-        " (5, 'Song 5', 0.1, 'Nevermind', 5, '00:05:15', '2022-01-15', 'USA', 'English'),\n" +
-        " (6, 'Song 6', 0.2, 'Led Zeppelin IV', 6, '00:03:55', '2022-02-01', 'Canada', 'French'),\n" +
-        " (7, 'Song 7', 0.3, 'The Joshua Tree', 7, '00:04:20', '2022-03-10', 'UK', 'English');"
+        " ('s1001', 'Electric Dreamscape', 0.1, 'Electric Oasis', 6, '00:03:55', '2020-02-01', 'Canada', 'English'),\n" +
+        " ('s1002', 'Midnight Mirage', 0.1, 'Electric Oasis', 6, '00:03:55', '2020-02-10', 'Canada', 'English'),\n" +
+        " ('s1003', 'Echoes of You', 0.1, 'Lost in the Echoes', 7, '00:04:20', '2018-03-10', 'UK', 'English'),\n" +
+        " ('s1004', 'Rainy Nights', 0.1, 'Lost in the Echoes', 7, '00:04:20', '2019-03-10', 'UK', 'English');"
       );
 
       statement.executeUpdate(
         "INSERT INTO SongGenre (s_id, sg_genre) VALUES \n" +
-        " (1, 'Funk'),\n" +
-        " (1, 'Pop'),\n" +
-        " (2, 'Hard Rock'),\n" +
-        " (2, 'Heavy Metal'),\n" +
-        " (3, 'Rock'),\n" +
-        " (4, 'Hard Rock'),\n" +
-        " (5, 'Grunge'),\n" +
-        " (6, 'Funk'),\n" +
-        " (7, 'Rock');"
+        " ('s1001', 'Hard Rock'),\n" +
+        " ('s1002', 'Grunge'),\n" +
+        " ('s1003', 'Funk'),\n" +
+        " ('s1004', 'Rock');"
       );
 
       statement.executeUpdate(
         "INSERT INTO Podcast (p_name, p_sponsor, p_language, p_country, p_rating, p_rated_user_count) VALUES\n" +
-        " ('The Joe Rogan Experience', 5.00, 'English', 'USA', 5, 2),\n" +
-        " ('How I Built This', 2.00, 'English', 'USA', 4, 1),\n" +
-        " ('Revisionist History', 15.00, 'English', 'USA', 4, 5),\n" +
-        " ('The Tim Ferriss Show', 10.00, 'English', 'USA', 4, 2),\n" +
-        " ('My Favorite Murder', 20.00, 'English', 'USA', 4, 3);"
+        " ('Mind Over Matter: Exploring the Power of the Human Mind', 0.00, 'English', 'USA', 4.5, 2);"
       );
 
       statement.executeUpdate(
         "INSERT INTO PodcastGenre (p_name, pg_genre) VALUES \n" +
-        " ('The Joe Rogan Experience', 'General Interest'),\n" +
-        " ('The Joe Rogan Experience', 'Variety'),\n" +
-        " ('How I Built This', 'Business'),\n" +
-        " ('How I Built This', 'Entrepreneurship'),\n" +
-        " ('Revisionist History', 'History'),\n" +
-        " ('The Tim Ferriss Show', 'Business'),\n" +
-        " ('My Favorite Murder', 'True Crime'),\n" +
-        " ('My Favorite Murder', 'Comedy');"
+        " ('Mind Over Matter: Exploring the Power of the Human Mind', 'Variety');"
       );
 
       statement.executeUpdate(
         "INSERT INTO PodcastHost (ph_email_id, ph_first_name, ph_last_name, ph_phone, ph_city) VALUES \n" +
-        " ('host1@example.com', 'John', 'Doe', 1234567890, 'New York'),\n" +
-        " ('host2@example.com', 'Jane', 'Doe', 2345678901, 'San Francisco'),\n" +
-        " ('host3@example.com', 'Bob', 'Smith', 3456789012, 'Chicago'),\n" +
-        " ('host4@example.com', 'Alice', 'Johnson', 4567890123, 'Los Angeles'),\n" +
-        " ('host5@example.com', 'Sam', 'Wilson', 5678901234, 'Miami');"
+        " ('ph6001@example.com', 'Matthew', 'Wilson', 1234567890, 'New York');"
       );
 
       statement.executeUpdate(
         "INSERT INTO PodcastEpisode (pe_title, p_name, pe_release_date, ph_email_id, pe_ad_count, pe_duration) VALUES \n" +
-        " ('Episode 1', 'The Joe Rogan Experience', '2022-01-01', 'host1@example.com', 3, '2:30:00'),\n" +
-        " ('Episode 2', 'The Joe Rogan Experience', '2022-01-04', 'host1@example.com', 4, '1:15:00'),\n" +
-        " ('Episode 3', 'The Joe Rogan Experience', '2022-01-05', 'host2@example.com', 3, '1:30:00'),\n" +
-        " ('Episode 1', 'How I Built This', '2022-01-06', 'host3@example.com', 2, '1:00:00'),\n" +
-        " ('Episode 1', 'Revisionist History', '2022-01-07', 'host4@example.com', 1, '45:00'),\n" +
-        " ('Episode 1', 'The Tim Ferriss Show', '2022-01-08', 'host5@example.com', 4, '1:30:00'),\n" +
-        " ('Episode 1', 'My Favorite Murder', '2022-01-09', 'host5@example.com', 2, '45:00');"
+        " ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', '2023-01-01', 'ph6001@example.com', 0, '2:30:00'),\n" +
+        " ('Unlocking Your Potential', 'Mind Over Matter: Exploring the Power of the Human Mind', '2023-01-04', 'ph6001@example.com', 0, '1:15:00');"
       );
 
-      statement.executeUpdate(
-        "INSERT INTO SpecialGuest (g_email_id, g_name) VALUES \n" +
-        " ('guest1@example.com', 'Guest A'),\n" +
-        " ('guest2@example.com', 'Guest B'),\n" +
-        " ('guest3@example.com', 'Guest C'),\n" +
-        " ('guest4@example.com', 'Guest D'),\n" +
-        " ('guest5@example.com', 'Guest E'),\n" +
-        " ('guest6@example.com', 'Guest F');"
-      );
+    //   statement.executeUpdate(
+    //     "INSERT INTO pays_to (up_fee_for_subscription, up_date, bs_date, u_email_id) VALUES\n" +
+    //     " (100, '2023-02-01', '2023-01-01', 'u8001@example.com'),\n" +
+    //     " (100, '2023-02-01', '2023-01-01', 'u8002@example.com');"
+    //   );
 
-      statement.executeUpdate(
-        "INSERT INTO pays_to (up_fee_for_subscription, up_date, bs_date, u_email_id) VALUES\n" +
-        " (100, '2022-02-01', '2022-01-01', 'user1@example.com'),\n" +
-        " (100, '2022-03-01', '2022-02-01', 'user2@example.com'),\n" +
-        " (100, '2022-04-01', '2022-03-01', 'user3@example.com'),\n" +
-        " (100, '2022-05-01', '2022-04-01', 'user4@example.com'),\n" +
-        " (100, '2022-06-01', '2022-05-01', 'user5@example.com'),\n" +
-        " (100, '2022-07-01', '2022-06-01', 'user6@example.com'),\n" +
-        " (100, '2022-08-01', '2022-07-01', 'user7@example.com');"
-      );
+    //   statement.executeUpdate(
+    //     "INSERT INTO pays_to_host (pfh_amount, pfh_date, bs_date, ph_email_id) VALUES\n" +
+    //     " (150.00, '2023-02-01', '2023-01-01', 'ph6001@example.com'),\n" +
+    //     " (100.00, '2023-02-01', '2023-01-01', 'ph6001@example.com');"
+    //   );
 
-      statement.executeUpdate(
-        "INSERT INTO pays_to_host (pfh_amount, pfh_date, bs_date, ph_email_id) VALUES\n" +
-        " (150.00, '2022-02-01', '2022-01-01', 'host1@example.com'),\n" +
-        " (100.00, '2022-03-01', '2022-02-01', 'host2@example.com'),\n" +
-        " (150.00, '2022-04-01', '2022-03-01', 'host3@example.com'),\n" +
-        " (200.00, '2022-05-01', '2022-04-01', 'host4@example.com'),\n" +
-        " (250.00, '2022-06-01', '2022-05-01', 'host5@example.com'),\n" +
-        " (100.00, '2022-03-01', '2022-02-01', 'host1@example.com'),\n" +
-        " (150.00, '2022-04-01', '2022-03-01', 'host2@example.com');"
-      );
+    //   statement.executeUpdate(
+    //     "INSERT INTO pays_to_record_label (pfs_amount, pfs_date, bs_date, rl_name) VALUES\n" +
+    //     " (50.00, '2023-02-01', '2023-01-01', 'Elevate Records'),\n" +
+    //     " (100.00, '2023-02-01', '2023-01-01', 'Melodic Avenue Music');"
+    //   );
 
-      statement.executeUpdate(
-        "INSERT INTO pays_to_record_label (pfs_amount, pfs_date, bs_date, rl_name) VALUES\n" +
-        " (50.00, '2022-02-01', '2022-01-01', 'Universal Music Group'),\n" +
-        " (100.00, '2022-03-01', '2022-02-01', 'Sony Music Entertainment'),\n" +
-        " (150.00, '2022-04-01', '2022-03-01', 'Warner Music Group'),\n" +
-        " (200.00, '2022-05-01', '2022-04-01', 'EMI');"
-      );
-
-      statement.executeUpdate(
-        "INSERT INTO pays_to_artist (pfa_amount, pfa_date, rl_name, a_email_id) VALUES\n" +
-        " (100, '2022-02-01', 'Universal Music Group', 'artist1@example.com'),\n" +
-        " (200, '2022-03-01', 'Sony Music Entertainment', 'artist2@example.com'),\n" +
-        " (300, '2022-04-01', 'Warner Music Group', 'artist3@example.com'),\n" +
-        " (250, '2022-05-01', 'Warner Music Group', 'artist3@example.com'),\n" +
-        " (150, '2022-06-01', 'Warner Music Group', 'artist3@example.com'),\n" +
-        " (200, '2022-06-01', 'EMI', 'artist4@example.com');"
-      );
+    //   statement.executeUpdate(
+    //     "INSERT INTO pays_to_artist (pfa_amount, pfa_date, rl_name, a_email_id) VALUES\n" +
+    //     " (100, '2023-02-01', 'Elevate Records', 'ar2001@example.com'),\n" +
+    //     " (200, '2023-03-01', 'Melodic Avenue Music', 'ar2002@example.com');"
+    //   );
 
       statement.executeUpdate(
         "INSERT INTO listens_to_song (s_id, u_email_id, ls_date, ls_play_count, ls_royalty_paid_status) VALUES\n"+
-        " (1, 'user1@example.com', '2022-01-01', 21, FALSE),\n"+
-        " (1, 'user1@example.com', '2022-01-02', 10, TRUE),\n"+
-        " (1, 'user1@example.com', '2022-02-01', 1, TRUE),\n"+
-        " (2, 'user2@example.com', '2022-01-01', 30, FALSE),\n"+
-        " (3, 'user4@example.com', '2022-01-02', 25, FALSE),\n"+
-        " (4, 'user4@example.com', '2022-01-02', 25, TRUE),\n"+
-        " (4, 'user7@example.com', '2022-01-02', 20);"
+        " ('s1001', 'u8001@example.com', '2023-01-01', 1, FALSE),\n"+
+        " ('s1001', 'u8002@example.com', '2023-01-01', 1, FALSE),\n"+
+        " ('s1001', 'u8001@example.com', '2023-01-10', 2, FALSE),\n"+
+        " ('s1001', 'u8001@example.com', '2023-01-12', 3, FALSE),\n"+
+        " ('s1001', 'u8001@example.com', '2023-01-13', 1, FALSE),\n"+
+        " ('s1001', 'u8002@example.com', '2023-01-30', 2, FALSE),\n"+
+
+        " ('s1001', 'u8001@example.com', '2023-02-02', 10, FALSE),\n"+
+        " ('s1001', 'u8002@example.com', '2023-02-25', 10, FALSE),\n"+
+
+        " ('s1001', 'u8001@example.com', '2023-03-10', 10, FALSE),\n"+
+        " ('s1001', 'u8002@example.com', '2023-03-11', 10, FALSE),\n"+
+        " ('s1001', 'u8001@example.com', '2023-03-12', 10, FALSE),\n"+
+
+        " ('s1001', 'u8001@example.com', '2023-04-01', 100, FALSE),\n"+
+        " ('s1001', 'u8001@example.com', '2023-04-02', 100, FALSE),\n"+
+        " ('s1001', 'u8001@example.com', '2023-04-03', 100, FALSE),\n"+
+        " ('s1001', 'u8002@example.com', '2023-04-04', 100, FALSE),\n"+
+        " ('s1001', 'u8002@example.com', '2023-04-05', 100, FALSE),\n"+
+
+        " ('s1002', 'u8001@example.com', '2023-01-02', 10, FALSE),\n"+
+        " ('s1002', 'u8002@example.com', '2023-01-02', 10, FALSE),\n"+
+        " ('s1002', 'u8001@example.com', '2023-01-11', 20, FALSE),\n"+
+        " ('s1002', 'u8001@example.com', '2023-01-14', 30, FALSE),\n"+
+        " ('s1002', 'u8001@example.com', '2023-01-15', 10, FALSE),\n"+
+        " ('s1002', 'u8002@example.com', '2023-01-29', 20, FALSE),\n"+
+
+        " ('s1002', 'u8001@example.com', '2023-02-03', 100, FALSE),\n"+
+        " ('s1002', 'u8002@example.com', '2023-02-26', 100, FALSE),\n"+
+
+        " ('s1002', 'u8001@example.com', '2023-03-13', 100, FALSE),\n"+
+        " ('s1002', 'u8002@example.com', '2023-03-14', 100, FALSE),\n"+
+        " ('s1002', 'u8001@example.com', '2023-03-15', 100, FALSE),\n"+
+
+        " ('s1002', 'u8001@example.com', '2023-04-04', 200, FALSE),\n"+
+        " ('s1002', 'u8001@example.com', '2023-04-05', 200, FALSE),\n"+
+        " ('s1002', 'u8001@example.com', '2023-04-06', 200, FALSE),\n"+
+        " ('s1002', 'u8002@example.com', '2023-04-01', 200, FALSE),\n"+
+        " ('s1002', 'u8002@example.com', '2023-04-02', 200, FALSE),\n"+
+
+        " ('s1003', 'u8001@example.com', '2023-01-03', 100, FALSE),\n"+
+        " ('s1003', 'u8002@example.com', '2023-01-03', 100, FALSE),\n"+
+        " ('s1003', 'u8001@example.com', '2023-01-16', 200, FALSE),\n"+
+        " ('s1003', 'u8001@example.com', '2023-01-17', 300, FALSE),\n"+
+        " ('s1003', 'u8001@example.com', '2023-01-18', 100, FALSE),\n"+
+        " ('s1003', 'u8002@example.com', '2023-01-20', 200, FALSE),\n"+
+
+        " ('s1003', 'u8001@example.com', '2023-02-04', 1000, FALSE),\n"+
+        " ('s1003', 'u8002@example.com', '2023-02-27', 1000, FALSE),\n"+
+
+        " ('s1003', 'u8001@example.com', '2023-03-05', 1000, FALSE),\n"+
+        " ('s1003', 'u8002@example.com', '2023-03-06', 1000, FALSE),\n"+
+        " ('s1003', 'u8001@example.com', '2023-03-07', 1000, FALSE),\n"+
+
+        " ('s1003', 'u8001@example.com', '2023-04-01', 20, FALSE),\n"+
+        " ('s1003', 'u8001@example.com', '2023-04-02', 20, FALSE),\n"+
+        " ('s1003', 'u8001@example.com', '2023-04-03', 20, FALSE),\n"+
+        " ('s1003', 'u8002@example.com', '2023-04-04', 20, FALSE),\n"+
+        " ('s1003', 'u8002@example.com', '2023-04-05', 20, FALSE),\n"+
+
+        " ('s1004', 'u8001@example.com', '2023-01-01', 1000, FALSE),\n"+
+        " ('s1004', 'u8002@example.com', '2023-01-01', 1000, FALSE),\n"+
+        " ('s1004', 'u8001@example.com', '2023-01-10', 2000, FALSE),\n"+
+        " ('s1004', 'u8001@example.com', '2023-01-12', 3000, FALSE),\n"+
+        " ('s1004', 'u8001@example.com', '2023-01-13', 1000, FALSE),\n"+
+        " ('s1004', 'u8002@example.com', '2023-01-30', 2000, FALSE),\n"+
+
+        " ('s1004', 'u8001@example.com', '2023-02-02', 10000, FALSE),\n"+
+        " ('s1004', 'u8002@example.com', '2023-02-25', 10000, FALSE),\n"+
+
+        " ('s1004', 'u8001@example.com', '2023-03-10', 10000, FALSE),\n"+
+        " ('s1004', 'u8002@example.com', '2023-03-11', 10000, FALSE),\n"+
+        " ('s1004', 'u8001@example.com', '2023-03-12', 10000, FALSE),\n"+
+
+        " ('s1004', 'u8001@example.com', '2023-04-01', 20, FALSE),\n"+
+        " ('s1004', 'u8001@example.com', '2023-04-02', 20, FALSE),\n"+
+        " ('s1004', 'u8001@example.com', '2023-04-03', 20, FALSE),\n"+
+        " ('s1004', 'u8002@example.com', '2023-04-04', 20, FALSE),\n"+
+        " ('s1004', 'u8002@example.com', '2023-04-05', 20, FALSE);"
       );
 
       statement.executeUpdate(
         "INSERT INTO sings (s_id, is_artist_collaborator_for_song, artist_type_for_song, a_email_id) VALUES\n" +
-        " (1, false, 'Musician', 'artist1@example.com'),\n" +
-        " (2, false, 'Musician', 'artist2@example.com'),\n" +
-        " (3, false, 'Band', 'artist3@example.com'),\n" +
-        " (3, true, 'Band', 'artist4@example.com'),\n" +
-        " (4, false, 'Musician', 'artist1@example.com'),\n" +
-        " (5, false, 'Band', 'artist2@example.com'),\n" +
-        " (5, true, 'Band', 'artist3@example.com'),\n" +
-        " (6, false, 'Musician', 'artist3@example.com'),\n" +
-        " (7, false, 'Musician', 'artist4@example.com');"
+        " ('s1001', false, 'Musician', 'ar2001@example.com'),\n" +
+        " ('s1002', false, 'Band', 'ar2001@example.com'),\n" +
+        " ('s1002', true, 'Band', 'ar2002@example.com'),\n" +
+        " ('s1003', false, 'Musician', 'ar2002@example.com'),\n" +
+        " ('s1004', false, 'Musician', 'ar2002@example.com');"
       );
 
       statement.executeUpdate(
         "INSERT INTO assigned_to (a_email_id, l_name) VALUES\n" +
-        " ('artist1@example.com', 'Thriller'),\n" +
-        " ('artist2@example.com', 'Back in Black'),\n" +
-        " ('artist3@example.com', 'The Dark Side of the Moon'),\n" +
-        " ('artist4@example.com', 'Appetite for Destruction');"
+        " ('ar2001@example.com', 'Electric Oasis'),\n" +
+        " ('ar2002@example.com', 'Lost in the Echoes');"
       );
 
       statement.executeUpdate(
         "INSERT INTO listens_to_podcast_episode (pe_title, p_name, u_email_id, lpe_date, lpe_play_count) VALUES \n" +
-        " ('Episode 1', 'The Joe Rogan Experience', 'user1@example.com', '2022-01-01', 25),\n" +
-        " ('Episode 1', 'The Joe Rogan Experience', 'user2@example.com', '2022-01-02', 15),\n" +
-        " ('Episode 2', 'The Joe Rogan Experience', 'user1@example.com', '2022-01-03', 5),\n" +
-        " ('Episode 2', 'The Joe Rogan Experience', 'user4@example.com', '2022-01-04', 35),\n" +
-        " ('Episode 3', 'The Joe Rogan Experience', 'user5@example.com', '2022-01-05', 25),\n" +
-        " ('Episode 1', 'How I Built This', 'user6@example.com', '2022-01-07', 25),\n" +
-        " ('Episode 1', 'Revisionist History', 'user6@example.com', '2022-01-09', 25);"
-      );
-
-      statement.executeUpdate(
-        "INSERT INTO features (pe_title, p_name, g_email_id) VALUES\n" +
-        " ('Episode 1', 'The Joe Rogan Experience', 'guest1@example.com'),\n" +
-        " ('Episode 2', 'The Joe Rogan Experience', 'guest1@example.com'),\n" +
-        " ('Episode 3', 'The Joe Rogan Experience', 'guest2@example.com'),\n" +
-        " ('Episode 1', 'How I Built This', 'guest3@example.com'),\n" +
-        " ('Episode 1', 'Revisionist History', 'guest4@example.com'),\n" +
-        " ('Episode 1', 'The Tim Ferriss Show', 'guest5@example.com'),\n" +
-        " ('Episode 1', 'My Favorite Murder', 'guest6@example.com');"
+        " ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-01-01', 50),\n" +
+        " ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8002@example.com', '2023-01-02', 50),\n" +
+        " ('Unlocking Your Potential', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-01-03', 200);"
       );
     } finally {
       close(statement);
