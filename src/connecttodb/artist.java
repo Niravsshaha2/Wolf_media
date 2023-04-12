@@ -11,7 +11,30 @@ public class artist {
   public static Statement statement;
 
   public static String[] artist_list;
-
+  public static void show_artist_genre(Connection connection)
+  {
+	  System.out.println("List of Genres:");
+	    Scanner sc = new Scanner(System.in);
+	    ResultSet rs =null;
+	    try
+	    {
+	      statement = connection.createStatement();
+	      String title2;
+	      
+		  String query = "SELECT ag_genre from ArtistGenre";
+		  
+	       
+	            rs = statement.executeQuery(query);
+	                while(rs.next()){
+	                    title2 = rs.getString("ag_genre");
+	                    System.out.println(title2 + "" );
+	                }
+	                
+	    }
+	    catch (Exception e) {
+	        System.err.println("Error: " + e.getMessage());
+	      }
+  }
   public static void delete_artist_info(String rl_name, String a_email_id, Connection connection)
     throws SQLException {
     System.out.println("");
@@ -186,12 +209,13 @@ public class artist {
       System.out.println("Enter Country:");
       String a_country = scanner.next();
 
+      show_artist_genre(connection);
       System.out.println("Enter Primary Genre:");
       String a_primary_genre = scanner.next();
       String sql;
 
       sql =
-        "INSERT INTO Artist (a_email_id, a_name, a_status, a_country, a_primary_genre, rl_name) VALUES ('" +
+        "INSERT INTO Artist (a_email_id, a_name, a_status, a_country, ag_genre, rl_name) VALUES ('" +
         a_email_id +
         "', '" +
         a_name +

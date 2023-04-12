@@ -10,6 +10,35 @@ import java.util.Scanner;
 public class song {
 	
     public static Statement statement;
+    public static void add_song_genres(String s_id, Connection connection) throws SQLException{
+    
+        Scanner scanner = new Scanner(System.in);
+        Boolean done = false;
+        System.out.println("Enter Genre (or type 'done' to finish):");
+        String sql;
+        int rows;
+        statement = connection.createStatement();
+
+        while(!done) {
+        	
+            artist.show_artist_genre(connection);
+
+	                
+	                
+        	String genre = scanner.next();
+        	
+        	if (genre.equals("done")) {
+                done = true;
+            }
+        	else {
+        	 sql = "INSERT INTO SongGenre (s_id, sg_genre) VALUES ('" + s_id + "', '" + genre + "')";
+             rows = statement.executeUpdate(sql);
+             System.out.println("Enter more Genre (or type 'done' to finish):");
+
+        	}
+           
+        }
+    }
     
  // delete song info
     public static void delete_song_info(String rl_name, String s_id, Connection connection) throws SQLException{
@@ -120,7 +149,7 @@ public class song {
 	        statement = connection.createStatement();
 
 	      String query;
-	     
+	      
 	    	  query = "select * from Song;";
 	      
 
@@ -148,13 +177,13 @@ public class song {
  	{
     	System.out.println("");
 		System.out.println("Enter Song details: ");
-
+int track_number = 0;
         Statement stmt = connection.createStatement();
  		try {
             Scanner scanner = new Scanner(System.in);
 
             System.out.println("Enter Song ID:");
-            int s_id = scanner.nextInt();
+            String s_id = scanner.next();
           
             System.out.println("Enter Song Title:");
             scanner.nextLine();
@@ -163,13 +192,33 @@ public class song {
             System.out.println("Enter Royalty Rate:");
             double s_royalty_rate = scanner.nextDouble();
              
+            System.out.println("List of Albums (type none if no album)");
+            String query;
+    	      
+	    	  query = "Select l_name from Album ";
+	      
+
+	        ResultSet rs = null;
+		      statement = connection.createStatement();
+	           rs = statement.executeQuery(query);
+
+	     
+            while(rs.next()){
+            	
+            	//print all columns
+                String l_name = rs.getString("l_name");
+                System.out.println(l_name );
+            }
+
             System.out.println("Enter Album Name:");
             scanner.nextLine();
             String l_name = scanner.nextLine();
             
+            if(!l_name.equals("none"))
+            {
             System.out.println("Enter Track Number:");
-            int track_number = scanner.nextInt();
-            
+            track_number = scanner.nextInt();
+            }            
             System.out.println("Enter Song Duration (HH:MM:SS):");
             String s_duration = scanner.next();
             
@@ -183,20 +232,59 @@ public class song {
             System.out.println("Enter Language:");
             String s_language = scanner.next();
             
-            System.out.println("Enter Main Artist email:");
-            String a_email_id = scanner.next();
             
-            String sql = "INSERT INTO Song(s_id, s_title, s_royalty_rate, l_name, track_number, s_duration, s_release_date, s_country, s_language) "
-            		+ "VALUES (" + s_id + ", '" + s_title + "', " + s_royalty_rate + ", '" + l_name + "', " + track_number + ", '" + s_duration + "', '" + s_release_date + "', '" + s_country + "', '" + s_language + "')";
-            int rows = stmt.executeUpdate(sql);
+  	      
+	    	  query = "Select a_email_id from Artist where rl_name = '"+rl_name+"'";
+	          rs = statement.executeQuery(query);
+	          System.out.println("List of artist in Record Label");
+
+	           while(rs.next())
+	           {
+	                	
+	                	//print all columns
+	                    String a_email = rs.getString("a_email_id");
+	                    System.out.println(a_email );
+	           }
+	           System.out.println("Enter Main Artist email:");
+	           String a_email_id = scanner.next();
+	           String sql;
+	            if(l_name.equals("none"))
+	            {
+	            	 sql = "INSERT INTO Song(s_id, s_title, s_royalty_rate, l_name, track_number, s_duration, s_release_date, s_country, s_language) "
+	                 		+ "VALUES ('" + s_id + "', '" + s_title + "', " + s_royalty_rate + ", null , null , '" + s_duration + "', '" + s_release_date + "', '" + s_country + "', '" + s_language + "')";
+	           
+	            }
+	            else
+	            {
+	            	  sql = "INSERT INTO Song(s_id, s_title, s_royalty_rate, l_name, track_number, s_duration, s_release_date, s_country, s_language) "
+	                 		+ "VALUES ('" + s_id + "', '" + s_title + "', " + s_royalty_rate + ", '" + l_name + "', " + track_number + ", '" + s_duration + "', '" + s_release_date + "', '" + s_country + "', '" + s_language + "')";
+	                 
+	            }
+           int rows = stmt.executeUpdate(sql);
             
             
-            sql = "INSERT INTO sings (s_id, a_email_id, is_artist_collaborator_for_song, artist_type_for_song) VALUES (" + s_id + ", '" + a_email_id + "', " + 0 + ", 'Musician')";
+            sql = "INSERT INTO sings (s_id, a_email_id, is_artist_collaborator_for_song, artist_type_for_song) VALUES ('" + s_id + "', '" + a_email_id + "', " + 0 + ", 'Musician')";
             rows = stmt.executeUpdate(sql);
             
             Boolean done = false;
             while(!done) {
             	
+            	  query = "Select a_email_id from Artist where a_email_id != '"+a_email_id+"'";
+        	      
+
+
+  	            rs = statement.executeQuery(query);
+  	            System.out.println("List of Colabs");
+
+  	                while(rs.next()){
+  	                	
+  	                	//print all columns
+  	                    String a_email = rs.getString("a_email_id");
+  	                    System.out.println(a_email );
+  	                }
+  	    
+  	                
+  	                
                 System.out.println("Enter Collab Artist email (or type 'done' to finish):");
             	String a_email_id_c = scanner.next();
             	
@@ -204,11 +292,19 @@ public class song {
                     done = true;
                 }
             	else {
-            	 sql = "INSERT INTO sings (s_id, a_email_id, is_artist_collaborator_for_song, artist_type_for_song) VALUES (" + s_id + ", '" + a_email_id_c + "', " + 1 + ", 'Band')";
+            	 sql = "INSERT INTO sings (s_id, a_email_id, is_artist_collaborator_for_song, artist_type_for_song) VALUES ('" + s_id + "', '" + a_email_id_c + "', " + 1 + ", 'Band')";
                  rows = stmt.executeUpdate(sql);
             	}
                
             }
+            
+            
+            
+            
+            add_song_genres(s_id,connection);
+            
+            
+            
             System.out.println("Song added");
 
             
@@ -224,7 +320,7 @@ public class song {
 //  Get All Songs
 	  public static void getsongs(String u_email_id, Connection connection)   throws SQLException 
 	  {
-		  int song_id = 0;
+		  String song_id ;
 		  System.out.println("");
 		  System.out.println("List of Songs");
 		  System.out.println("");
@@ -253,7 +349,7 @@ public class song {
 	            	System.out.println("Enter Song id to play");
 	            	System.out.println("");
 
-	            	song_id = sc.nextInt();
+	            	song_id = sc.next();
 	            	
 					query = "SELECT s_id,s_title FROM Song where s_id='" + song_id +"'";
 			        rs = statement.executeQuery(query);
@@ -282,7 +378,7 @@ public class song {
 	  //given artist/album get songs
 	  public static void getsongs(String type, String name, String u_email_id, Connection connection)   throws SQLException 
 	  {
-		  int song_id = 0;
+		  String song_id;
 		  System.out.println("");
 		  System.out.println("List of Songs for given: " + type);
 		  System.out.println("");
@@ -339,7 +435,7 @@ public class song {
 	            	System.out.println("Enter Song id to play");
 	            	System.out.println("");
 
-	            	song_id = sc.nextInt();
+	            	song_id = sc.next();
 	            	
 	            	if(type=="Artist")
 	            	{
@@ -384,7 +480,7 @@ public class song {
 		try
 		  {
 	       String query = "INSERT INTO listens_to_song (u_email_id, s_id, ls_date) " +
-	               "VALUES ('" + u_email_id + "', " + s_id + ", DATE_FORMAT(CURRENT_DATE, '%Y-%m-%d')) " +
+	               "VALUES ('" + u_email_id + "', '" + s_id + "', DATE_FORMAT(CURRENT_DATE, '%Y-%m-%d')) " +
 	               "ON DUPLICATE KEY UPDATE ls_play_count = ls_play_count + 1";
 	        
 	       ResultSet rs = statement.executeQuery(query);

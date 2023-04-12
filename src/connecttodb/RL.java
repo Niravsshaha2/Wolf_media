@@ -82,6 +82,7 @@ public class RL {
     String query, title, s_id = "";
 
     query = "SELECT rl_name FROM RecordLabel";
+    System.out.println("~ List of Record Labels ~\n");
 
     ResultSet rs = null;
     try {
@@ -178,7 +179,7 @@ public class RL {
             song.update_song_info(rl_name, so_id, connection);
             break;
           case 3:
-            System.out.println("Enter Song id to Delete");
+            System.out.println("Enter Song id to Delete info");
             do {
               so_id = sc.next();
               String x = "SELECT * from Song where s_id='" + so_id + "'";
@@ -200,9 +201,27 @@ public class RL {
             artist.add_artist_info(rl_name, connection);
             break;
           case 6:
-            System.out.println("Enter Artist email id to update");
             //	                    	so_id = sc.next();
 
+            
+          System.out.println("List of Artist:");
+
+  	      statement = connection.createStatement();
+  	      String title1;
+  	      
+  		  query = "SELECT a_email_id from Artist where rl_name ='"+rl_name+"'";
+  		  
+  	       
+  	            rs = statement.executeQuery(query);
+  	                while(rs.next()){
+  	                    title1 = rs.getString("a_email_id");
+  	                    System.out.println(title1 + "" );
+  	                }
+  	       
+  	                
+  	              System.out.println("Enter Artist email id to update");
+      
+  	                
             do {
               so_id = sc.next();
               String x =
@@ -219,6 +238,22 @@ public class RL {
             artist.update_artist_info(rl_name, so_id, connection);
             break;
           case 7:
+        	  
+        	  System.out.println("List of Artist:");
+
+      	      statement = connection.createStatement();
+      	      String title2;
+      	      
+      		  query = "SELECT a_email_id from Artist where rl_name ='"+rl_name+"'";
+      		  
+      	       
+      	            rs = statement.executeQuery(query);
+      	                while(rs.next()){
+      	                    title2 = rs.getString("a_email_id");
+      	                    System.out.println(title2 + "" );
+      	                }
+      	       
+      	          
             System.out.println("Enter Artist email id to delete");
 
             do {

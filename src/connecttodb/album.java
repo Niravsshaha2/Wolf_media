@@ -105,7 +105,7 @@ public class album {
     statement = connection.createStatement();
     ResultSet rs = null;
 
-    query = "SELECT l_name FROM assigned_to Natural join Artist where rl_name ='" + rl_name + "'";
+    query = "SELECT l_name FROM Album";
 
     try {
       rs = statement.executeQuery(query);
