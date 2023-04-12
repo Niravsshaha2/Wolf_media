@@ -54,15 +54,30 @@ public class User {
     do {
       System.out.print("");
       System.out.println("Select what you want to delete:");
-      System.out.println("1. User Last Name");
-      System.out.println("2. User Phone Number");
+      System.out.println("1. User First Name");
+      System.out.println("2. User Last Number");
+      System.out.println("3. User Phone Name");
+      System.out.println("4. Rate Podcast or Listen Podcast");
       System.out.println("0. Go to previous menu");
 
       try {
         enteredValue = sc.nextInt();
 
         switch (enteredValue) {
-          case 1:
+        
+        case 1:
+            System.out.println("");
+            //                    String u_last_name = sc.next();
+            sql =
+              "UPDATE User SET u_first_name=null WHERE u_email_id = '" +
+              u_email_id +
+              "'";
+            rows = statement.executeUpdate(sql);
+            System.out.println("First Name Deleted ");
+
+            break;
+
+          case 2:
             System.out.println("");
             //                    String u_last_name = sc.next();
             sql =
@@ -73,7 +88,8 @@ public class User {
             System.out.println("Last Name Deleted ");
 
             break;
-          case 2:
+            
+          case 3:
             System.out.println("");
             //                    String u_phone = sc.next();
             sql =
@@ -84,6 +100,23 @@ public class User {
             System.out.println("Phone Number Deleted ");
 
             break;
+            
+          case 4:
+        	System.out.println("1. Rate Podcast\n2.Listen Podcast");
+            System.out.println("What do you want to do?:");
+        	int pm_choice = sc.nextInt();
+        	switch(pm_choice) {
+              case 1:
+        	    PM.rate_podcast(connection);
+          	  break;
+              case 2:
+                PM.get_podcast(u_email_id, connection);
+                break;
+              default:
+                getusermenu(u_email_id, connection);
+              break;
+        	}
+                        
           case 0:
             MainMenu.displayMenu(connection);
             break;
