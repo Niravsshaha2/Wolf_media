@@ -10,21 +10,11 @@ import java.util.Scanner;
 public class User {
 
   public static Statement statement;
-
   public static void makeinactive(Connection connection) throws SQLException {
     statement = connection.createStatement();
 
     try {
-      //make users inactive
-      //        String sql = "UPDATE User " +
-      //                "SET u_subscription_status = 'INACTIVE' " +
-      //                "WHERE u_email_id IN (" +
-      //                "    SELECT t.u_email_id FROM pays_to t WHERE t.up_date = (    "
-      //                + " SELECT MAX(up_date)     FROM pays_to    "
-      //                + " WHERE u_email_id = t.u_email_id ) and "
-      //                + "DATEDIFF(NOW(), up_date) > 30);";
-      //
-      String sql =
+             String sql =
         "UPDATE User " +
         "INNER JOIN pays_to ON pays_to.u_email_id = User.u_email_id " +
         "INNER JOIN (" +
@@ -37,6 +27,7 @@ public class User {
       //              "DATEDIFF(NOW(), pays_to.up_date) > 30";
 
       int rowsAffected = statement.executeUpdate(sql);
+//      System.out.println("Deactivated users that completed the month");
     } catch (Exception e) {
       System.err.println("Error: " + e.getMessage());
     }
@@ -54,30 +45,15 @@ public class User {
     do {
       System.out.print("");
       System.out.println("Select what you want to delete:");
-      System.out.println("1. User First Name");
-      System.out.println("2. User Last Number");
-      System.out.println("3. User Phone Name");
-      System.out.println("4. Rate Podcast or Listen Podcast");
+      System.out.println("1. User Last Name");
+      System.out.println("2. User Phone Number");
       System.out.println("0. Go to previous menu");
 
       try {
         enteredValue = sc.nextInt();
 
         switch (enteredValue) {
-        
-        case 1:
-            System.out.println("");
-            //                    String u_last_name = sc.next();
-            sql =
-              "UPDATE User SET u_first_name=null WHERE u_email_id = '" +
-              u_email_id +
-              "'";
-            rows = statement.executeUpdate(sql);
-            System.out.println("First Name Deleted ");
-
-            break;
-
-          case 2:
+          case 1:
             System.out.println("");
             //                    String u_last_name = sc.next();
             sql =
@@ -88,8 +64,7 @@ public class User {
             System.out.println("Last Name Deleted ");
 
             break;
-            
-          case 3:
+          case 2:
             System.out.println("");
             //                    String u_phone = sc.next();
             sql =
@@ -100,23 +75,6 @@ public class User {
             System.out.println("Phone Number Deleted ");
 
             break;
-            
-          case 4:
-        	System.out.println("1. Rate Podcast\n2.Listen Podcast");
-            System.out.println("What do you want to do?:");
-        	int pm_choice = sc.nextInt();
-        	switch(pm_choice) {
-              case 1:
-        	    PM.rate_podcast(connection);
-          	  break;
-              case 2:
-                PM.get_podcast(u_email_id, connection);
-                break;
-              default:
-                getusermenu(u_email_id, connection);
-              break;
-        	}
-                        
           case 0:
             MainMenu.displayMenu(connection);
             break;
@@ -395,6 +353,8 @@ public class User {
       System.out.println("");
 
       try {
+    	  User.makeinactive(connection);
+
         enteredValue = sc.nextInt();
 
         switch (enteredValue) {
@@ -424,6 +384,8 @@ public class User {
         );
         getusermenu(u_email_id, connection);
       }
+      User.makeinactive(connection);
+
     } while (enteredValue != 0);
   }
 
