@@ -192,30 +192,16 @@ public class podcastepisode {
       "n";
     Scanner sc = new Scanner(System.in);
     do {
-      podcastepisode_list =
-        view_all_podcast_episodes(connection, podcastname_choice, "show");
+      podcastepisode_list = view_all_podcast_episodes(connection, podcastname_choice, "show");
       System.out.println("Enter podcast episode name: (Enter 0 to go back to choosing podcast name)");
       try {
         podcastepisodename_choice = sc.nextLine();
         if (!podcastepisodename_choice.equals("0")) {
-          if (
-            !Arrays
-              .asList(podcastepisode_list)
-              .contains(podcastepisodename_choice)
-          ) {
+          if (!Arrays.asList(podcastepisode_list).contains(podcastepisodename_choice)) {
             System.out.println("Podcast episode does not exist. Please try again from below list of podcast episodes!");
-            update_podcast_episode_choice_function(
-              connection,
-              podcastname_choice,
-              typ
-            );
+            update_podcast_episode_choice_function(connection, podcastname_choice, typ);
           }
-          update_podcast_episode_choice_function(
-            connection,
-            podcastepisodename_choice,
-            typ,
-            podcastname_choice
-          );
+          update_podcast_episode_choice_function(connection, podcastepisodename_choice, typ, podcastname_choice);
           System.out.println("Do you want to " + typ + " in other podcast episode? (y/n)");
           podcast_episode_continue_choice = sc.next();
         } else {
@@ -251,9 +237,7 @@ public class podcastepisode {
             if (typ.equals("update")) {
               System.out.println("Enter new value for episode release date (yyyy-mm-dd):");
               new_str_val = sc.next();
-              java.sql.Date new_str_val_date = java.sql.Date.valueOf(
-                new_str_val
-              );
+              java.sql.Date new_str_val_date = java.sql.Date.valueOf(new_str_val);
               query =
                 "UPDATE PodcastEpisode SET pe_release_date='" +
                 new_str_val_date +
@@ -308,15 +292,12 @@ public class podcastepisode {
 
           case 3:
             if (typ.equals("update")) {
-              System.out.println(
-                "Enter new value for episode duration (hh:mm:ss):"
-              );
+              System.out.println("Enter new value for episode duration (hh:mm:ss):");
               new_str_val = sc.next();
               DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendPattern(
                   "[HH:mm:ss][HH:mm:s][HH:m:ss][H:mm:ss][HH:m:s][H:m:ss][H:mm:s][H:m:s][HH:mm][HH:m][H:mm][mm:ss][m:ss][mm:s][m:s]"
-                )
-                .toFormatter();
+                ).toFormatter();
               LocalTime localTime = LocalTime.parse(new_str_val, formatter);
               java.sql.Time new_str_val_time = java.sql.Time.valueOf(localTime);
               query =
