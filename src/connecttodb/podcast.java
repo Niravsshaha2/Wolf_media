@@ -97,9 +97,7 @@ public class podcast {
         if ((podcastrating < 0 || podcastrating > 5) && podcastrating != 0.0f) {
           System.out.println("Rating needs to be between 0 to 5 or leave it blank.");
         } else podcastratedusercount = 1;
-      } while (
-        (podcastrating < 0 || podcastrating > 5) && podcastrating != 0.0f
-      );
+      } while ((podcastrating < 0 || podcastrating > 5) && podcastrating != 0.0f);
 
       String sql =
         "INSERT INTO Podcast (p_name, p_sponsor, p_language, p_country, p_rating, p_rated_user_count) VALUES ('" +
