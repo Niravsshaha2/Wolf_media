@@ -107,6 +107,27 @@ public class PM {
 
   //	SWITCH CASE FOR PM MENU
 
+  public static void rate_podcast(Connection connection)
+    throws SQLException{
+	Scanner sc = new Scanner(System.in);
+	Statement statement = connection.createStatement();
+    String podcastname = "", query = "";
+    ResultSet rs = null;
+    try {
+      System.out.println("Enter podcast name:");
+      podcastname = sc.nextLine();
+      System.out.println("Enter rating:");
+      int podcastrating = sc.nextInt();
+
+	  query = "UPDATE Podcast SET p_rating = IF(p_rating IS NULL, " + podcastrating + ", (p_rating * p_rated_user_count + " + podcastrating + ")/(p_rated_user_count + 1)), " +
+	  		"p_rated_user_count = p_rated_user_count + 1 WHERE p_name = '" + podcastname + "'";
+      rs = statement.executeQuery(query);
+      System.out.println("Thank you for rating!");
+    } catch(Exception e) {
+      System.out.println("Please try again!");
+      get_pm_menu(connection);
+    } 
+  }
 
   public static void assign_podcast_host_to_podcast_episode(Connection connection)
     throws SQLException {
@@ -272,7 +293,7 @@ public class PM {
       while (true) {
         try {
           System.out.println("");
-          System.out.println("Enter podcast episode title to listen:");
+          System.out.println("Enter podcast episode id to listen:");
           System.out.println("");
 
           podcastepisodename = sc.nextLine();
