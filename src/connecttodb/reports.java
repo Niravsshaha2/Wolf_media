@@ -296,7 +296,7 @@ public class reports {
           } while(!Arrays.asList(artist_list).contains(artistemail));
 
           query =
-            "SELECT Artist.a_email_id, IFNULL(SUM(pays_to_artist.pfa_amount), 0) AS total_payment " +
+            "SELECT Artist.a_email_id, ROUND(SUM(IFNULL(pfa.pfa_amount, 0)), 2) AS total_payment " +
             "FROM Artist LEFT JOIN pays_to_artist ON Artist.a_email_id = pays_to_artist.a_email_id " +
             "AND (pays_to_artist.pfa_date >= '" +
             from_date +
@@ -310,7 +310,7 @@ public class reports {
 
         case 2:
           query =
-            "SELECT SUM(ifnull(pfa_amount, 0)) as total_payment, a.a_email_id FROM pays_to_artist pfa RIGHT JOIN Artist a ON pfa.a_email_id=a.a_email_id AND (pfa_date >= '" +
+            "SELECT ROUND(SUM(IFNULL(pfa.pfa_amount, 0)), 2) as total_payment, a.a_email_id FROM pays_to_artist pfa RIGHT JOIN Artist a ON pfa.a_email_id=a.a_email_id AND (pfa_date >= '" +
             from_date +
             "' AND pfa_date <= '" +
             to_date +
@@ -380,7 +380,7 @@ public class reports {
           } while(!Arrays.asList(recordlabel_list).contains(recordlabelname));
 
           query =
-            "SELECT rl.rl_name, IFNULL(SUM(pfs.pfs_amount), 0) AS total_payment " +
+            "SELECT rl.rl_name, ROUND(SUM(IFNULL(pfs.pfs_amount, 0)), 2) AS total_payment " +
             "FROM RecordLabel rl LEFT JOIN pays_to_record_label pfs ON rl.rl_name = pfs.rl_name " +
             "AND (pfs.pfs_date >= '" +
             from_date +
@@ -394,7 +394,7 @@ public class reports {
 
         case 2:
           query =
-            "SELECT SUM(ifnull(pfs.pfs_amount, 0)) as total_payment, rl.rl_name" +
+            "SELECT ROUND(SUM(IFNULL(pfs.pfs_amount, 0)), 2) as total_payment, rl.rl_name" +
             " FROM pays_to_record_label pfs RIGHT JOIN RecordLabel rl ON pfs.rl_name=rl.rl_name" +
             " AND (pfs.pfs_date >= '" +
             from_date +

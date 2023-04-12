@@ -91,6 +91,8 @@ public class DatabaseOperations {
         " p_language                         VARCHAR(128) NOT NULL,\n" +
         " p_country                          VARCHAR(128),\n" +
         " p_rating                           FLOAT,\n" +
+        " p_episode_flat_fee                 FLOAT,\n" +
+        " p_episode_count                    INT          DEFAULT 0,\n" +
         " p_rated_user_count                 INT          DEFAULT 0\n" +
         ");"
       );
@@ -305,8 +307,8 @@ public class DatabaseOperations {
       );
 
       statement.executeUpdate(
-        "INSERT INTO Podcast (p_name, p_sponsor, p_language, p_country, p_rating, p_rated_user_count) VALUES\n" +
-        " ('Mind Over Matter: Exploring the Power of the Human Mind', 0.00, 'English', 'USA', 4.5, 2);"
+        "INSERT INTO Podcast (p_name, p_sponsor, p_language, p_country, p_rating, p_rated_user_count, p_episode_flat_fee, p_episode_count) VALUES\n" +
+        " ('Mind Over Matter: Exploring the Power of the Human Mind', 0.00, 'English', 'USA', 4.5, 2, 10, 5);"
       );
 
       statement.executeUpdate(
@@ -331,22 +333,47 @@ public class DatabaseOperations {
     //     " (100, '2023-02-01', '2023-01-01', 'u8002@example.com');"
     //   );
 
-    //   statement.executeUpdate(
-    //     "INSERT INTO pays_to_host (pfh_amount, pfh_date, bs_date, ph_email_id) VALUES\n" +
-    //     " (150.00, '2023-02-01', '2023-01-01', 'ph6001@example.com'),\n" +
-    //     " (100.00, '2023-02-01', '2023-01-01', 'ph6001@example.com');"
-    //   );
+    //  statement.executeUpdate(
+    //    "INSERT INTO pays_to_host (pfh_amount, pfh_date, bs_date, ph_email_id) VALUES\n" +
+    //    "  (20.00, '2023-02-01', '2023-01-01', 'ph6001@example.com'),\n" +
+    //    "  (30.00, '2023-03-01', '2023-02-01', 'ph6001@example.com'),\n" +
+    //    "  (40.00, '2023-04-01', '2023-03-01', 'ph6001@example.com');"
+    //  );
 
     //   statement.executeUpdate(
     //     "INSERT INTO pays_to_record_label (pfs_amount, pfs_date, bs_date, rl_name) VALUES\n" +
-    //     " (50.00, '2023-02-01', '2023-01-01', 'Elevate Records'),\n" +
-    //     " (100.00, '2023-02-01', '2023-01-01', 'Melodic Avenue Music');"
+    //     "  (3.3, '2023-02-01', '2023-01-01', 'Elevate Records'),\n" +
+    //     "  (6.6, '2023-03-01', '2023-02-01', 'Elevate Records'),\n" +
+    //     "  (9.9, '2023-04-01', '2023-03-01', 'Elevate Records'),\n" +
+    //     "  (330.00, '2023-02-01', '2023-01-01', 'Melodic Avenue Music'),\n" +
+    //     "  (660.00, '2023-03-01', '2023-02-01', 'Melodic Avenue Music'),\n" +
+    //     "  (990.00, '2023-04-01', '2023-03-01', 'Melodic Avenue Music');"
     //   );
 
     //   statement.executeUpdate(
     //     "INSERT INTO pays_to_artist (pfa_amount, pfa_date, rl_name, a_email_id) VALUES\n" +
-    //     " (100, '2023-02-01', 'Elevate Records', 'ar2001@example.com'),\n" +
-    //     " (200, '2023-03-01', 'Melodic Avenue Music', 'ar2002@example.com');"
+    //     "  (4.2, '2023-02-01', 'Elevate Records', 'ar2001@example.com'),\n" +
+    //     "  (8.4, '2023-03-01', 'Melodic Avenue Music', 'ar2002@example.com'),\n" +
+    //     "  (12.6, '2023-04-01', 'Elevate Records', 'ar2001@example.com'),\n" +
+    //     "  (703.5, '2023-02-01', 'Melodic Avenue Music', 'ar2002@example.com'),\n" +
+    //     "  (1547, '2023-03-01', 'Elevate Records', 'ar2001@example.com'),\n" +
+    //     "  (2320.5, '2023-04-01', 'Melodic Avenue Music', 'ar2002@example.com');"
+    //   );
+
+    //   statement.executeUpdate(
+    //       "INSERT INTO listens_to_podcast_episode (pe_title, p_name, u_email_id, lpe_date, lpe_play_count) VALUES\n" +
+    //     "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-01-01', 5),\n" +
+    //     "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8002@example.com', '2023-01-02', 5),\n" +
+    //     "  ('Unlocking Your Potential', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-01-03', 20),\n" +
+    //     "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-02-01', 10),\n" +
+    //     "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8002@example.com', '2023-02-02', 10),\n" +
+    //     "  ('Unlocking Your Potential', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-02-03', 40),\n" +
+    //     "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-03-01', 15),\n" +
+    //     "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8002@example.com', '2023-03-02', 15),\n" +
+    //     "  ('Unlocking Your Potential', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-03-03', 30),\n" +
+    //     "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-04-01', 50),\n" +
+    //     "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8002@example.com', '2023-04-02', 50),\n" +
+    //     "  ('Unlocking Your Potential', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-04-03', 200);"
     //   );
 
       statement.executeUpdate(

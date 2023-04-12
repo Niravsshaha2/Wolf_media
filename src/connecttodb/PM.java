@@ -47,15 +47,12 @@ public class PM {
           case 1:
             podcast.view_all_podcasts(connection, "show");
             break;
-
           case 2:
             podcast.add_podcast_info(connection);
             break;
-
           case 3:
             podcast.update_podcast_info(connection, "update");
             break;
-
           case 4:
             podcast.update_podcast_info(connection, "delete");
             break;
@@ -63,15 +60,12 @@ public class PM {
           case 5:
             podcasthost.view_all_podcast_hosts(connection, "name");
             break;
-
           case 6:
             podcasthost.add_podcast_host_info(connection);
             break;
-
           case 7:
             podcasthost.update_podcast_host_info(connection, "update");
             break;
-
           case 8:
             podcasthost.update_podcast_host_info(connection, "delete");
             break;
@@ -79,15 +73,12 @@ public class PM {
           case 9:
             podcastepisode.view_all_podcast_episodes(connection);
             break;
-
           case 10:
             podcastepisode.add_podcast_episode_info(connection);
             break;
-
           case 11:
             podcastepisode.update_podcast_episode_info(connection, "update");
             break;
-
           case 12:
             podcastepisode.update_podcast_episode_info(connection, "delete");
             break;
@@ -95,10 +86,10 @@ public class PM {
           case 13:
             assign_podcast_host_to_podcast_episode(connection);
             break;
-
           case 14:
             assign_podcast_host_to_podcast(connection);
             break;
+
           case 0:
             MainMenu.displayMenu(connection);
             break;
