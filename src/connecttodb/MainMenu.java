@@ -39,6 +39,7 @@ public class MainMenu {
 	                    	RL.rl_page(connection);
 	                        break;
 	                    case 3:
+	                    	PM.get_pm_menu(connection);
 	                        break;
 	                    case 4:
 	                    	admin.getAdminMenu(connection);
