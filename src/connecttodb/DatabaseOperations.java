@@ -51,7 +51,7 @@ public class DatabaseOperations {
         " a_country                          VARCHAR(128),\n" +
         " ag_genre                           VARCHAR(128) NOT NULL,\n" +
         " rl_name                            VARCHAR(128) NOT NULL,\n" +
-        " FOREIGN KEY(rl_name) REFERENCES RecordLabel(rl_name) ON UPDATE CASCADE ON DELETE CASCADE" +
+        " FOREIGN KEY(rl_name) REFERENCES RecordLabel(rl_name) ON UPDATE CASCADE ON DELETE CASCADE,\n" +
         " FOREIGN KEY(ag_genre) REFERENCES ArtistGenre(ag_genre) ON UPDATE CASCADE ON DELETE CASCADE" +
         ");"
       );
@@ -295,9 +295,9 @@ public class DatabaseOperations {
       );
 
       statement.executeUpdate(
-        "INSERT INTO Artist (a_email_id, a_name, a_status, a_country, a_primary_genre, rl_name, ag_genre) VALUES \n" +
-        " ('ar2001@example.com', 'Forest', 'ACTIVE', 'USA', 'Pop', 'Elevate Records', 'Pop'),\n" +
-        " ('ar2002@example.com', 'Rain', 'ACTIVE', 'Canada', 'Rock', 'Melodic Avenue Music', 'Rock');"
+        "INSERT INTO Artist (a_email_id, a_name, a_status, a_country, rl_name, ag_genre) VALUES \n" +
+        " ('ar2001@example.com', 'Forest', 'ACTIVE', 'USA', 'Elevate Records', 'Pop'),\n" +
+        " ('ar2002@example.com', 'Rain', 'ACTIVE', 'Canada', 'Melodic Avenue Music', 'Rock');"
       );
 
       statement.executeUpdate(
@@ -522,6 +522,7 @@ public class DatabaseOperations {
       "Album",
       "User",
       "Artist",
+      "ArtistGenre",
       "RecordLabel",
       "BillingService"
     };
