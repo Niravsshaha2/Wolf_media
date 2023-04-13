@@ -37,9 +37,9 @@ public class DatabaseOperations {
       );
 
       statement.executeUpdate(
-        "CREATE TABLE IF NOT EXISTS ArtistGenre (\n" +
-        " ag_genre                           VARCHAR(128) NOT NULL,\n" +
-        " PRIMARY KEY(ag_genre)\n" +
+        "CREATE TABLE IF NOT EXISTS Genre (\n" +
+        " genre                              VARCHAR(128) NOT NULL,\n" +
+        " PRIMARY KEY(genre)\n" +
         ");"
       );
 
@@ -51,8 +51,8 @@ public class DatabaseOperations {
         " a_country                          VARCHAR(128),\n" +
         " ag_genre                           VARCHAR(128) NOT NULL,\n" +
         " rl_name                            VARCHAR(128) NOT NULL,\n" +
-        " FOREIGN KEY(rl_name) REFERENCES RecordLabel(rl_name) ON UPDATE CASCADE ON DELETE CASCADE,\n" +
-        " FOREIGN KEY(ag_genre) REFERENCES ArtistGenre(ag_genre) ON UPDATE CASCADE ON DELETE CASCADE" +
+        " FOREIGN KEY(rl_name)  REFERENCES RecordLabel(rl_name) ON UPDATE CASCADE ON DELETE CASCADE,\n" +
+        " FOREIGN KEY(ag_genre) REFERENCES Genre(genre)         ON UPDATE CASCADE ON DELETE CASCADE" +
         ");"
       );
 
@@ -84,11 +84,12 @@ public class DatabaseOperations {
       );
 
       statement.executeUpdate(
-        "CREATE TABLE IF NOT EXISTS SongGenre (\n" +
-        " s_id                               VARCHAR(128),\n" +
-        " sg_genre                           VARCHAR(128) NOT NULL,\n" +
-        " PRIMARY KEY(s_id, sg_genre),\n" +
-        " FOREIGN KEY(s_id) REFERENCES Song(s_id) ON UPDATE CASCADE ON DELETE CASCADE\n" +
+        "CREATE TABLE IF NOT EXISTS song_genre (\n" +
+        " s_id                             VARCHAR(128),\n" +
+        " sg_genre                          VARCHAR(128) NOT NULL,\n" +
+        " PRIMARY KEY(p_name, pg_genre),\n" +
+        " FOREIGN KEY(s_id)     REFERENCES Song(s_id)   ON UPDATE CASCADE ON DELETE CASCADE,\n" +
+        " FOREIGN KEY(sg_genre) REFERENCES Genre(genre) ON UPDATE CASCADE ON DELETE CASCADE\n" +
         ");"
       );
 
@@ -106,11 +107,12 @@ public class DatabaseOperations {
       );
 
       statement.executeUpdate(
-        "CREATE TABLE IF NOT EXISTS PodcastGenre (\n" +
+        "CREATE TABLE IF NOT EXISTS podcast_genre (\n" +
         " p_name                             VARCHAR(128),\n" +
         " pg_genre                           VARCHAR(128) NOT NULL,\n" +
         " PRIMARY KEY(p_name, pg_genre),\n" +
-        " FOREIGN KEY(p_name) REFERENCES Podcast(p_name) ON UPDATE CASCADE ON DELETE CASCADE\n" +
+        " FOREIGN KEY(p_name)   REFERENCES Podcast(p_name) ON UPDATE CASCADE ON DELETE CASCADE,\n" +
+        " FOREIGN KEY(pg_genre) REFERENCES Genre(genre)    ON UPDATE CASCADE ON DELETE CASCADE\n" +
         ");"
       );
 
@@ -287,11 +289,13 @@ public class DatabaseOperations {
       );
 
       statement.executeUpdate(
-        "INSERT INTO ArtistGenre (ag_genre) VALUES \n" +
+        "INSERT INTO Genre (genre) VALUES \n" +
         " ('Pop'),\n" +
         " ('Jazz'),\n" +
         " ('Metal'),\n" +
-        " ('Rock');"
+        " ('Rock'),\n" +
+        " ('Motivation'),\n" +
+        " ('Variety');"
       );
 
       statement.executeUpdate(
@@ -328,7 +332,7 @@ public class DatabaseOperations {
       );
 
       statement.executeUpdate(
-        "INSERT INTO PodcastGenre (p_name, pg_genre) VALUES \n" +
+        "INSERT INTO podcast_genre (p_name, pg_genre) VALUES \n" +
         " ('Mind Over Matter: Exploring the Power of the Human Mind', 'Variety');"
       );
 
