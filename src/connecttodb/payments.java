@@ -27,11 +27,11 @@ public class payments {
 
       System.out.print("Enter Month to pay for(yyyy-mm): ");
 
-      String date = scanner.next();
+      String date = scanner.nextLine();
       String startdate = date + "-01";
 
       String enddate = addOneMonth(startdate);
-      System.out.print(startdate + " " + enddate);
+//      System.out.print(startdate + " " + enddate);
 
       String sql;
 
@@ -62,7 +62,7 @@ public class payments {
       pstmt.setString(1, startdate);
       pstmt.setString(2, enddate);
       int rows = pstmt.executeUpdate();
-      System.out.println("    " + rows + "    ");
+//      System.out.println("    " + rows + "    ");
 
       sql =
         "UPDATE listens_to_song SET ls_royalty_paid_status = 1 where ls_date >='" +
@@ -116,7 +116,7 @@ public class payments {
 
         // Execute SQL statement
         int rowsAffected = statement.executeUpdate(sql);
-        System.out.println("  IF5" + "  " + rows + "    ");
+//        System.out.println("  IF5" + "  " + rows + "    ");
       }
     } catch (SQLException e) {
       System.out.println(e);
@@ -134,14 +134,16 @@ public class payments {
       System.out.print("Enter Month to pay for(yyyy-mm): ");
 
       String date = scanner.next();
-      String startdate = date + "-01";
+      String startdat = date + "-01";
+      java.sql.Date startdate = java.sql.Date.valueOf(startdat);
+
 
       String sql = "";
       sql = "INSERT INTO pays_to_host(bs_date, pfh_amount, pfh_date, ph_email_id)" +
             " SELECT" +
-            "   LAST_DAY(LAST_DAY(CONCAT(YEAR(lpe.lpe_date), '-', MONTH(lpe.lpe_date), '-01')) - INTERVAL 1 MONTH) + INTERVAL 1 DAY," +
+            "   LAST_DAY(LAST_DAY(CONCAT(YEAR(lpe.lpe_date), '-', MONTH(lpe.lpe_date), '-01'))) + INTERVAL 1 DAY," +
             "   ROUND(SUM(p.p_episode_flat_fee + pe.pe_ad_count * p.p_sponsor * lpe.lpe_play_count), 2)," +
-            "   DATE_ADD(LAST_DAY(lpe.lpe_date), INTERVAL 1 DAY)," +
+            "   LAST_DAY(LAST_DAY(CONCAT(YEAR(lpe.lpe_date), '-', MONTH(lpe.lpe_date), '-01'))) + INTERVAL 1 DAY," +
             "   pe.ph_email_id" +
             " FROM PodcastEpisode pe" +
             " JOIN listens_to_podcast_episode lpe ON pe.pe_title=lpe.pe_title AND pe.p_name=lpe.p_name" +
@@ -151,9 +153,10 @@ public class payments {
             "') AND YEAR(lpe_date)=YEAR('" +
             startdate +
             "')";
+      
 
       rs = statement.executeQuery(sql);
-      System.out.println("Done");
+      System.out.println("s");
       payments.getpaymentmenu(connection);
     } catch (SQLException e) {
       System.out.println(e);

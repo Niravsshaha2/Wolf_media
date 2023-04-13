@@ -271,10 +271,10 @@ public class DatabaseOperations {
       // creating user table
       statement.executeUpdate(
         "INSERT INTO BillingService (bs_date, bs_revenue) VALUES\n" +
-        " ('2023-01-01', 1111),\n" +
-        " ('2023-02-01', 2222),\n" +
-        " ('2023-03-01', 3333),\n" +
-        " ('2023-04-01', 123000);"
+        " ('2023-02-01', 1111),\n" +
+        " ('2023-03-01', 2222),\n" +
+        " ('2023-04-01', 3333),\n" +
+        " ('2023-05-01', 123000);"
       );
 
       statement.executeUpdate(
