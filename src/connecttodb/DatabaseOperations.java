@@ -382,22 +382,6 @@ public class DatabaseOperations {
     //     "  (2320.5, '2023-04-01', 'Melodic Avenue Music', 'ar2002@example.com');"
     //   );
 
-    //   statement.executeUpdate(
-    //       "INSERT INTO listens_to_podcast_episode (pe_title, p_name, u_email_id, lpe_date, lpe_play_count) VALUES\n" +
-    //     "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-01-01', 5),\n" +
-    //     "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8002@example.com', '2023-01-02', 5),\n" +
-    //     "  ('Unlocking Your Potential', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-01-03', 20),\n" +
-    //     "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-02-01', 10),\n" +
-    //     "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8002@example.com', '2023-02-02', 10),\n" +
-    //     "  ('Unlocking Your Potential', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-02-03', 40),\n" +
-    //     "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-03-01', 15),\n" +
-    //     "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8002@example.com', '2023-03-02', 15),\n" +
-    //     "  ('Unlocking Your Potential', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-03-03', 30),\n" +
-    //     "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-04-01', 50),\n" +
-    //     "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8002@example.com', '2023-04-02', 50),\n" +
-    //     "  ('Unlocking Your Potential', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-04-03', 200);"
-    //   );
-
       statement.executeUpdate(
         "INSERT INTO listens_to_song (s_id, u_email_id, ls_date, ls_play_count, ls_royalty_paid_status) VALUES\n"+
         " ('s1001', 'u8001@example.com', '2023-01-01', 1, FALSE),\n"+
@@ -502,6 +486,22 @@ public class DatabaseOperations {
         " ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8002@example.com', '2023-01-02', 50),\n" +
         " ('Unlocking Your Potential', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-01-03', 200);"
       );
+
+//      statement.executeUpdate(
+//          "INSERT INTO listens_to_podcast_episode (pe_title, p_name, u_email_id, lpe_date, lpe_play_count) VALUES\n" +
+//        "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-01-01', 5),\n" +
+//        "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8002@example.com', '2023-01-02', 5),\n" +
+//        "  ('Unlocking Your Potential', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-01-03', 20),\n" +
+//        "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-02-01', 10),\n" +
+//        "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8002@example.com', '2023-02-02', 10),\n" +
+//        "  ('Unlocking Your Potential', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-02-03', 40),\n" +
+//        "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-03-01', 15),\n" +
+//        "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8002@example.com', '2023-03-02', 15),\n" +
+//        "  ('Unlocking Your Potential', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-03-03', 30),\n" +
+//        "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-04-01', 50),\n" +
+//        "  ('The Science of Mindfulness', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8002@example.com', '2023-04-02', 50),\n" +
+//        "  ('Unlocking Your Potential', 'Mind Over Matter: Exploring the Power of the Human Mind', 'u8001@example.com', '2023-04-03', 200);"
+//      );
     } finally {
       close(statement);
     }
