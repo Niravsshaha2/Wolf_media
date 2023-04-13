@@ -47,6 +47,8 @@ public class artist {
       System.out.print("");
       System.out.println("Select from following:");
       System.out.println("1. Delete Artist country");
+      System.out.println("2. Delete Artist Name");
+      //System.out.println("3. Delete Artist Status");// update ACTIVE <-> INACTIVE
       System.out.println("0.  Go to previous menu");
       System.out.println("");
 
@@ -63,6 +65,16 @@ public class artist {
             rows = statement.executeUpdate(sql);
             System.out.println("Country deleted");
             break;
+            
+          case 2:
+              System.out.println("");
+              sql =
+                "update Artist set a_name = NULL WHERE a_email_id = '" +
+                a_email_id +
+                "'";
+              rows = statement.executeUpdate(sql);
+              System.out.println("Name deleted");
+              break;
 
           case 0:
             RL.getRecordlabelMenu(rl_name, connection);
@@ -90,6 +102,8 @@ public class artist {
       System.out.print("");
       System.out.println("Select from following:");
       System.out.println("1. Update Artist Country");
+      System.out.println("2. Update Artist Name");
+      System.out.println("3. Update Artist Status");
       System.out.println("0.  Go to previous menu");
       System.out.println("");
 
@@ -111,6 +125,37 @@ public class artist {
             System.out.println("Country updated");
 
             break;
+            
+          case 2:
+              System.out.println("");
+              System.out.println("Artist Name: ");
+              String a_name = sc.next();
+              sql =
+                "UPDATE Artist SET a_name='" +
+                a_name +
+                "' WHERE a_email_id = '" +
+                a_email_id +
+                "'";
+              rows = statement.executeUpdate(sql);
+              System.out.println("Name updated");
+
+              break;  
+              
+          case 3:
+              System.out.println("");
+              System.out.println("Artist Status(ACTIVE/ INACTIVE): ");
+              String a_status = sc.next();
+              sql =
+                "UPDATE Artist SET a_status='" +
+                a_status +
+                "' WHERE a_email_id = '" +
+                a_email_id +
+                "'";
+              rows = statement.executeUpdate(sql);
+              System.out.println("Status updated");
+
+              break;
+          
           case 0:
             RL.getRecordlabelMenu(rl_name, connection);
             break;

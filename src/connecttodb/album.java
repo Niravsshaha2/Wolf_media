@@ -22,6 +22,7 @@ public class album {
       System.out.print("");
       System.out.println("Select what you want to update:");
       System.out.println("1. Delete Album Edition");
+      System.out.println("2. Delete Album Release Year");
       System.out.println("0.  Go to previous menu");
       System.out.println("");
 
@@ -35,7 +36,14 @@ public class album {
             rows = statement.executeUpdate(sql);
             System.out.println("Album edition deleted");
             break;
-
+            
+          case 2:
+              System.out.println("");
+              sql = "update Album set l_release_year = NULL WHERE l_name = '" + l_name + "'";
+              rows = statement.executeUpdate(sql);
+              System.out.println("Album Release Year deleted");
+              break;
+          
           case 0:
             RL.getRecordlabelMenu(rl_name, connection);
             break;
@@ -60,6 +68,7 @@ public class album {
       System.out.print("");
       System.out.println("Select what you want to update:");
       System.out.println("1. Update Album Edition");
+      System.out.println("2. Update Album Release Year");
       System.out.println("0.  Go to previous menu");
       System.out.println("");
 
@@ -81,6 +90,21 @@ public class album {
             System.out.println("Album Edition Updated");
             // song.update_song_title(s_id, connection);
             break;
+            
+          case 2:
+              System.out.println("");
+              System.out.println("Album Release Year(YYY-MM-DD): ");
+              String l_release_year = sc.next();
+              sql =
+                "UPDATE Album SET l_release_year='" +
+                l_release_year +
+                "' WHERE l_name = '" +
+                l_name +
+                "'";
+              rows = statement.executeUpdate(sql);
+              System.out.println("Album Release year Updated");
+              // song.update_song_title(s_id, connection);
+              break;
 
           case 0:
             RL.getRecordlabelMenu(rl_name, connection);

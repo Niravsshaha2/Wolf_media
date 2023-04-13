@@ -46,7 +46,7 @@ public class DatabaseOperations {
       statement.executeUpdate(
         "CREATE TABLE IF NOT EXISTS Artist (\n" +
         " a_email_id                         VARCHAR(128) PRIMARY KEY,\n" +
-        " a_name                             VARCHAR(128) NOT NULL,\n" +
+        " a_name                             VARCHAR(128) ,\n" +
         " a_status                           VARCHAR(128) DEFAULT 'ACTIVE',\n" +
         " a_country                          VARCHAR(128),\n" +
         " ag_genre                           VARCHAR(128) NOT NULL,\n" +
@@ -59,7 +59,7 @@ public class DatabaseOperations {
       statement.executeUpdate(
         "CREATE TABLE IF NOT EXISTS Album (\n" +
         " l_name                             VARCHAR(128) PRIMARY KEY,\n" +
-        " l_release_year                     DATE NOT NULL,\n" +
+        " l_release_year                     DATE ,\n" +
         " l_edition                          VARCHAR(128) CHECK (l_edition IN ('Special', 'Limited', 'Collector'))\n" +
         ");"
       );
@@ -67,10 +67,10 @@ public class DatabaseOperations {
       statement.executeUpdate(
         "CREATE TABLE IF NOT EXISTS Song (\n" +
         " s_id                               VARCHAR(128) PRIMARY KEY,\n" +
-        " s_title                            VARCHAR(128) NOT NULL,\n" +
-        " s_royalty_rate                     DECIMAL(9,2) NOT NULL,\n" +
-        " s_duration                         TIME         NOT NULL,\n" +
-        " s_release_date                     DATE         NOT NULL,\n" +
+        " s_title                            VARCHAR(128) ,\n" +
+        " s_royalty_rate                     DECIMAL(9,2) ,\n" +
+        " s_duration                         TIME         ,\n" +
+        " s_release_date                     DATE         ,\n" +
         " s_country                          VARCHAR(128),\n" +
         " s_language                         VARCHAR(128),\n" +
         " l_name                             VARCHAR(128),\n" +
