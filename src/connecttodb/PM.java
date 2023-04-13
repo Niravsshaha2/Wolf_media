@@ -293,7 +293,7 @@ public class PM {
       while (true) {
         try {
           System.out.println("");
-          System.out.println("Enter podcast episode id to listen:");
+          System.out.println("Enter podcast episode name to listen:");
           System.out.println("");
 
           podcastepisodename = sc.nextLine();

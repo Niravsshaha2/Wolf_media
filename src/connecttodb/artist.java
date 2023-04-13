@@ -11,30 +11,28 @@ public class artist {
   public static Statement statement;
 
   public static String[] artist_list;
+
   public static void show_artist_genre(Connection connection)
-  {
-	  System.out.println("List of Genres:");
-	    Scanner sc = new Scanner(System.in);
-	    ResultSet rs =null;
-	    try
-	    {
-	      statement = connection.createStatement();
-	      String title2;
-	      
-		  String query = "SELECT ag_genre from ArtistGenre";
-		  
-	       
-	            rs = statement.executeQuery(query);
-	                while(rs.next()){
-	                    title2 = rs.getString("ag_genre");
-	                    System.out.println(title2 + "" );
-	                }
-	                
-	    }
-	    catch (Exception e) {
-	        System.err.println("Error: " + e.getMessage());
-	      }
+    throws SQLException {
+    System.out.println("List of Genres:");
+    Scanner sc = new Scanner(System.in);
+    ResultSet rs = null;
+    try {
+      statement = connection.createStatement();
+      String title2;
+
+      String query = "SELECT genre from Genre";
+
+      rs = statement.executeQuery(query);
+      while (rs.next()) {
+        title2 = rs.getString("genre");
+        System.out.println(title2 + "");
+      }
+    } catch (Exception e) {
+      System.err.println("Error: " + e.getMessage());
+    }
   }
+
   public static void delete_artist_info(String rl_name, String a_email_id, Connection connection)
     throws SQLException {
     System.out.println("");
@@ -65,21 +63,18 @@ public class artist {
             rows = statement.executeUpdate(sql);
             System.out.println("Country deleted");
             break;
-            
           case 2:
-              System.out.println("");
-              sql =
-                "update Artist set a_name = NULL WHERE a_email_id = '" +
-                a_email_id +
-                "'";
-              rows = statement.executeUpdate(sql);
-              System.out.println("Name deleted");
-              break;
-
+            System.out.println("");
+            sql =
+              "update Artist set a_name = NULL WHERE a_email_id = '" +
+              a_email_id +
+              "'";
+            rows = statement.executeUpdate(sql);
+            System.out.println("Name deleted");
+            break;
           case 0:
             RL.getRecordlabelMenu(rl_name, connection);
             break;
-
           default:
             System.out.println(
               "You have made an invalid choice. Please pick again."
@@ -91,8 +86,11 @@ public class artist {
     } while (enteredValue != 0);
   }
 
-  public static void update_artist_info(String rl_name, String a_email_id, Connection connection)
-    throws SQLException {
+  public static void update_artist_info(
+    String rl_name,
+    String a_email_id,
+    Connection connection
+  ) throws SQLException {
     System.out.println("");
     Scanner sc = new Scanner(System.in);
     int enteredValue = 0;
@@ -125,43 +123,41 @@ public class artist {
             System.out.println("Country updated");
 
             break;
-            
           case 2:
-              System.out.println("");
-              System.out.println("Artist Name: ");
-              String a_name = sc.next();
-              sql =
-                "UPDATE Artist SET a_name='" +
-                a_name +
-                "' WHERE a_email_id = '" +
-                a_email_id +
-                "'";
-              rows = statement.executeUpdate(sql);
-              System.out.println("Name updated");
+            System.out.println("");
+            System.out.println("Artist Name: ");
+            String a_name = sc.next();
+            sql =
+              "UPDATE Artist SET a_name='" +
+              a_name +
+              "' WHERE a_email_id = '" +
+              a_email_id +
+              "'";
+            rows = statement.executeUpdate(sql);
+            System.out.println("Name updated");
 
-              break;  
-              
+            break;
           case 3:
-              System.out.println("");
-              System.out.println("Artist Status(ACTIVE/ INACTIVE): ");
-              String a_status = sc.next();
-              sql =
-                "UPDATE Artist SET a_status='" +
-                a_status +
-                "' WHERE a_email_id = '" +
-                a_email_id +
-                "'";
-              rows = statement.executeUpdate(sql);
-              System.out.println("Status updated");
+            System.out.println("");
+            System.out.println("Artist Status(ACTIVE/ INACTIVE): ");
+            String a_status = sc.next();
+            sql =
+              "UPDATE Artist SET a_status='" +
+              a_status +
+              "' WHERE a_email_id = '" +
+              a_email_id +
+              "'";
+            rows = statement.executeUpdate(sql);
+            System.out.println("Status updated");
 
-              break;
-          
+            break;
           case 0:
             RL.getRecordlabelMenu(rl_name, connection);
             break;
-
           default:
-            System.out.println("You have made an invalid choice. Please pick again.");
+            System.out.println(
+              "You have made an invalid choice. Please pick again."
+            );
         }
       } catch (Exception e) {
         System.err.println("Error: " + e.getMessage());
@@ -180,7 +176,8 @@ public class artist {
     System.out.println("");
     //print all columns
 
-    query = "SELECT a_name,a_email_id FROM Artist where rl_name ='" + rl_name + "'";
+    query =
+      "SELECT a_name,a_email_id FROM Artist where rl_name ='" + rl_name + "'";
 
     try {
       rs = statement.executeQuery(query);
@@ -196,14 +193,16 @@ public class artist {
     }
   }
 
-  public static String[] view_all_artists(Connection connection, String show_type)
-    throws SQLException {
+  public static String[] view_all_artists(
+    Connection connection,
+    String show_type
+  ) throws SQLException {
     String query;
     statement = connection.createStatement();
     ResultSet rs = null;
 
     System.out.println("");
-    if(show_type.equals("show")) {
+    if (show_type.equals("show")) {
       System.out.println("~ List of Artists ~");
       System.out.println("");
     }
@@ -224,7 +223,7 @@ public class artist {
       while (rs.next()) {
         String artistemail = rs.getString("a_email_id");
         artist_list[row - 1] = artistemail;
-        if(show_type.equals("show")) {
+        if (show_type.equals("show")) {
           System.out.println(row + ". " + artistemail + "");
         }
         row++;

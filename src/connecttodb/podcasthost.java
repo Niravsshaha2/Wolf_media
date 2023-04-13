@@ -4,16 +4,19 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Scanner;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class podcasthost {
+
   public static String[] podcasthost_list;
   public static Statement statement;
   Scanner sc = new Scanner(System.in);
 
-  public static String[] view_all_podcast_hosts(Connection connection, String typ)
-    throws SQLException {
+  public static String[] view_all_podcast_hosts(
+    Connection connection,
+    String typ
+  ) throws SQLException {
     System.out.println("*****");
     if (typ.equals("name")) {
       System.out.println("List of Podcast Hosts (with podcast and episode being hosted)");
@@ -64,24 +67,19 @@ public class podcasthost {
     Scanner sc = new Scanner(System.in);
     try {
       System.out.println("Enter Podcast Host Email:");
-      String podcasthostemail = sc.next();
-      System.out.println(podcasthostemail);
+      String podcasthostemail = sc.nextLine();
 
       System.out.println("Enter Podcast Host First Name:");
-      String podcasthostfirstname = sc.next();
-      System.out.println(podcasthostfirstname);
+      String podcasthostfirstname = sc.nextLine();
 
       System.out.println("Enter Podcast Host Last Name:");
-      String podcasthostlastname = sc.next();
-      System.out.println(podcasthostlastname);
+      String podcasthostlastname = sc.nextLine();
 
       System.out.println("Enter Podcast Host City:");
-      String podcasthostcity = sc.next();
-      System.out.println(podcasthostcity);
+      String podcasthostcity = sc.nextLine();
 
       System.out.println("Enter Podcast Host Phone number:");
       long podcasthostphone = sc.nextLong();
-      System.out.println(podcasthostphone);
 
       String sql =
         "INSERT INTO PodcastHost (ph_email_id, ph_first_name, ph_last_name, ph_phone, ph_city) VALUES ('" +
@@ -132,8 +130,7 @@ public class podcasthost {
     } while (podcasthost_continue_choice.toLowerCase().equals("y"));
   }
 
-  public static void update_podcast_host_choice_function(Connection connection, String podcasthostemail_choice, String typ)
-    throws SQLException {
+  public static void update_podcast_host_choice_function(Connection connection, String podcasthostemail_choice, String typ) throws SQLException {
     String query = "", new_str_val = "";
     long new_num_val_phone = 0;
     int rows = 0, update_choice = 0;
@@ -193,8 +190,6 @@ public class podcasthost {
                 "'";
             }
             new_str_val = "";
-
-            System.out.println(query);
 
             rows = statement.executeUpdate(query);
             System.out.println(rows + " row(s) " + typ + "d.");

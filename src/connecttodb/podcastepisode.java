@@ -106,7 +106,7 @@ public class podcastepisode {
         if (Arrays.asList(podcastepisode_list).contains(podcastepisodename)) {
           System.out.println("Podcast episode already exist! Try Again with anothe title!");
         }
-      } while (Arrays.asList(podcastepisode_list).contains(podcastepisodename));
+      } while(Arrays.asList(podcastepisode_list).contains(podcastepisodename));
 
       System.out.println("Enter episode release date (yyyy-mm-dd):");
       String podcastepisoderelease = sc.nextLine();
@@ -148,9 +148,10 @@ public class podcastepisode {
         "', '" +
         podcastepisodehost +
         "')";
-      System.out.println(sql);
       int rows = statement.executeUpdate(sql);
       System.out.println(rows + " row(s) inserted.");
+      String query2 = "UPDATE Podcast SET p_episode_count = p_episode_count + 1 WHERE p_name='" + podcastname + "'";
+      rows = statement.executeUpdate(query2);
     } catch (Exception e) {
       System.err.println("Error: " + e);
       // } finally {
