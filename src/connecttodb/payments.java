@@ -62,7 +62,7 @@ public class payments {
       pstmt.setString(1, startdate);
       pstmt.setString(2, enddate);
       int rows = pstmt.executeUpdate();
-//      System.out.println("    " + rows + "    ");
+      System.out.println("Paid to record label");
 
       sql =
         "UPDATE listens_to_song SET ls_royalty_paid_status = 1 where ls_date >='" +
@@ -116,7 +116,7 @@ public class payments {
 
         // Execute SQL statement
         int rowsAffected = statement.executeUpdate(sql);
-//        System.out.println("  IF5" + "  " + rows + "    ");
+        System.out.println("Paid to artist");
       }
     } catch (SQLException e) {
       System.out.println(e);
@@ -136,27 +136,29 @@ public class payments {
       String date = scanner.next();
       String startdat = date + "-01";
       java.sql.Date startdate = java.sql.Date.valueOf(startdat);
+      System.out.println(startdate);
 
 
       String sql = "";
-      sql = "INSERT INTO pays_to_host(bs_date, pfh_amount, pfh_date, ph_email_id)" +
+      sql = "INSERT INTO pays_to_host (bs_date, pfh_amount, pfh_date, ph_email_id)" +
             " SELECT" +
-            "   LAST_DAY(LAST_DAY(CONCAT(YEAR(lpe.lpe_date), '-', MONTH(lpe.lpe_date), '-01'))) + INTERVAL 1 DAY," +
-            "   ROUND(SUM(p.p_episode_flat_fee + pe.pe_ad_count * p.p_sponsor * lpe.lpe_play_count), 2)," +
-            "   LAST_DAY(LAST_DAY(CONCAT(YEAR(lpe.lpe_date), '-', MONTH(lpe.lpe_date), '-01'))) + INTERVAL 1 DAY," +
-            "   pe.ph_email_id" +
+            "   DATE_ADD(LAST_DAY(CONCAT(YEAR(lpe.lpe_date), '-', MONTH(lpe.lpe_date), '-01')), INTERVAL 1 DAY) AS bs_date," +
+            "   ROUND(SUM(p.p_episode_flat_fee + pe.pe_ad_count * p.p_sponsor * lpe.lpe_play_count), 2) AS pfh_amount," +
+            "   DATE_ADD(LAST_DAY(CONCAT(YEAR(lpe.lpe_date), '-', MONTH(lpe.lpe_date), '-01')), INTERVAL 1 DAY) AS pfh_date," +
+            "   pe.ph_email_id AS ph_email_id" +
             " FROM PodcastEpisode pe" +
             " JOIN listens_to_podcast_episode lpe ON pe.pe_title=lpe.pe_title AND pe.p_name=lpe.p_name" +
             " JOIN Podcast p ON p.p_name=pe.p_name" +
-            " WHERE MONTH(lpe_date)=MONTH('" +
+            " WHERE MONTH(lpe.lpe_date)=MONTH('" +
             startdate +
-            "') AND YEAR(lpe_date)=YEAR('" +
+            "') AND YEAR(lpe.lpe_date)=YEAR('" +
             startdate +
-            "')";
-      
+            "') GROUP BY MONTH(lpe.lpe_date), YEAR(lpe.lpe_date), pe.ph_email_id" +
+            " ON DUPLICATE KEY UPDATE pfh_amount = VALUES(pfh_amount)";
+
 
       rs = statement.executeQuery(sql);
-      System.out.println("s");
+      System.out.println("Paid to host!");
       payments.getpaymentmenu(connection);
     } catch (SQLException e) {
       System.out.println(e);
