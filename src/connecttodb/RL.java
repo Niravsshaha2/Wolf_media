@@ -343,7 +343,7 @@ public class RL {
               String l_name = null;
               rs =
                 statement.executeQuery(
-                  "SELECT l_name FROM Song WHERE s_id = " + s_id
+                  "SELECT l_name FROM Song WHERE s_id = '" + s_id +"'"
                 );
               if (rs.next()) {
                 l_name = rs.getString("l_name");
@@ -357,15 +357,15 @@ public class RL {
                 statement.executeUpdate(
                   "UPDATE Song SET l_name = '" +
                   l_name +
-                  "' WHERE s_id = " +
-                  s_id
+                  "' WHERE s_id = '" +
+                  s_id +"'"
                 );
                 String sql1 =
                   "INSERT INTO assigned_to (a_email_id, l_name)  SELECT Artist.a_email_id, '" +
                   l_name +
-                  "' FROM Artist JOIN sings ON  Artist.a_email_id = sings.a_email_id where sings.s_id = " +
+                  "' FROM Artist JOIN sings ON  Artist.a_email_id = sings.a_email_id where sings.s_id = '" +
                   s_id +
-                  " ";
+                  "'";
                 statement.executeUpdate(sql1);
                 System.out.println("Album name updated for song " + s_id);
               } else {

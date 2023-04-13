@@ -166,11 +166,12 @@ public class podcast {
 
   public static void update_podcast_info(Connection connection, String typ)
     throws SQLException {
-    String podcast_continue_choice = "y";
+    String podcast_continue_choice = "n";
     String podcastname_choice = "";
     Scanner sc = new Scanner(System.in);
-    podcast_list = view_all_podcasts(connection, "show");
     do {
+        podcast_list = view_all_podcasts(connection, "show");
+
       System.out.println("Enter podcast name:");
       try {
         podcastname_choice = sc.nextLine();
@@ -207,7 +208,7 @@ public class podcast {
       System.out.println("3. Rating");
       System.out.println("4. Country");
       System.out.println("5. Episode Flat Fee");
-      System.out.println("0. Go back to choosing podcast");
+      System.out.println("0. Go back to previous menu");
       System.out.println("Enter your option:");
       System.out.println();
       try {
@@ -217,6 +218,8 @@ public class podcast {
             if (typ.equals("update")) {
               System.out.println("Enter new value for sponsors (decimal):");
               new_num_val = sc.nextFloat();
+              sc.nextLine();
+
               query =
                 "UPDATE Podcast SET p_sponsor=" +
                 new_num_val +
@@ -265,6 +268,8 @@ public class podcast {
               do {
                 System.out.println("Enter new value for rating [0-5] :");
                 new_num_val = sc.nextFloat();
+                sc.nextLine();
+
                 if (
                   (new_num_val < 0 || new_num_val > 5) && new_num_val != 0.0f
                 ) {
@@ -294,14 +299,10 @@ public class podcast {
                 "';";
             } else if (typ.equals("delete")) {
               query =
-                "UPDATE Podcast SET p_rating=" +
-                null +
-                " WHERE p_name='" +
+                "UPDATE Podcast SET p_rated_user_count = 0, p_rating= null WHERE p_name='" +
                 podcastname_choice +
-                "'; " +
-                "UPDATE Podcast SET p_rated_user_count = 0 WHERE p_name='" +
-                podcastname_choice +
-                "';";
+                "'; ";
+                
             }
             new_num_val = 0;
 
@@ -311,6 +312,7 @@ public class podcast {
           case 4:
             if (typ.equals("update")) {
               System.out.println("Enter new value for country:");
+              sc.nextLine();
               new_str_val = sc.nextLine();
               query =
                 "UPDATE Podcast SET p_country='" +
@@ -335,6 +337,8 @@ public class podcast {
             if (typ.equals("update")) {
               System.out.println("Enter new value for per episode flat fee :");
               new_num_val = sc.nextFloat();
+              sc.nextLine();
+
 
               query =
                 "UPDATE Podcast SET p_episode_flat_fee = " +
@@ -356,7 +360,7 @@ public class podcast {
             System.out.println(rows + " row(s) updated.");
             break;
           case 0:
-            update_podcast_info(connection, typ);
+            PM.get_pm_menu(connection);
             break;
           default:
             System.out.println(
@@ -364,7 +368,7 @@ public class podcast {
             );
         }
       } catch (Exception e) {
-        System.out.println(
+        System.out.println(e+
           "You have made a wrong choice. Please choose again:"
         );
         update_podcast_choice_function(connection, podcastname_choice, typ);
@@ -372,7 +376,7 @@ public class podcast {
       System.out.println(
         "Do you want to " + typ + " more fields for the podcast? (y/n)"
       );
-      update_continue_choice = sc.nextLine();
+      update_continue_choice = sc.next();
     } while (update_continue_choice.toLowerCase().equals("y"));
   }
 }

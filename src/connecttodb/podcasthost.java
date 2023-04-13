@@ -104,7 +104,7 @@ public class podcasthost {
 
   public static void update_podcast_host_info(Connection connection, String typ)
     throws SQLException {
-    String podcasthost_continue_choice = "y";
+    String podcasthost_continue_choice = "n";
     String podcasthostname_choice = "";
     Scanner sc = new Scanner(System.in);
     view_all_podcast_hosts(connection, "email");
@@ -256,7 +256,6 @@ public class podcasthost {
       }
       System.out.println("Do you want to " + typ + " more fields for the podcast? (y/n)");
       update_continue_choice = sc.next();
-      System.out.println(update_continue_choice);
     } while (update_continue_choice.toLowerCase().equals("y"));
   }
 }

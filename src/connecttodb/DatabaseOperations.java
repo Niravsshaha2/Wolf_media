@@ -22,7 +22,7 @@ public class DatabaseOperations {
       statement.executeUpdate(
         "CREATE TABLE IF NOT EXISTS User (\n" +
         " u_email_id                         VARCHAR(128) PRIMARY KEY,\n" +
-        " u_first_name                       VARCHAR(128) NOT NULL,\n" +
+        " u_first_name                       VARCHAR(128) ,\n" +
         " u_last_name                        VARCHAR(128),\n" +
         " u_reg_date                         DATE         NOT NULL,\n" +
         " u_subscription_status              VARCHAR(128) DEFAULT 'INACTIVE',\n" +
@@ -49,7 +49,7 @@ public class DatabaseOperations {
         " a_name                             VARCHAR(128) ,\n" +
         " a_status                           VARCHAR(128) DEFAULT 'ACTIVE',\n" +
         " a_country                          VARCHAR(128),\n" +
-        " ag_genre                           VARCHAR(128) NOT NULL,\n" +
+        " ag_genre                           VARCHAR(128) ,\n" +
         " rl_name                            VARCHAR(128) NOT NULL,\n" +
         " FOREIGN KEY(rl_name)  REFERENCES RecordLabel(rl_name) ON UPDATE CASCADE ON DELETE CASCADE,\n" +
         " FOREIGN KEY(ag_genre) REFERENCES Genre(genre)         ON UPDATE CASCADE ON DELETE CASCADE" +
@@ -86,7 +86,7 @@ public class DatabaseOperations {
       statement.executeUpdate(
         "CREATE TABLE IF NOT EXISTS song_genre (\n" +
         " s_id                               VARCHAR(128),\n" +
-        " sg_genre                           VARCHAR(128) NOT NULL,\n" +
+        " sg_genre                           VARCHAR(128) ,\n" +
         " PRIMARY KEY(s_id, sg_genre),\n" +
         " FOREIGN KEY(s_id)     REFERENCES Song(s_id)   ON UPDATE CASCADE ON DELETE CASCADE,\n" +
         " FOREIGN KEY(sg_genre) REFERENCES Genre(genre) ON UPDATE CASCADE ON DELETE CASCADE\n" +
@@ -97,7 +97,7 @@ public class DatabaseOperations {
         "CREATE TABLE IF NOT EXISTS Podcast (\n" +
         " p_name                             VARCHAR(128) PRIMARY KEY,\n" +
         " p_sponsor                          DECIMAL(9,2) DEFAULT 0,\n" +
-        " p_language                         VARCHAR(128) NOT NULL,\n" +
+        " p_language                         VARCHAR(128) ,\n" +
         " p_country                          VARCHAR(128),\n" +
         " p_rating                           FLOAT,\n" +
         " p_episode_flat_fee                 FLOAT,\n" +
@@ -109,7 +109,7 @@ public class DatabaseOperations {
       statement.executeUpdate(
         "CREATE TABLE IF NOT EXISTS podcast_genre (\n" +
         " p_name                             VARCHAR(128),\n" +
-        " pg_genre                           VARCHAR(128) NOT NULL,\n" +
+        " pg_genre                           VARCHAR(128) ,\n" +
         " PRIMARY KEY(p_name, pg_genre),\n" +
         " FOREIGN KEY(p_name)   REFERENCES Podcast(p_name) ON UPDATE CASCADE ON DELETE CASCADE,\n" +
         " FOREIGN KEY(pg_genre) REFERENCES Genre(genre)    ON UPDATE CASCADE ON DELETE CASCADE\n" +
@@ -119,7 +119,7 @@ public class DatabaseOperations {
       statement.executeUpdate(
         "CREATE TABLE IF NOT EXISTS PodcastHost (\n" +
         " ph_email_id                        VARCHAR(128) PRIMARY KEY,\n" +
-        " ph_first_name                      VARCHAR(128) NOT NULL,\n" +
+        " ph_first_name                      VARCHAR(128)  ,\n" +
         " ph_last_name                       VARCHAR(128),\n" +
         " ph_phone                           DECIMAL(10,0),\n" +
         " ph_city                            VARCHAR(128)\n" +
@@ -130,9 +130,9 @@ public class DatabaseOperations {
         "CREATE TABLE IF NOT EXISTS PodcastEpisode (\n" +
         " pe_title                           VARCHAR(128),\n" +
         " p_name                             VARCHAR(128),\n" +
-        " pe_release_date                    DATE         NOT NULL,\n" +
+        " pe_release_date                    DATE         ,\n" +
         " pe_ad_count                        INT          DEFAULT 0,\n" +
-        " pe_duration                        VARCHAR(128) NOT NULL,\n" +
+        " pe_duration                        VARCHAR(128)  ,\n" +
         " ph_email_id                        VARCHAR(128),\n" +
         " PRIMARY KEY(p_name, pe_title),\n" +
         " FOREIGN KEY(p_name)      REFERENCES Podcast(p_name)          ON UPDATE CASCADE ON DELETE CASCADE,\n" +
@@ -143,7 +143,7 @@ public class DatabaseOperations {
       statement.executeUpdate(
         "CREATE TABLE IF NOT EXISTS SpecialGuest (\n" +
         " g_email_id                         VARCHAR(128) PRIMARY KEY,\n" +
-        " g_name                             VARCHAR(128) NOT NULL\n" +
+        " g_name                             VARCHAR(128) \n" +
         ");"
       );
 
