@@ -291,9 +291,10 @@ public class DatabaseOperations {
       statement.executeUpdate(
         "INSERT INTO Genre (genre) VALUES \n" +
         " ('Pop'),\n" +
-        " ('Jazz'),\n" +
-        " ('Metal'),\n" +
+        " ('Hard Rock'),\n" +
+        " ('Grunge'),\n" +
         " ('Rock'),\n" +
+        " ('Funk'),\n" +
         " ('Motivation'),\n" +
         " ('Variety');"
       );
@@ -519,14 +520,14 @@ public class DatabaseOperations {
       "SpecialGuest",
       "PodcastEpisode",
       "PodcastHost",
-      "PodcastGenre",
+      "podcast_genre",
       "Podcast",
-      "SongGenre",
+      "song_genre",
       "Song",
       "Album",
       "User",
       "Artist",
-      "ArtistGenre",
+      "Genre",
       "RecordLabel",
       "BillingService"
     };
