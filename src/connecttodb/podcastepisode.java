@@ -266,10 +266,10 @@ public class podcastepisode {
           case 2:
             if (typ.equals("update")) {
               System.out.println("Enter new value for ad count :");
-              new_num_val = sc.nextFloat();
+              int new_num_val1 = sc.nextInt();
               query =
                 "UPDATE PodcastEpisode SET pe_ad_count=" +
-                new_num_val +
+                new_num_val1 +
                 " WHERE p_name='" +
                 podcastname_choice +
                 "' AND pe_title='" +
@@ -277,9 +277,7 @@ public class podcastepisode {
                 "'";
             } else if (typ.equals("delete")) {
               query =
-                "UPDATE PodcastEpisode SET pe_ad_count=" +
-                null +
-                " WHERE p_name='" +
+                "UPDATE PodcastEpisode SET pe_ad_count= 0 WHERE p_name='" +
                 podcastname_choice +
                 "' AND pe_title='" +
                 podcastepisodename_choice +
@@ -289,6 +287,7 @@ public class podcastepisode {
 
             rows = statement.executeUpdate(query);
             System.out.println(rows + " row(s) " + typ + "d.");
+
             break;
 
           case 3:
@@ -341,7 +340,7 @@ public class podcastepisode {
         update_podcast_episode_choice_function(connection, podcastepisodename_choice, typ, podcastname_choice);
       }
       System.out.println("Do you want to " + typ + " more fields for the podcast episode? (y/n)");
-      update_continue_choice = sc.next();
+      update_continue_choice = sc.nextLine();
     } while (update_continue_choice.toLowerCase().equals("y"));
   }
 }

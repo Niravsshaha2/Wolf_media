@@ -122,7 +122,7 @@ public class podcasthost {
           typ
         );
         System.out.println("Do you want to " + typ + " in another podcast host? (y/n)");
-        podcasthost_continue_choice = sc.next();
+        podcasthost_continue_choice = sc.nextLine();
       } catch (Exception e) {
         System.out.println("Podcast host does not exist. Please try again!");
         update_podcast_host_info(connection, typ);

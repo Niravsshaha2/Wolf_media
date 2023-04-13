@@ -60,7 +60,7 @@ public class RL {
     System.out.println("");
     System.out.println("Enter record label name: ");
     try {
-      sc.nextLine();
+//      sc.nextLine();
       rl_name = sc.nextLine();
 
       String sql = "INSERT INTO RecordLabel(rl_name) " + "VALUES ('" + rl_name + "')";

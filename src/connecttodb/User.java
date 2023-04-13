@@ -36,7 +36,7 @@ public class User {
         "WHERE User.u_subscription_status = 'ACTIVE' AND (YEAR(NOW()) != YEAR(pays_to.up_date) or MONTH(NOW()) != MONTH(pays_to.up_date))";
       //              "DATEDIFF(NOW(), pays_to.up_date) > 30";
 
-      System.out.println("Users deactivated");
+//      System.out.println("Users deactivated");
       int rowsAffected = statement.executeUpdate(sql);
     } catch (Exception e) {
       System.err.println("Error: " + e.getMessage());
@@ -224,7 +224,7 @@ public class User {
           System.out.println("User is already active.");
         } else {
           // User is inactive
-          System.out.println("User is not activated.");
+//          System.out.println("User is not activated.");
 
           sql =
             "UPDATE User SET u_subscription_status = 'ACTIVE' WHERE u_email_id = '" +

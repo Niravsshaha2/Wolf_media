@@ -296,7 +296,7 @@ public class reports {
           } while(!Arrays.asList(artist_list).contains(artistemail));
 
           query =
-            "SELECT Artist.a_email_id, ROUND(SUM(IFNULL(pfa.pfa_amount, 0)), 2) AS total_payment " +
+            "SELECT Artist.a_email_id, ROUND(SUM(IFNULL(pays_to_artist.pfa_amount, 0)), 2) AS total_payment " +
             "FROM Artist LEFT JOIN pays_to_artist ON Artist.a_email_id = pays_to_artist.a_email_id " +
             "AND (pays_to_artist.pfa_date >= '" +
             from_date +
@@ -306,6 +306,8 @@ public class reports {
             "WHERE Artist.a_email_id = '" +
             artistemail +
             "' GROUP BY Artist.a_email_id";
+          
+          
           break;
 
         case 2:
@@ -333,7 +335,7 @@ public class reports {
       }
       System.out.println();
     } catch (Exception e) {
-      System.out.println("You have made a wrong choice. Please pick again.");
+      System.out.println(e+"You have made a wrong choice. Please pick again.");
       MainMenu.displayMenu(connection);
     }
   }
@@ -443,7 +445,8 @@ public class reports {
 
     try {
       metric_choice = sc.nextInt();
-      String monthname = "", yearname = "", revenue = "", result = "";
+      int monthname;
+	String yearname = "", revenue = "", result = "";
       sc.nextLine();
       ResultSet rs = null;
 
@@ -454,9 +457,12 @@ public class reports {
 
           if(metric.equals("month")) {
             System.out.println("Enter month number:\n1. January, 2. February ... 12. December");
-            monthname = sc.nextLine();
+            monthname = sc.nextInt();
+            sc.nextLine();
+            monthname = monthname+1;
+            
             query =
-              "SELECT MONTHNAME(bs_date) AS month, YEAR(bs_date) AS year, SUM(bs_revenue) AS revenue" +
+              "SELECT MONTH(bs_date) - 1 AS month, YEAR(bs_date) AS year, SUM(bs_revenue) AS revenue" +
               " FROM BillingService WHERE YEAR(bs_date)=" +
               yearname +
               " AND MONTH(bs_date)=" +
@@ -475,7 +481,7 @@ public class reports {
         case 2:
           if(metric.equals("month")) {
             query =
-              "SELECT MONTHNAME(bs_date) AS month, YEAR(bs_date) AS year, bs_revenue AS revenue" +
+              "SELECT MONTH(bs_date) - 1 AS month, YEAR(bs_date) AS year, bs_revenue AS revenue" +
               " FROM BillingService GROUP BY month, year ORDER BY YEAR(bs_date) DESC, MONTH(bs_date)";
           }
           else if(metric.equals("year")) {
@@ -493,16 +499,17 @@ public class reports {
           System.out.println("You have made an invalid choice. Please pick again.");
       }
       rs = statement.executeQuery(query);
+      String month_name = "";
       while (rs.next()) {
         if(metric.equals("month")) {
-          monthname = rs.getString("month");
+          month_name = rs.getString("month");
         }
         yearname = rs.getString("year");
         revenue = rs.getString("revenue");
 
         result = yearname + " -> ";
         if(metric.equals("month")) {
-          result += monthname + " -> ";
+          result += month_name + " -> ";
         }
 
         System.out.println(result + revenue);
