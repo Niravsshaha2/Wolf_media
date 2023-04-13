@@ -85,9 +85,9 @@ public class DatabaseOperations {
 
       statement.executeUpdate(
         "CREATE TABLE IF NOT EXISTS song_genre (\n" +
-        " s_id                             VARCHAR(128),\n" +
-        " sg_genre                          VARCHAR(128) NOT NULL,\n" +
-        " PRIMARY KEY(p_name, pg_genre),\n" +
+        " s_id                               VARCHAR(128),\n" +
+        " sg_genre                           VARCHAR(128) NOT NULL,\n" +
+        " PRIMARY KEY(s_id, sg_genre),\n" +
         " FOREIGN KEY(s_id)     REFERENCES Song(s_id)   ON UPDATE CASCADE ON DELETE CASCADE,\n" +
         " FOREIGN KEY(sg_genre) REFERENCES Genre(genre) ON UPDATE CASCADE ON DELETE CASCADE\n" +
         ");"
@@ -319,7 +319,7 @@ public class DatabaseOperations {
       );
 
       statement.executeUpdate(
-        "INSERT INTO SongGenre (s_id, sg_genre) VALUES \n" +
+        "INSERT INTO song_genre (s_id, sg_genre) VALUES \n" +
         " ('s1001', 'Hard Rock'),\n" +
         " ('s1002', 'Grunge'),\n" +
         " ('s1003', 'Funk'),\n" +
