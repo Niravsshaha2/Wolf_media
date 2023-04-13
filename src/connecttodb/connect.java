@@ -12,9 +12,9 @@ public class connect {
 
   public static void main(String args[]) {
     Connection conn = null;
-    String url = "jdbc:mariadb://classdb2.csc.ncsu.edu:3306/asfirodi";
-    String user = "asfirodi";
-    String pswd = "200451422";
+    String url = "jdbc:mariadb://classdb2.csc.ncsu.edu:3306/nshah28";
+    String user = "nshah28";
+    String pswd = "200474980";
     try {
       System.out.println("Successfully ");
       conn = DriverManager.getConnection(url, user, pswd);

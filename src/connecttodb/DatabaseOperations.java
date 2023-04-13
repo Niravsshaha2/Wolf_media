@@ -348,11 +348,11 @@ public class DatabaseOperations {
         " ('Unlocking Your Potential', 'Mind Over Matter: Exploring the Power of the Human Mind', '2023-01-04', 'ph6001@example.com', 0, '1:15:00');"
       );
 
-    //   statement.executeUpdate(
-    //     "INSERT INTO pays_to (up_fee_for_subscription, up_date, bs_date, u_email_id) VALUES\n" +
-    //     " (100, '2023-02-01', '2023-01-01', 'u8001@example.com'),\n" +
-    //     " (100, '2023-02-01', '2023-01-01', 'u8002@example.com');"
-    //   );
+       statement.executeUpdate(
+         "INSERT INTO pays_to (up_fee_for_subscription, up_date, bs_date, u_email_id) VALUES\n" +
+         " (100, '2023-01-01', '2023-02-01', 'u8001@example.com'),\n" +
+         " (100, '2023-01-01', '2023-02-01', 'u8002@example.com');"
+       );
 
     //  statement.executeUpdate(
     //    "INSERT INTO pays_to_host (pfh_amount, pfh_date, bs_date, ph_email_id) VALUES\n" +

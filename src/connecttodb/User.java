@@ -33,9 +33,10 @@ public class User {
         "GROUP BY u_email_id" +
         ") max_dates ON pays_to.u_email_id = max_dates.u_email_id AND pays_to.up_date = max_dates.max_up_date " +
         "SET User.u_subscription_status = 'INACTIVE' " +
-        "WHERE User.u_subscription_status = 'ACTIVE' AND YEAR(NOW()) != YEAR(pays_to.up_date) and MONTH(NOW()) != MONTH(pays_to.up_date)";
+        "WHERE User.u_subscription_status = 'ACTIVE' AND (YEAR(NOW()) != YEAR(pays_to.up_date) or MONTH(NOW()) != MONTH(pays_to.up_date))";
       //              "DATEDIFF(NOW(), pays_to.up_date) > 30";
 
+      System.out.println("Users deactivated");
       int rowsAffected = statement.executeUpdate(sql);
     } catch (Exception e) {
       System.err.println("Error: " + e.getMessage());
@@ -55,7 +56,7 @@ public class User {
       System.out.print("");
       System.out.println("Select what you want to delete:");
       System.out.println("1. User First Name");
-      System.out.println("2. User Last Number");
+      System.out.println("2. User Last Name");
       System.out.println("3. User Phone Name");
       System.out.println("4. Rate Podcast or Listen Podcast");
       System.out.println("0. Go to previous menu");
@@ -393,6 +394,7 @@ public class User {
       System.out.println("0. Go to previous menu");
       System.out.println("Enter your option:");
       System.out.println("");
+  	  User.makeinactive(connection);  
 
       try {
         enteredValue = sc.nextInt();

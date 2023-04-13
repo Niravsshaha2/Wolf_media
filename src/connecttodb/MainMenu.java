@@ -30,6 +30,7 @@ public class MainMenu {
 
         switch (enteredValue) {
           case 1:
+        	User.makeinactive(connection);
             User.getuser(connection);
             break;
           case 2:

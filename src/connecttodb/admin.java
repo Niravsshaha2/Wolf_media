@@ -104,6 +104,7 @@ public class admin {
                   break;
                 case 3:
                   do {
+                	User.makeinactive(connection);  
                     System.out.println("");
                     System.out.println(" Enter User Email");
                     try {
