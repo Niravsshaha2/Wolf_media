@@ -11,6 +11,7 @@ public class User {
 
   public static Statement statement;
 
+  //Make the User inactive if date not in current month
   public static void makeinactive(Connection connection) throws SQLException {
     statement = connection.createStatement();
 
@@ -43,6 +44,7 @@ public class User {
     }
   }
 
+  //Delete user information API
   public static void delete_user_info(String u_email_id, Connection connection)
     throws SQLException {
     String sql;
@@ -115,6 +117,7 @@ public class User {
     } while (enteredValue != 0);
   }
 
+  //Update User information API
   public static void update_user_info(String u_email_id, Connection connection)
     throws SQLException {
     System.out.println("");
@@ -185,6 +188,7 @@ public class User {
     } while (enteredValue != 0);
   }
 
+  //Activate User by Admin 
   public static void activateuser(Connection connection)
     throws SQLException {
     System.out.println("");
@@ -236,6 +240,7 @@ public class User {
     }
   }
 
+  //Add New user
   public static void addusers(Connection connection)
     throws SQLException {
     System.out.println("");
@@ -303,6 +308,7 @@ public class User {
     }
   }
 
+  //View all users
   public static void viewusers(Connection connection)
     throws SQLException {
     System.out.println("");
@@ -331,6 +337,7 @@ public class User {
     }
   }
 
+  //check if user is active or not for listening
   public static void getuser(Connection connection)
     throws SQLException {
     Scanner sc = new Scanner(System.in);
@@ -360,7 +367,9 @@ public class User {
       }
     } while (true);
   }
-
+  
+  
+//displays user menu
   public static void getusermenu(String u_email_id, Connection connection)
     throws SQLException {
     Scanner sc = new Scanner(System.in);
@@ -432,6 +441,7 @@ public class User {
     } while (enteredValue != 0);
   }
 
+  //Exit the code
   public static void exitProgram(Connection connection) {
     Helper.close(connection);
     Helper.close(statement);
