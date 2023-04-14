@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class song {
 
   public static Statement statement;
-
+  // Adding Song Genre
   public static void add_song_genres(String s_id, Connection connection)
     throws SQLException {
     Scanner scanner = new Scanner(System.in);
@@ -43,7 +43,7 @@ public class song {
     }
   }
 
-  // delete song info
+  // Delete Song Info
   public static void delete_song_info(String rl_name, String s_id, Connection connection) throws SQLException {
     System.out.println("");
     Scanner sc = new Scanner(System.in);
@@ -144,7 +144,7 @@ public class song {
       }
     } while (enteredValue != 0);
   }
-
+  // Update Song Info
   public static void update_song_info(String rl_name, String s_id, Connection connection) throws SQLException {
     System.out.println("");
     Scanner sc = new Scanner(System.in);
@@ -305,7 +305,7 @@ public class song {
       }
     } while (enteredValue != 0);
   }
-
+  // View list of Songs
   public static void viewsongs(String rl_name, Connection connection)
     throws SQLException {
     System.out.println("");
@@ -333,7 +333,7 @@ public class song {
       e.printStackTrace();
     }
   }
-
+  // Adding Song Information
   public static void add_song_info(String rl_name, Connection connection)
     throws SQLException {
     System.out.println("");
@@ -551,7 +551,7 @@ public class song {
     }
   }
 
-  //given artist/album get songs
+  // Given artist/album get songs
   public static void getsongs(String type, String name, String u_email_id, Connection connection) throws SQLException {
     String song_id;
     System.out.println("");
@@ -640,7 +640,7 @@ public class song {
     }
   }
 
-  //	  increment play count
+  //	  Increment Play Count
   public static void song_play_count(String s_id, String u_email_id, Connection connection)
     throws SQLException {
     System.out.println("");
