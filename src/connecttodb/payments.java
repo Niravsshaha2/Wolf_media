@@ -13,12 +13,14 @@ public class payments {
 
   public static Statement statement;
 
+  // adding one month
   public static String addOneMonth(String dateStr) {
     LocalDate date = LocalDate.parse(dateStr, DateTimeFormatter.ISO_LOCAL_DATE);
     LocalDate newDate = date.plusMonths(1);
     return newDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
   }
 
+  // GENERATE RECORD LABEL PAYMENT (with transaction)
   public static void generate_rl_payment(Connection connection)
     throws SQLException {
     statement = connection.createStatement();
@@ -135,6 +137,7 @@ public class payments {
     }
   }
 
+  // GENERATE PODCAST HOST PAYMENT
   public static void generate_ph_payment(Connection connection)
     throws SQLException {
     statement = connection.createStatement();
@@ -237,6 +240,7 @@ public class payments {
   //   }
   // }
 
+  // MENY FOR PAYMENT
   public static void getpaymentmenu(Connection connection)
     throws SQLException {
     Scanner sc = new Scanner(System.in);
