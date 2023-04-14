@@ -17,7 +17,7 @@ public class connect {
     String user = "asfirodi";
     String pswd = "200451422";
     try {
-      System.out.println("Successfully ");
+//       System.out.println("Successfully ");
       conn = DriverManager.getConnection(url, user, pswd);
 
       Statement statement = conn.createStatement();
@@ -25,12 +25,12 @@ public class connect {
 //      DatabaseOperations.clearDatabase(conn);
 //      DatabaseOperations.createTables(conn);
 
-      ResultSet rs = statement.executeQuery("SHOW TABLES");
-      System.out.println("Tables in the current database: ");
-      while (rs.next()) {
-        System.out.print(rs.getString(1));
-        System.out.println();
-      }
+//       ResultSet rs = statement.executeQuery("SHOW TABLES");
+//       System.out.println("Tables in the current database: ");
+//       while (rs.next()) {
+//         System.out.print(rs.getString(1));
+//         System.out.println();
+//       }
       //
       //System.out.println("Successfully ");
       //
@@ -42,7 +42,7 @@ public class connect {
       //}
       //
 
-      System.out.println("Successfully ");
+//       System.out.println("Successfully ");
 //      DatabaseOperations.insertIntoTables(conn);
       
       MainMenu.displayMenu(conn);
