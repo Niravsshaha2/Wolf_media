@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 //import java.util.*;
 import java.util.Scanner;
-
+// for closing the connection
 public class Helper {
-
+  
   public static void close(Connection conn) {
     if (conn != null) {
       try {
@@ -48,7 +48,7 @@ public class Helper {
       }
     }
   }
-
+  // exiting the program
   public static void exitProgram(Connection connection, Statement statement, Scanner sc, ResultSet rs) {
     Helper.close(connection);
     Helper.close(statement);
