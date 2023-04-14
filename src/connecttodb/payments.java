@@ -33,7 +33,6 @@ public class payments {
       String startdate = date + "-01";
 
       String enddate = addOneMonth(startdate);
-      //      System.out.print(startdate + " " + enddate);
 
       String sql;
 
@@ -117,20 +116,22 @@ public class payments {
 
         // Execute SQL statement
         int rowsAffected = statement.executeUpdate(sql);
-        connection.commit(); // commit transaction
-        System.out.println("Done");
       }
+      connection.commit(); // commit transaction
+      System.out.println("Done");
     } catch (SQLException e) {
-      System.out.println(e);
+      System.out.println("This payment can't happen, please try again!");
       if (connection != null) {
         try {
           connection.rollback(); // rollback transaction
+          // If there is an error while payment
+          // then rolls back to the previous commit
         } catch (SQLException ex) {
-          System.out.println(ex);
+          System.out.println(e);
         }
       }
     } finally {
-      connection.setAutoCommit(true);
+      connection.setAutoCommit(true); // auto-commit set to True
     }
   }
 
