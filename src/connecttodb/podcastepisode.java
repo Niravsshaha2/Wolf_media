@@ -42,6 +42,33 @@ public class podcastepisode {
     }
   }
 
+  public static String[] view_all_podcast_episodes(Connection connection, String show_type)
+		    throws SQLException {
+		    statement = connection.createStatement();
+		    String query, podcastepisodename;
+		    Scanner sc = new Scanner(System.in);
+		    System.out.println("Enter Podcast Name");
+		    String podcastname = sc.nextLine();
+
+		    query = "SELECT pe_title FROM PodcastEpisode WHERE p_name='" + podcastname + "'";
+
+		    ResultSet rs = null;
+		    try {
+		      rs = statement.executeQuery(query);
+		      int row = 1;
+		      System.out.println("~ List of all episodes for " + podcastname);
+		      while (rs.next()) {
+		        podcastepisodename = rs.getString("pe_title");
+		        System.out.println(row + "] " + podcastepisodename);
+		        row++;
+		      }
+		    } catch (SQLException e) {
+		      System.out.println("There are no episodes for" + podcastname + "!");
+		      PM.get_pm_menu(connection);
+		    }
+		    return podcastepisode_list;
+		  }
+  
   public static String[] view_all_podcast_episodes(Connection connection, String podcastname, String show_type)
     throws SQLException {
     statement = connection.createStatement();

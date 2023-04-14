@@ -28,13 +28,14 @@ public class reports {
 
       System.out.println("4. Report all songs given an artist");
       System.out.println("5. Report all songs given an album");
+      System.out.println("6. Report all episodes given a podcast");
 
-      System.out.println("6. total payments made out to host per a given time period");
-      System.out.println("7. total payments made out to artist per a given time period");
-      System.out.println("8. total payments made out to Record Label per a given time period");
+      System.out.println("7. total payments made out to host per a given time period");
+      System.out.println("8. total payments made out to artist per a given time period");
+      System.out.println("9. total payments made out to Record Label per a given time period");
 
-      System.out.println("9. Total revenue of the streaming service per month");
-      System.out.println("10. Total revenue of the streaming service per year");
+      System.out.println("10. Total revenue of the streaming service per month");
+      System.out.println("11. Total revenue of the streaming service per year");
 
       System.out.println("0.  Go to previous menu");
       System.out.println("");
@@ -59,18 +60,21 @@ public class reports {
             album.getalbum("", connection);
             break;
           case 6:
-            reports.TP_host(connection);
+        	podcastepisode.view_all_podcast_episodes(connection, "show");
             break;
           case 7:
-            reports.TP_artist(connection);
+            reports.TP_host(connection);
             break;
           case 8:
-            reports.TP_recordlabel(connection);
+            reports.TP_artist(connection);
             break;
           case 9:
-            reports.report_revenue(connection, "month");
+            reports.TP_recordlabel(connection);
             break;
           case 10:
+            reports.report_revenue(connection, "month");
+            break;
+          case 11:
             reports.report_revenue(connection, "year");
             break;
           case 0:
