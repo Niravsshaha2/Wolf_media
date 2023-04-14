@@ -10,7 +10,8 @@ import java.util.Arrays;
 public class PM {
   public static Statement statement;
   public static String[] podcastepisode_list, podcast_list, podcasthost_list;
-
+  
+  // Podcast Manager Menu
   public static void get_pm_menu(Connection connection) throws SQLException {
     int enteredValue = 0;
 
@@ -109,8 +110,7 @@ public class PM {
     } while (enteredValue != 0);
   }
 
-  //	SWITCH CASE FOR PM MENU
-
+  //  SWITCH CASE FOR Podcast Manager MENU
   public static void count_of_subscribers_for_podcast(Connection connection)
     throws SQLException{
 	Scanner sc = new Scanner(System.in);
@@ -134,7 +134,8 @@ public class PM {
 	  get_pm_menu(connection);
 	}
   }
-
+  
+  // Podcast Rating
   public static void rate_podcast(Connection connection)
     throws SQLException{
 	Scanner sc = new Scanner(System.in);
@@ -158,6 +159,7 @@ public class PM {
     } 
   }
 
+  // Assign Podcast Host to Podcast Episode
   public static void assign_podcast_host_to_podcast_episode(Connection connection)
     throws SQLException {
     Scanner sc = new Scanner(System.in);
@@ -210,7 +212,8 @@ public class PM {
       get_pm_menu(connection);
     }
   }
-
+  
+  // Assign Podcast host to podcast
   public static void assign_podcast_host_to_podcast(Connection connection)
     throws SQLException {
     Scanner sc = new Scanner(System.in);
@@ -298,7 +301,7 @@ public class PM {
     }
   }
 
-  //	GET PODACST EPISODE GIVEN PODCAST NAME
+  //	GET PODCAST EPISODE GIVEN PODCAST NAME
   public static void get_podcast_episodes(String podcastname, String u_email_id, Connection connection)
     throws SQLException {
     System.out.println("~ List of Podcast Episode for (" + podcastname + ")--");
