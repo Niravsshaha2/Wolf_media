@@ -13,6 +13,7 @@ public class podcasthost {
   public static Statement statement;
   Scanner sc = new Scanner(System.in);
 
+	// VIEW ALL PODCAST HOSTS (NAME / EMAIL)
   public static String[] view_all_podcast_hosts(Connection connection, String typ) throws SQLException {
     System.out.println("*****");
     if (typ.equals("name")) {
@@ -56,6 +57,7 @@ public class podcasthost {
     return podcasthost_list;
   }
 
+	// ADD PODCAST HOST NAME
   public static void add_podcast_host_info(Connection connection)
     throws SQLException {
     // ph_email_id, ph_first_name, ph_last_name, ph_phone, ph_city
@@ -99,6 +101,7 @@ public class podcasthost {
     }
   }
 
+	// UPDATE PODCAST HOST NAME
   public static void update_podcast_host_info(Connection connection, String typ)
     throws SQLException {
     // String podcasthost_continue_choice = "n";
