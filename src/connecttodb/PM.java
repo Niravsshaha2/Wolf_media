@@ -113,6 +113,7 @@ public class PM {
 	Statement statement = connection.createStatement();
     String podcastname = "", query = "";
     ResultSet rs = null;
+    String[] podcastlist = podcast.view_all_podcasts(connection, "show");
     try {
       System.out.println("Enter podcast name:");
       podcastname = sc.nextLine();

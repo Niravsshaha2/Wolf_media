@@ -58,7 +58,6 @@ public class User {
       System.out.println("1. User First Name");
       System.out.println("2. User Last Name");
       System.out.println("3. User Phone Name");
-      System.out.println("4. Rate Podcast or Listen Podcast");
       System.out.println("0. Go to previous menu");
 
       try {
@@ -101,22 +100,6 @@ public class User {
             System.out.println("Phone Number Deleted ");
 
             break;
-            
-          case 4:
-        	System.out.println("1. Rate Podcast\n2.Listen Podcast");
-            System.out.println("What do you want to do?:");
-        	int pm_choice = sc.nextInt();
-        	switch(pm_choice) {
-              case 1:
-        	    PM.rate_podcast(connection);
-          	  break;
-              case 2:
-                PM.get_podcast(u_email_id, connection);
-                break;
-              default:
-                getusermenu(u_email_id, connection);
-              break;
-        	}
                         
           case 0:
             MainMenu.displayMenu(connection);
@@ -403,18 +386,38 @@ public class User {
           case 1:
             song.getsongs(u_email_id, connection);
             break;
+
           case 2:
             artist.getartist(u_email_id, connection);
             break;
+
           case 3:
             album.getalbum(u_email_id, connection);
             break;
+            
           case 4:
-            PM.get_podcast(u_email_id, connection);
-            break;
+        	System.out.println("1. Rate Podcast\n2.Listen Podcast");
+            System.out.println("What do you want to do?:");
+        	int pm_choice = sc.nextInt();
+        	switch(pm_choice) {
+              case 1:
+        	    PM.rate_podcast(connection);
+          	  break;
+              case 2:
+                PM.get_podcast(u_email_id, connection);
+                break;
+              default:
+                getusermenu(u_email_id, connection);
+              break;
+        	}
+//          case 4:
+//            PM.get_podcast(u_email_id, connection);
+//            break;
+
           case 0:
             MainMenu.displayMenu(connection);
             break;
+
           default:
             System.out.println(
               "You have made an invalid choice. Please pick again."

@@ -44,7 +44,7 @@ public class artist {
     do {
       System.out.print("");
       System.out.println("Select from following:");
-      System.out.println("1. Delete Artist country");
+      System.out.println("1. Delete Artist Country");
       System.out.println("2. Delete Artist Name");
       //System.out.println("3. Delete Artist Status");// update ACTIVE <-> INACTIVE
       System.out.println("0.  Go to previous menu");
@@ -63,6 +63,7 @@ public class artist {
             rows = statement.executeUpdate(sql);
             System.out.println("Country deleted");
             break;
+
           case 2:
             System.out.println("");
             sql =
@@ -72,6 +73,7 @@ public class artist {
             rows = statement.executeUpdate(sql);
             System.out.println("Name deleted");
             break;
+
           case 0:
             RL.getRecordlabelMenu(rl_name, connection);
             break;
@@ -86,11 +88,7 @@ public class artist {
     } while (enteredValue != 0);
   }
 
-  public static void update_artist_info(
-    String rl_name,
-    String a_email_id,
-    Connection connection
-  ) throws SQLException {
+  public static void update_artist_info(String rl_name, String a_email_id, Connection connection) throws SQLException {
     System.out.println("");
     Scanner sc = new Scanner(System.in);
     int enteredValue = 0;
@@ -102,7 +100,8 @@ public class artist {
       System.out.println("1. Update Artist Country");
       System.out.println("2. Update Artist Name");
       System.out.println("3. Update Artist Status");
-      System.out.println("0.  Go to previous menu");
+      System.out.println("4. Update Artist Monthly Listeners");
+      System.out.println("0. Go to previous menu");
       System.out.println("");
 
       try {
@@ -137,6 +136,7 @@ public class artist {
             System.out.println("Name updated");
 
             break;
+
           case 3:
             System.out.println("");
             System.out.println("Artist Status(ACTIVE/ INACTIVE): ");
@@ -151,9 +151,27 @@ public class artist {
             System.out.println("Status updated");
 
             break;
+
+          case 4:
+            System.out.println("");
+            System.out.println("Artist Monthly Listeners: ");
+            int a_monthly_listeners = sc.nextInt();
+            sql =
+              "UPDATE Artist SET a_monthly_listeners='" +
+              a_monthly_listeners +
+              "' WHERE a_email_id = '" +
+              a_email_id +
+              "'";
+            rows = statement.executeUpdate(sql);
+            sc.nextLine();
+            System.out.println("Monthly Listeners updated");
+
+            break;
+
           case 0:
             RL.getRecordlabelMenu(rl_name, connection);
             break;
+
           default:
             System.out.println(
               "You have made an invalid choice. Please pick again."

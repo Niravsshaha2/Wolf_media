@@ -277,7 +277,7 @@ public class podcastepisode {
                 "'";
             } else if (typ.equals("delete")) {
               query =
-                "UPDATE PodcastEpisode SET pe_ad_count= 0 WHERE p_name='" +
+                "UPDATE PodcastEpisode SET pe_ad_count=0 WHERE p_name='" +
                 podcastname_choice +
                 "' AND pe_title='" +
                 podcastepisodename_choice +

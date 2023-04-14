@@ -44,11 +44,7 @@ public class song {
   }
 
   // delete song info
-  public static void delete_song_info(
-    String rl_name,
-    String s_id,
-    Connection connection
-  ) throws SQLException {
+  public static void delete_song_info(String rl_name, String s_id, Connection connection) throws SQLException {
     System.out.println("");
     Scanner sc = new Scanner(System.in);
     int enteredValue = 0;
@@ -63,6 +59,8 @@ public class song {
       System.out.println("3. Delete Song Release Date");
       System.out.println("4. Delete Song Country");
       System.out.println("5. Delete Song Language");
+      System.out.println("6. Delete Song Royalty Rate");
+      System.out.println("7. Delete Song Genre(s)");
       System.out.println("0. Go to previous menu");
       System.out.println("");
 
@@ -77,6 +75,7 @@ public class song {
             rows = statement.executeUpdate(sql);
             System.out.println("Song title deleted");
             break;
+
           case 2:
             System.out.println("");
 
@@ -85,6 +84,7 @@ public class song {
             rows = statement.executeUpdate(sql);
             System.out.println("Song duration deleted");
             break;
+
           case 3:
             System.out.println("");
 
@@ -95,6 +95,7 @@ public class song {
             rows = statement.executeUpdate(sql);
             System.out.println("Song release date deleted");
             break;
+
           case 4:
             System.out.println("");
 
@@ -103,6 +104,7 @@ public class song {
             rows = statement.executeUpdate(sql);
             System.out.println("Song country deleted");
             break;
+
           case 5:
             System.out.println("");
 
@@ -111,13 +113,31 @@ public class song {
             rows = statement.executeUpdate(sql);
             System.out.println("Song language deleted");
             break;
+
+          case 6:
+              System.out.println("");
+
+              sql =
+                "UPDATE Song SET s_royalty_rate=0 WHERE s_id = '" +
+                s_id +
+                "'";
+              rows = statement.executeUpdate(sql);
+              System.out.println("Song Royalty Rate deleted");
+              break;
+
+          case 7:
+	    	  System.out.println("");
+	    	  sql = "DELETE FROM song_genre WHERE s_id = '"+s_id+"'";
+	    	  rows = statement.executeUpdate(sql);
+	    	  System.out.println("Song Genre updated");
+	    	  break;
+
           case 0:
             RL.getRecordlabelMenu(rl_name, connection);
             break;
+
           default:
-            System.out.println(
-              "You have made an invalid choice. Please pick again."
-            );
+            System.out.println("You have made an invalid choice. Please pick again.");
         }
       } catch (Exception e) {
         System.err.println("Error: " + e.getMessage());
@@ -125,11 +145,7 @@ public class song {
     } while (enteredValue != 0);
   }
 
-  public static void update_song_info(
-    String rl_name,
-    String s_id,
-    Connection connection
-  ) throws SQLException {
+  public static void update_song_info(String rl_name, String s_id, Connection connection) throws SQLException {
     System.out.println("");
     Scanner sc = new Scanner(System.in);
     int enteredValue = 0;
@@ -144,6 +160,7 @@ public class song {
       System.out.println("4. Update Song Country");
       System.out.println("5. Update Song Language");
       System.out.println("6. Update Song royalty rate");
+      System.out.println("7. Update Song Genre(s)");
       System.out.println("0. Go to previous menu");
       System.out.println("");
 
@@ -251,6 +268,19 @@ public class song {
             rows = statement.executeUpdate(sql);
             System.out.println("Song Royalty Rate updated");
             break;
+          case 7:
+	    	  System.out.println("");
+	    	  // System.out.println("Song Genre: ");
+	
+	
+	    	  sql = "DELETE FROM song_genre WHERE s_id = '"+s_id+"'";
+	    	  rows = statement.executeUpdate(sql);
+	
+	    	  add_song_genres(s_id,connection);
+	
+	    	  System.out.println("Song Genre updated");
+	
+	    	  break;
           case 0:
             RL.getRecordlabelMenu(rl_name, connection);
             break;
