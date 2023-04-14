@@ -12,7 +12,7 @@ public class RL {
   public static Statement statement;
 
   public static String[] recordlabel_list;
-
+//Show all Record Label
   public static String[] view_all_record_labels(Connection connection, String show_type)
     throws SQLException {
     String query;
@@ -51,7 +51,7 @@ public class RL {
     }
     return recordlabel_list;
   }
-
+//Adding a new Record Label
   public static void add_RL(Connection connection) throws SQLException {
     Scanner sc = new Scanner(System.in);
     String rl_name;
@@ -71,7 +71,7 @@ public class RL {
     }
   }
 
-  // RecordLabel Page
+  // Shows RL and choose the Record Label 
   public static void rl_page(Connection connection) throws SQLException {
     Scanner sc = new Scanner(System.in);
     String rl_name;
@@ -121,7 +121,7 @@ public class RL {
       }
     } while (true);
   }
-
+//Get Record Label specific menu
   public static void getRecordlabelMenu(String rl_name, Connection connection)
     throws SQLException {
     Scanner sc = new Scanner(System.in);
