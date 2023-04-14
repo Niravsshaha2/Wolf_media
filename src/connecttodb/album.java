@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class album {
 
   public static Statement statement;
-
+  // Album information deletion
   public static void delete_album_info(String rl_name, String l_name, Connection connection)
     throws SQLException {
     System.out.println("");
@@ -56,7 +56,7 @@ public class album {
       }
     } while (enteredValue != 0);
   }
-
+  // Album information Updation
   public static void update_album_info(String rl_name, String l_name, Connection connection)
     throws SQLException {
     System.out.println("");
@@ -118,7 +118,7 @@ public class album {
       }
     } while (enteredValue != 0);
   }
-
+  // List of All Album
   public static void viewalbum(String rl_name, Connection connection)
     throws SQLException {
     System.out.println("");
@@ -144,7 +144,7 @@ public class album {
       e.printStackTrace();
     }
   }
-
+  // Adding Album information
   public static void add_album_info(String rl_name, Connection connection)
     throws SQLException {
     System.out.println("");
