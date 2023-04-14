@@ -161,11 +161,11 @@ public class podcastepisode {
 
   public static void update_podcast_episode_info(Connection connection, String typ)
     throws SQLException {
-    String podcast_continue_choice = "n";
+    // String podcast_continue_choice = "n";
     String podcastname_choice;
     Scanner sc = new Scanner(System.in);
     podcast_list = podcast.view_all_podcasts(connection, "show");
-    do {
+    // do {
       System.out.println("Enter podcast name (from which the episode is to be" + typ + "d) (Enter 0 to go back to main menu):");
       try {
         podcastname_choice = sc.nextLine();
@@ -175,8 +175,8 @@ public class podcastepisode {
             update_podcast_episode_info(connection, typ);
           }
           update_podcast_episode_choice_function(connection, podcastname_choice, typ);
-          System.out.println("Do you want to " + typ + " from episode in another podcast? (y/n)");
-          podcast_continue_choice = sc.next();
+          // System.out.println("Do you want to " + typ + " from episode in another podcast? (y/n)");
+          // podcast_continue_choice = sc.next();
         } else {
           PM.get_pm_menu(connection);
         }
@@ -184,15 +184,15 @@ public class podcastepisode {
         System.out.println("Podcast does not exist. Please try again!");
         update_podcast_episode_info(connection, typ);
       }
-    } while (podcast_continue_choice.toLowerCase().equals("y"));
+    // } while (podcast_continue_choice.toLowerCase().equals("y"));
   }
 
   public static void update_podcast_episode_choice_function(Connection connection, String podcastname_choice, String typ)
     throws SQLException {
-    String podcastepisodename_choice = "", podcast_episode_continue_choice =
-      "n";
+    String podcastepisodename_choice = "";
+    // String podcast_episode_continue_choice = "n";
     Scanner sc = new Scanner(System.in);
-    do {
+    // do {
       podcastepisode_list = view_all_podcast_episodes(connection, podcastname_choice, "show");
       System.out.println("Enter podcast episode name: (Enter 0 to go back to choosing podcast name)");
       try {
@@ -203,8 +203,8 @@ public class podcastepisode {
             update_podcast_episode_choice_function(connection, podcastname_choice, typ);
           }
           update_podcast_episode_choice_function(connection, podcastepisodename_choice, typ, podcastname_choice);
-          System.out.println("Do you want to " + typ + " in other podcast episode? (y/n)");
-          podcast_episode_continue_choice = sc.next();
+          // System.out.println("Do you want to " + typ + " in other podcast episode? (y/n)");
+          // podcast_episode_continue_choice = sc.next();
         } else {
           update_podcast_episode_info(connection, typ);
         }
@@ -212,7 +212,7 @@ public class podcastepisode {
         System.out.println("Podcast episode does not exist. Please try again!");
         update_podcast_episode_info(connection, typ);
       }
-    } while (podcast_episode_continue_choice.toLowerCase().equals("y"));
+    // } while (podcast_episode_continue_choice.toLowerCase().equals("y"));
   }
 
   public static void update_podcast_episode_choice_function(Connection connection, String podcastepisodename_choice, String typ, String podcastname_choice)
@@ -221,9 +221,9 @@ public class podcastepisode {
     String query = "", new_str_val = "";
     float new_num_val = 0;
     int rows = 0, update_choice = 0;
-    String update_continue_choice = "n";
+    // String update_continue_choice = "n";
     Scanner sc = new Scanner(System.in);
-    do {
+    // do {
       System.out.println("Which field to " + typ + "?:");
       System.out.println("1. Release Date");
       System.out.println("2. Ad count");
@@ -339,8 +339,8 @@ public class podcastepisode {
         System.out.println("You have made a wrong choice. Please choose again:");
         update_podcast_episode_choice_function(connection, podcastepisodename_choice, typ, podcastname_choice);
       }
-      System.out.println("Do you want to " + typ + " more fields for the podcast episode? (y/n)");
-      update_continue_choice = sc.nextLine();
-    } while (update_continue_choice.toLowerCase().equals("y"));
+    //   System.out.println("Do you want to " + typ + " more fields for the podcast episode? (y/n)");
+    //   update_continue_choice = sc.nextLine();
+    // } while (update_continue_choice.toLowerCase().equals("y"));
   }
 }

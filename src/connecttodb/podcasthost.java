@@ -13,10 +13,7 @@ public class podcasthost {
   public static Statement statement;
   Scanner sc = new Scanner(System.in);
 
-  public static String[] view_all_podcast_hosts(
-    Connection connection,
-    String typ
-  ) throws SQLException {
+  public static String[] view_all_podcast_hosts(Connection connection, String typ) throws SQLException {
     System.out.println("*****");
     if (typ.equals("name")) {
       System.out.println("List of Podcast Hosts (with podcast and episode being hosted)");
@@ -104,11 +101,11 @@ public class podcasthost {
 
   public static void update_podcast_host_info(Connection connection, String typ)
     throws SQLException {
-    String podcasthost_continue_choice = "n";
+    // String podcasthost_continue_choice = "n";
     String podcasthostname_choice = "";
     Scanner sc = new Scanner(System.in);
     view_all_podcast_hosts(connection, "email");
-    do {
+    // do {
       System.out.println("Enter podcast host email:");
       try {
         podcasthostname_choice = sc.nextLine();
@@ -116,27 +113,23 @@ public class podcasthost {
           System.out.println("Podcast host does not exist. Please try again from below list of podcast hosts!");
           update_podcast_host_info(connection, typ);
         }
-        update_podcast_host_choice_function(
-          connection,
-          podcasthostname_choice,
-          typ
-        );
-        System.out.println("Do you want to " + typ + " in another podcast host? (y/n)");
-        podcasthost_continue_choice = sc.nextLine();
+        update_podcast_host_choice_function(connection, podcasthostname_choice, typ);
+        // System.out.println("Do you want to " + typ + " in another podcast host? (y/n)");
+        // podcasthost_continue_choice = sc.nextLine();
       } catch (Exception e) {
         System.out.println("Podcast host does not exist. Please try again!");
         update_podcast_host_info(connection, typ);
       }
-    } while (podcasthost_continue_choice.toLowerCase().equals("y"));
+    // } while (podcasthost_continue_choice.toLowerCase().equals("y"));
   }
 
   public static void update_podcast_host_choice_function(Connection connection, String podcasthostemail_choice, String typ) throws SQLException {
     String query = "", new_str_val = "";
     long new_num_val_phone = 0;
     int rows = 0, update_choice = 0;
-    String update_continue_choice = "n";
+    // String update_continue_choice = "n";
     Scanner sc = new Scanner(System.in);
-    do {
+    // do {
       System.out.println("Which field to " + typ + "?:");
       System.out.println("1. First Name");
       System.out.println("2. Last Name");
@@ -248,14 +241,10 @@ public class podcasthost {
         }
       } catch (Exception e) {
         System.out.println("You have made a wrong choice. Please choose again:");
-        update_podcast_host_choice_function(
-          connection,
-          podcasthostemail_choice,
-          typ
-        );
+        update_podcast_host_choice_function(connection, podcasthostemail_choice, typ);
       }
-      System.out.println("Do you want to " + typ + " more fields for the podcast? (y/n)");
-      update_continue_choice = sc.next();
-    } while (update_continue_choice.toLowerCase().equals("y"));
+    //   System.out.println("Do you want to " + typ + " more fields for the podcast? (y/n)");
+    //   update_continue_choice = sc.next();
+    // } while (update_continue_choice.toLowerCase().equals("y"));
   }
 }

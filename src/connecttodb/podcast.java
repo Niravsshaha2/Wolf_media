@@ -91,9 +91,7 @@ public class podcast {
       podcast_list = view_all_podcasts(connection, "hide");
       do {
         System.out.println();
-        System.out.println(
-          "Enter Podcast name (Enter 0 to go back to main menu):"
-        );
+        System.out.println("Enter Podcast name (Enter 0 to go back to main menu):");
         podcastname = sc.nextLine();
         if (!podcastname.equals("0")) {
           if (Arrays.asList(podcast_list).contains(podcastname)) {
@@ -127,13 +125,9 @@ public class podcast {
           break;
         }
         if ((podcastrating < 0 || podcastrating > 5) && podcastrating != 0.0f) {
-          System.out.println(
-            "Rating needs to be between 0 to 5 or leave it blank."
-          );
+          System.out.println("Rating needs to be between 0 to 5 or leave it blank.");
         } else podcastratedusercount = 1;
-      } while (
-        (podcastrating < 0 || podcastrating > 5) && podcastrating != 0.0f
-      );
+      } while ((podcastrating < 0 || podcastrating > 5) && podcastrating != 0.0f);
       System.out.println("Enter podcast episode flat fee");
       float podcastflatfee = sc.nextFloat();
 
@@ -166,10 +160,10 @@ public class podcast {
 
   public static void update_podcast_info(Connection connection, String typ)
     throws SQLException {
-    String podcast_continue_choice = "n";
+    // String podcast_continue_choice = "n";
     String podcastname_choice = "";
     Scanner sc = new Scanner(System.in);
-    do {
+    // do {
         podcast_list = view_all_podcasts(connection, "show");
 
       System.out.println("Enter podcast name:");
@@ -182,15 +176,13 @@ public class podcast {
           update_podcast_info(connection, typ);
         }
         update_podcast_choice_function(connection, podcastname_choice, typ);
-        System.out.println(
-          "Do you want to " + typ + " in another podcast? (y/n)"
-        );
-        podcast_continue_choice = sc.nextLine();
+        // System.out.println("Do you want to " + typ + " in another podcast? (y/n)");
+        // podcast_continue_choice = sc.nextLine();
       } catch (Exception e) {
         System.out.println("Podcast does not exist. Please try again!");
         update_podcast_info(connection, typ);
       }
-    } while (podcast_continue_choice.toLowerCase().equals("y"));
+    // } while (podcast_continue_choice.toLowerCase().equals("y"));
   }
 
   public static void update_podcast_choice_function(Connection connection, String podcastname_choice, String typ)
@@ -198,9 +190,9 @@ public class podcast {
     String query = "", new_str_val = "";
     float new_num_val = 0;
     int rows = 0, update_choice = 0;
-    String update_continue_choice = "n";
+    // String update_continue_choice = "n";
     Scanner sc = new Scanner(System.in);
-    do {
+    // do {
       System.out.println();
       System.out.println("Which field to " + typ + "?:");
       System.out.println("1. Sponsor");
@@ -263,6 +255,7 @@ public class podcast {
             rows = statement.executeUpdate(query);
             System.out.println(rows + " row(s) updated.");
             break;
+
           case 3:
             if (typ.equals("update")) {
               do {
@@ -270,16 +263,10 @@ public class podcast {
                 new_num_val = sc.nextFloat();
                 sc.nextLine();
 
-                if (
-                  (new_num_val < 0 || new_num_val > 5) && new_num_val != 0.0f
-                ) {
-                  System.out.println(
-                    "Rating needs to be between 0 to 5 or leave it blank."
-                  );
+                if ((new_num_val < 0 || new_num_val > 5) && new_num_val != 0.0f) {
+                  System.out.println("Rating needs to be between 0 to 5 or leave it blank.");
                 }
-              } while (
-                (new_num_val < 0 || new_num_val > 5) && new_num_val != 0.0f
-              );
+              } while ((new_num_val < 0 || new_num_val > 5) && new_num_val != 0.0f);
 
               query =
                 // "UPDATE Podcast SET p_rating = " +
@@ -302,13 +289,13 @@ public class podcast {
                 "UPDATE Podcast SET p_rated_user_count = 0, p_rating= null WHERE p_name='" +
                 podcastname_choice +
                 "'; ";
-                
             }
             new_num_val = 0;
 
             rows = statement.executeUpdate(query);
             System.out.println(rows + " row(s) updated.");
             break;
+
           case 4:
             if (typ.equals("update")) {
               System.out.println("Enter new value for country:");
@@ -333,12 +320,12 @@ public class podcast {
             rows = statement.executeUpdate(query);
             System.out.println(rows + " row(s) updated.");
             break;
+
           case 5:
             if (typ.equals("update")) {
               System.out.println("Enter new value for per episode flat fee :");
               new_num_val = sc.nextFloat();
               sc.nextLine();
-
 
               query =
                 "UPDATE Podcast SET p_episode_flat_fee = " +
@@ -359,24 +346,20 @@ public class podcast {
             rows = statement.executeUpdate(query);
             System.out.println(rows + " row(s) updated.");
             break;
+
           case 0:
             PM.get_pm_menu(connection);
             break;
+
           default:
-            System.out.println(
-              "You have made an invalid choice. Please pick again."
-            );
+            System.out.println("You have made an invalid choice. Please pick again.");
         }
       } catch (Exception e) {
-        System.out.println(e+
-          "You have made a wrong choice. Please choose again:"
-        );
+        System.out.println("You have made a wrong choice. Please choose again:");
         update_podcast_choice_function(connection, podcastname_choice, typ);
       }
-      System.out.println(
-        "Do you want to " + typ + " more fields for the podcast? (y/n)"
-      );
-      update_continue_choice = sc.next();
-    } while (update_continue_choice.toLowerCase().equals("y"));
+    //   System.out.println("Do you want to " + typ + " more fields for the podcast? (y/n)");
+    //   update_continue_choice = sc.next();
+    // } while (update_continue_choice.toLowerCase().equals("y"));
   }
 }
