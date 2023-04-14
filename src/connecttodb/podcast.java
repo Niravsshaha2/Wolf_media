@@ -200,6 +200,7 @@ public class podcast {
       System.out.println("3. Rating");
       System.out.println("4. Country");
       System.out.println("5. Episode Flat Fee");
+      System.out.println("6. Genre(s)");
       System.out.println("0. Go back to previous menu");
       System.out.println("Enter your option:");
       System.out.println();
@@ -345,6 +346,32 @@ public class podcast {
 
             rows = statement.executeUpdate(query);
             System.out.println(rows + " row(s) updated.");
+            break;
+
+          case 6:
+            try {
+              connection.setAutoCommit(false); // Start a transaction, set auto-commit to false
+              System.out.println("");
+              query = "DELETE FROM podcast_genre WHERE p_name = '" + podcastname_choice + "'";
+              rows = statement.executeUpdate(query);
+
+              add_podcast_genres(podcastname_choice, connection);
+              connection.commit(); // commit transaction
+              System.out.println("Podcast Genre updated");
+            } catch (SQLException e) {
+              System.out.println("The genre is not present, please try again!");
+              if (connection != null) {
+                try {
+                  connection.rollback(); // rollback transaction
+                  // If there is an error while inserting the updated genres
+                  // then rollback happens to the previous commit
+                } catch (SQLException ex) {
+                  System.out.println(e);
+                }
+              }
+            } finally {
+              connection.setAutoCommit(true); // auto-commit set to True
+            }
             break;
 
           case 0:

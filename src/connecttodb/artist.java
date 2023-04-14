@@ -139,7 +139,7 @@ public class artist {
 
           case 3:
             System.out.println("");
-            System.out.println("Artist Status(ACTIVE/ INACTIVE): ");
+            System.out.println("Artist Status ( active / retired ): ");
             String a_status = sc.next();
             sql =
               "UPDATE Artist SET a_status='" +

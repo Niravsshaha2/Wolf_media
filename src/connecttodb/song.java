@@ -172,7 +172,6 @@ public class song {
           case 1:
             System.out.println("");
             System.out.println("Song title: ");
-            sc.nextLine();
             String s_title = sc.nextLine();
             String sql =
               "UPDATE Song SET s_title='" +
@@ -268,19 +267,31 @@ public class song {
             rows = statement.executeUpdate(sql);
             System.out.println("Song Royalty Rate updated");
             break;
+
           case 7:
-	    	  System.out.println("");
-	    	  // System.out.println("Song Genre: ");
-	
-	
-	    	  sql = "DELETE FROM song_genre WHERE s_id = '"+s_id+"'";
-	    	  rows = statement.executeUpdate(sql);
-	
-	    	  add_song_genres(s_id,connection);
-	
-	    	  System.out.println("Song Genre updated");
-	
-	    	  break;
+          try {
+            connection.setAutoCommit(false); // Start a transaction
+            System.out.println("");
+            sql = "DELETE FROM song_genre WHERE s_id = '"+s_id+"'";
+            rows = statement.executeUpdate(sql);
+
+            add_song_genres(s_id,connection);
+            connection.commit(); // commit transaction
+            System.out.println("Song Genre updated");
+          } catch (SQLException e) {
+            System.out.println("The genre is not present, please try again!");
+            if (connection != null) {
+              try {
+                connection.rollback(); // rollback transaction
+              } catch (SQLException ex) {
+                System.out.println(e);
+              }
+            }
+          } finally {
+            connection.setAutoCommit(true);
+          }
+          break;
+
           case 0:
             RL.getRecordlabelMenu(rl_name, connection);
             break;

@@ -14,7 +14,7 @@ public class podcastepisode {
   public static String[] podcastepisode_list, podcast_list, podcasthost_list;
   public static Statement statement;
   Scanner sc = new Scanner(System.in);
-
+  
   public static void view_all_podcast_episodes(Connection connection)
     throws SQLException {
     System.out.println("*****");

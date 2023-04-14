@@ -36,6 +36,7 @@ public class PM {
 
       System.out.println("13. Assign Podcast Host to Podcast Episode");
       System.out.println("14. Assign Podcast Host to Podcast");
+      System.out.println("15. View count of subscribers for podcasts");
       System.out.println("0. Main Menu");
       System.out.println("Enter your option:");
       System.out.println("");
@@ -89,6 +90,9 @@ public class PM {
           case 14:
             assign_podcast_host_to_podcast(connection);
             break;
+          case 15:
+            count_of_subscribers_for_podcast(connection);
+            break;
 
           case 0:
             MainMenu.displayMenu(connection);
@@ -106,6 +110,30 @@ public class PM {
   }
 
   //	SWITCH CASE FOR PM MENU
+
+  public static void count_of_subscribers_for_podcast(Connection connection)
+    throws SQLException{
+	Scanner sc = new Scanner(System.in);
+	try {
+	  Statement statement = connection.createStatement();
+      String query = "SELECT Podcast.p_name, COUNT(DISTINCT(listens_to_podcast_episode.u_email_id)) AS subscribers" +
+        " FROM Podcast LEFT JOIN listens_to_podcast_episode ON Podcast.p_name=listens_to_podcast_episode.p_name" +
+        " LEFT JOIN User ON User.u_email_id=listens_to_podcast_episode.u_email_id" +
+        " WHERE User.u_subscription_status=\"ACTIVE\" OR User.u_subscription_status IS NULL" +
+        " GROUP BY listens_to_podcast_episode.p_name";
+
+      ResultSet rs = null;
+      rs = statement.executeQuery(query);
+      while (rs.next()) {
+        String p_name = rs.getString("p_name");
+        String subscribers = rs.getString("subscribers");
+        System.out.println(p_name + " -> " + subscribers);
+      }
+	} catch(Exception e) {
+	  System.out.println("Please try again!");
+	  get_pm_menu(connection);
+	}
+  }
 
   public static void rate_podcast(Connection connection)
     throws SQLException{

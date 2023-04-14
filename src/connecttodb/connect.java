@@ -21,8 +21,8 @@ public class connect {
 
       Statement statement = conn.createStatement();
 
-      DatabaseOperations.clearDatabase(conn);
-      DatabaseOperations.createTables(conn);
+//      DatabaseOperations.clearDatabase(conn);
+//      DatabaseOperations.createTables(conn);
 
       ResultSet rs = statement.executeQuery("SHOW TABLES");
       System.out.println("Tables in the current database: ");
