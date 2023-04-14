@@ -9,10 +9,11 @@ import java.util.Scanner;
 
 public class podcast {
 
-  public static String[] podcast_list;
+  public static String[] podcast_list; // LIST TO HOLD ALL PODCAST LIST
   public static Statement statement;
   Scanner sc = new Scanner(System.in);
 
+  // ADD MULTIPLE GENRES FOR PODCAST
   public static void add_podcast_genres(String p_name, Connection connection)
     throws SQLException {
     Scanner scanner = new Scanner(System.in);
@@ -42,6 +43,7 @@ public class podcast {
     }
   }
 
+  // VIEW ALL PODCASTS
   public static String[] view_all_podcasts(Connection connection, String show_type)
     throws SQLException {
     if (show_type == "show") {
@@ -80,6 +82,7 @@ public class podcast {
     return podcast_list;
   }
 
+  // ADD PODCAST INFORMATION
   public static void add_podcast_info(Connection connection)
     throws SQLException {
     // p_name, p_sponsor, p_language, p_country, p_rating, p_rated_user_count
@@ -116,7 +119,7 @@ public class podcast {
       String podcastcountry = sc.nextLine();
 
       float podcastrating;
-      int podcastratedusercount = 0;
+      int podcastratedusercount = 0; // CHECK 0 <= rating <= 5
       do {
         System.out.println();
         System.out.println("Enter podcast rating (0 to 5):");
@@ -158,6 +161,7 @@ public class podcast {
     }
   }
 
+  // UPDATE PODCAST INFORMATION
   public static void update_podcast_info(Connection connection, String typ)
     throws SQLException {
     // String podcast_continue_choice = "n";
@@ -185,6 +189,7 @@ public class podcast {
     // } while (podcast_continue_choice.toLowerCase().equals("y"));
   }
 
+  // UPDATE PODCAST INFORMATION : UPDATE PODCAST MENU
   public static void update_podcast_choice_function(Connection connection, String podcastname_choice, String typ)
     throws SQLException {
     String query = "", new_str_val = "";
