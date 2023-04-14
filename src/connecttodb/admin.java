@@ -10,6 +10,7 @@ public class admin {
 
   public static Statement statement;
 
+  //Displays Admin Menu
   public static void getAdminMenu(Connection connection) throws SQLException {
     Scanner sc = new Scanner(System.in);
     int enteredValue = 0;
