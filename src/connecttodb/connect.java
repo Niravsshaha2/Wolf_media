@@ -10,6 +10,7 @@ import java.sql.Statement;
 
 public class connect {
 
+  //This is main function which connects to the database
   public static void main(String args[]) {
     Connection conn = null;
     String url = "jdbc:mariadb://classdb2.csc.ncsu.edu:3306/asfirodi";
@@ -56,6 +57,7 @@ public class connect {
     //System.out.println("end connected to DB");
   }
 
+  //This closes the connection
   static void close(Connection conn) {
     if (conn != null) {
       try {
