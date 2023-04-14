@@ -15,6 +15,7 @@ public class podcastepisode {
   public static Statement statement;
   Scanner sc = new Scanner(System.in);
   
+  // VIEW ALL PODCAST EPISODES ALONG WITH PODCASTS THEY ARE PART OF
   public static void view_all_podcast_episodes(Connection connection)
     throws SQLException {
     System.out.println("*****");
@@ -42,6 +43,7 @@ public class podcastepisode {
     }
   }
 
+  // VIEW ALL PODCAST EPISODES WHEN GIEN A PODCAST IN FUNCTION
   public static String[] view_all_podcast_episodes(Connection connection, String show_type)
 		    throws SQLException {
 		    statement = connection.createStatement();
@@ -68,7 +70,8 @@ public class podcastepisode {
 		    }
 		    return podcastepisode_list;
 		  }
-  
+
+  // VIEW ALL PODCAST EPISODES WHEN GIVEN A PODCAST
   public static String[] view_all_podcast_episodes(Connection connection, String podcastname, String show_type)
     throws SQLException {
     statement = connection.createStatement();
@@ -105,6 +108,7 @@ public class podcastepisode {
     return podcastepisode_list;
   }
 
+  // ADD PODCAST EPISODE
   public static void add_podcast_episode_info(Connection connection)
     throws SQLException {
     // pe_title, p_name, pe_release_date, pe_ad_count, pe_duration, ph_email_id
@@ -186,6 +190,7 @@ public class podcastepisode {
     }
   }
 
+	// UPDATE/DELETE PODCAST EPISODE (GET PODCAST NAME AND CALL HELPERS)
   public static void update_podcast_episode_info(Connection connection, String typ)
     throws SQLException {
     // String podcast_continue_choice = "n";
@@ -214,6 +219,7 @@ public class podcastepisode {
     // } while (podcast_continue_choice.toLowerCase().equals("y"));
   }
 
+	// UPDATE/DELETE PODCAST EPISODE HELPER FUNCTION BASED ON PODCAST NAME (SHOW / HIDE)
   public static void update_podcast_episode_choice_function(Connection connection, String podcastname_choice, String typ)
     throws SQLException {
     String podcastepisodename_choice = "";
@@ -242,6 +248,7 @@ public class podcastepisode {
     // } while (podcast_episode_continue_choice.toLowerCase().equals("y"));
   }
 
+	// UPDATE/DELETE PODCAST EPISODE HELPER FUNCTION BASED ON PODCAST NAME AND EPISODE NAME (SHOW / HIDE)
   public static void update_podcast_episode_choice_function(Connection connection, String podcastepisodename_choice, String typ, String podcastname_choice)
     throws SQLException {
     // pe_release_date, pe_ad_count, pe_duration
