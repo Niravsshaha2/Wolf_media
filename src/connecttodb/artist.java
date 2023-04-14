@@ -12,6 +12,7 @@ public class artist {
 
   public static String[] artist_list;
 
+  //Displays all the genres 
   public static void show_artist_genre(Connection connection)
     throws SQLException {
     System.out.println("List of Genres:");
@@ -33,6 +34,7 @@ public class artist {
     }
   }
 
+  //Delete the Artist information
   public static void delete_artist_info(String rl_name, String a_email_id, Connection connection)
     throws SQLException {
     System.out.println("");
@@ -88,6 +90,7 @@ public class artist {
     } while (enteredValue != 0);
   }
 
+  //Update the Artist information
   public static void update_artist_info(String rl_name, String a_email_id, Connection connection) throws SQLException {
     System.out.println("");
     Scanner sc = new Scanner(System.in);
@@ -183,6 +186,7 @@ public class artist {
     } while (enteredValue != 0);
   }
 
+  //View all the Artist
   public static void viewartist(String rl_name, Connection connection)
     throws SQLException {
     String query;
@@ -211,6 +215,7 @@ public class artist {
     }
   }
 
+  //View all artist and return list
   public static String[] view_all_artists(
     Connection connection,
     String show_type
@@ -252,6 +257,7 @@ public class artist {
     return artist_list;
   }
 
+  //Adding new artist
   public static void add_artist_info(String rl_name, Connection connection)
     throws SQLException {
     System.out.println("");
