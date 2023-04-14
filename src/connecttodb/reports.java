@@ -13,6 +13,7 @@ public class reports {
 
   public static String[] podcasthost_list, artist_list, recordlabel_list;
 
+	//Displays Reports menu
   public static void getreportsmenu(Connection connection)
     throws SQLException {
     System.out.println("");
@@ -89,6 +90,7 @@ public class reports {
     } while (enteredValue != 0);
   }
 
+	//List of Artist and its monthly count
   public static void MPC_artist(Connection connection)
     throws SQLException {
     System.out.println("");
@@ -115,7 +117,7 @@ public class reports {
       e.printStackTrace();
     }
   }
-
+//List of Album and its monthly count
   public static void MPC_album(Connection connection)
     throws SQLException {
     System.out.println("");
@@ -143,7 +145,7 @@ public class reports {
       e.printStackTrace();
     }
   }
-
+//List of Songs and its monthly count 
   public static void MPC_song(Connection connection)
     throws SQLException {
     System.out.println("");
@@ -171,7 +173,7 @@ public class reports {
       e.printStackTrace();
     }
   }
-
+//View payments made out to Podcast Hosts
   public static void TP_host(Connection connection)
     throws SQLException {
     System.out.println("");
@@ -257,7 +259,7 @@ public class reports {
       MainMenu.displayMenu(connection);
     }
   }
-
+//View payments made out to Artists
   public static void TP_artist(Connection connection)
     throws SQLException {
     System.out.println("");
@@ -343,7 +345,7 @@ public class reports {
       MainMenu.displayMenu(connection);
     }
   }
-
+// View payments made out to Record Labels
   public static void TP_recordlabel(Connection connection)
     throws SQLException {
     System.out.println("");
@@ -429,7 +431,7 @@ public class reports {
       MainMenu.displayMenu(connection);
     }
   }
-
+// Revenue Generated 
   public static void report_revenue(Connection connection, String metric)
     throws SQLException {
     System.out.println("");
